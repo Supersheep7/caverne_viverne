@@ -19,45 +19,42 @@ class Pg extends React.Component {
       isLoading: true };
   }
 
-
-
-pgAPI() {
-    fetch(`http://localhost:9000${window.location.pathname}`)
+  async pgAPI() {
+    await fetch(`http://localhost:9000${window.location.pathname}`)
         .then(res => res.text())
         .then(res => this.setState({ pgDetails: JSON.parse(res) }))
         .catch(err => err);
-    fetch(`http://localhost:9000/dataAPI/abilita666`)
+    await fetch(`http://localhost:9000/dataAPI/abilita666`)
         .then(res => res.text())
         .then(res => this.setState({ abilita: JSON.parse(res) }))
         .catch(err => err);
-    fetch(`http://localhost:9000/dataAPI/inventario666`)
+    await fetch(`http://localhost:9000/dataAPI/inventario666`)
         .then(res => res.text())
         .then(res => this.setState({ inventario: JSON.parse(res) }))
         .catch(err => err);
-    fetch(`http://localhost:9000/dataAPI/bonus666`)
+    await fetch(`http://localhost:9000/dataAPI/bonus666`)
         .then(res => res.text())
         .then(res => this.setState({ bonus: JSON.parse(res) }))
         .catch(err => err);
-    fetch(`http://localhost:9000/dataAPI/tattiche666`)
+    await fetch(`http://localhost:9000/dataAPI/tattiche666`)
         .then(res => res.text())
         .then(res => this.setState({ tattiche: JSON.parse(res) }))
         .catch(err => err);
-    fetch(`http://localhost:9000/dataAPI/attacchi666`)
+    await fetch(`http://localhost:9000/dataAPI/attacchi666`)
         .then(res => res.text())
         .then(res => this.setState({ attacchi: JSON.parse(res) }))
         .catch(err => err);
-    fetch(`http://localhost:9000/dataAPI/magie666`)
+    await fetch(`http://localhost:9000/dataAPI/magie666`)
         .then(res => res.text())
         .then(res => this.setState({ magie: JSON.parse(res) }))
         .catch(err => err);
-    fetch(`http://localhost:9000/dataAPI/missioni666`)
+    await fetch(`http://localhost:9000/dataAPI/missioni666`)
         .then(res => res.text())
         .then(res => this.setState({ missioni: JSON.parse(res), isLoading: false }))
         .catch(err => err);
   }
 
-
-render() {
+  render() {
   const { isLoading } = this.state
   const data = this.state.pgDetails
     const abilita = this.state.abilita
@@ -66,7 +63,7 @@ render() {
     const bonus = this.state.bonus
     const tattiche = this.state.tattiche
     const missioni = this.state.missioni
-const inventario = this.state.inventario 
+    const inventario = this.state.inventario 
   const points = data.skills
 
   if (isLoading) {
@@ -75,6 +72,11 @@ const inventario = this.state.inventario
 
     return (
         <div className="App">
+          <h2><a href="http://localhost:3000/personaggio/kalim%20malik">Kalim</a></h2>
+          <h2><a href="http://localhost:3000/personaggio/guiburgis">Guiburgis</a></h2>
+          <h2><a href="http://localhost:3000/personaggio/aruhara%20mitski">Aruhara</a></h2>
+          <h2><a href="http://localhost:3000/personaggio/kleonikos%20da%20bolina">Kleonikos</a></h2>
+          <h2><a href="http://localhost:3000/personaggio/syd%20rodrigo%20da%20gorbuc">Syd</a></h2>
           <h1>Nome personaggio</h1>
           <p>{data.nome}</p>
           <h1>Caratteristiche personaggio</h1>
@@ -136,6 +138,10 @@ const inventario = this.state.inventario
               <ul>
                 <li>Nome tattica: {d}</li>
                 <li>Descrizione tattica: {tattiche.filter(obj => obj.nome.toLowerCase() == d.toLowerCase())[0].summary}</li>
+                <li>Prova da effettuare: {tattiche.filter(obj => obj.nome.toLowerCase() == d.toLowerCase())[0].costo.check}: CD {tattiche.filter(obj => obj.nome.toLowerCase() == d.toLowerCase())[0].costo.cd}</li>              
+                <li>Altri requisiti: {tattiche.filter(obj => obj.nome.toLowerCase() == d.toLowerCase())[0].costo.altro}</li>              
+                <li>Bonus abilità: {tattiche.filter(obj => obj.nome.toLowerCase() == d.toLowerCase())[0].effetto.skill}: {tattiche.filter(obj => obj.nome.toLowerCase() == d.toLowerCase())[0].effetto.bonus}</li>              
+                <li>Dadi: {tattiche.filter(obj => obj.nome.toLowerCase() == d.toLowerCase())[0].effetto.dadi}</li>                            
               </ul>
             )
           })}</p>
@@ -144,9 +150,13 @@ const inventario = this.state.inventario
             return (
               <ul>
                 <li>Nome magia: {d}</li>
-                <li>Descrizione magia: {
-                magie.filter(obj => obj.nome.toLowerCase() == d.toLowerCase())[0].summary
-                }</li>
+                <li>Descrizione magia: { magie.filter(obj => obj.nome.toLowerCase() == d.toLowerCase())[0].summary }</li>
+                <li>Costo di mana: { magie.filter(obj => obj.nome.toLowerCase() == d.toLowerCase())[0].costo.mana }%</li>
+                <li>Prova da effettuare: { magie.filter(obj => obj.nome.toLowerCase() == d.toLowerCase())[0].costo.skill }: CD { magie.filter(obj => obj.nome.toLowerCase() == d.toLowerCase())[0].costo.cd }</li>
+                <li>Altri requisiti: { magie.filter(obj => obj.nome.toLowerCase() == d.toLowerCase())[0].costo.altro }</li>
+                <li>Bonus abilità: { magie.filter(obj => obj.nome.toLowerCase() == d.toLowerCase())[0].effetto.skill }; { magie.filter(obj => obj.nome.toLowerCase() == d.toLowerCase())[0].effetto.bonus } </li>
+                <li>Dadi: { magie.filter(obj => obj.nome.toLowerCase() == d.toLowerCase())[0].effetto.dadi }</li>
+                <li>Altri effetti: { magie.filter(obj => obj.nome.toLowerCase() == d.toLowerCase())[0].effetto.altro }</li>
               </ul>
             )
           })}</p>
@@ -155,9 +165,10 @@ const inventario = this.state.inventario
             return (
               <ul>
                 <li>Nome attacco: {d}</li>
-                <li>Descrizione attacco: {
-                attacchi.filter(obj => obj.nome.toLowerCase() == d.toLowerCase())[0].summary
-                }</li>
+                <li>Descrizione attacco: { attacchi.filter(obj => obj.nome.toLowerCase() == d.toLowerCase())[0].summary }</li>
+                <li>Check: { attacchi.filter(obj => obj.nome.toLowerCase() == d.toLowerCase())[0].check }</li>
+                <li>Danni: { attacchi.filter(obj => obj.nome.toLowerCase() == d.toLowerCase())[0].effetto.danni }</li>
+                <li>Altri modificatori: { attacchi.filter(obj => obj.nome.toLowerCase() == d.toLowerCase())[0].effetto.skill }: { attacchi.filter(obj => obj.nome.toLowerCase() == d.toLowerCase())[0].effetto.bonus_malus }</li>
               </ul>
             )
           })}</p>
@@ -166,9 +177,8 @@ const inventario = this.state.inventario
             return (
               <ul>
                 <li>Nome bonus: {d}</li>
-                <li>Descrizione bonus: {
-                bonus.filter(obj => obj.nome.toLowerCase() == d.toLowerCase())[0].summary
-                }</li>
+                <li>Descrizione bonus: { bonus.filter(obj => obj.nome.toLowerCase() == d.toLowerCase())[0].summary }</li>
+                <li>Modificatore: { bonus.filter(obj => obj.nome.toLowerCase() == d.toLowerCase())[0].modificatore.skill }: { bonus.filter(obj => obj.nome.toLowerCase() == d.toLowerCase())[0].modificatore.bonus }</li>
               </ul>
             )
           })}</p>
@@ -177,9 +187,10 @@ const inventario = this.state.inventario
             return (
               <ul>
                 <li>Nome oggetto: {d}</li>
-                <li>Descrizione oggetto: {
-                bonus.filter(obj => obj.nome.toLowerCase() == d.toLowerCase())[0].summary
-                }</li>
+                <li>Descrizione oggetto: { inventario.filter(obj => obj.nome.toLowerCase() == d.toLowerCase())[0].summary }</li>
+                <li>Quantità: { inventario.filter(obj => obj.nome.toLowerCase() == d.toLowerCase())[0].quantita }</li>
+                <li>Magia: { inventario.filter(obj => obj.nome.toLowerCase() == d.toLowerCase())[0].magia }</li>
+                <li>Modificatore: { inventario.filter(obj => obj.nome.toLowerCase() == d.toLowerCase())[0].modificatore.skill }: { inventario.filter(obj => obj.nome.toLowerCase() == d.toLowerCase())[0].modificatore.bonus }</li>
               </ul>
             )
           })}</p>
@@ -189,7 +200,7 @@ const inventario = this.state.inventario
               <ul>
                 <li>Nome missione: {d}</li>
                 <li>Descrizione missione: {
-                bonus.filter(obj => obj.nome.toLowerCase() == d.toLowerCase())[0].summary
+                missioni.filter(obj => obj.nome.toLowerCase() == d.toLowerCase())[0].summary
                 }</li>
               </ul>
             )
@@ -203,10 +214,10 @@ const inventario = this.state.inventario
   }
 
   componentDidMount() {
+  try {
     this.pgAPI();
+  } catch (e) {console.log(e)}
   }
 
-  
 }
-
 export default Pg;
