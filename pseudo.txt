@@ -1,0 +1,31 @@
+# FRONT END
+
+    # INDEX PAGE
+        # LINK TO PG CARDS
+        # LINK TO CARD UPLOAD FORM
+    # PG CARDS
+        # HEADER
+        # BASIC DATA
+        # STATS & SKILLS
+            # BONUSES
+        # ETC
+            # MAGIC
+            # TACTICS
+            # INVENTORY
+            # MISSIONS & BACKGROUND
+        # UI
+            # SKILL WHEEL
+            # DICE ROLLER
+            # ETC
+    # CARD UPLOAD FORM
+
+# BACK END
+    # CONTROLLERS
+        # PG CARD CONTROLLERS
+        # UI CONTROLLERS 
+        # CARD UPLOAD FORM CONTROLLER 
+    # ROUTES 
+        # INDEX ROUTE
+        # PG CARD ROUTES 
+        # CARD UPLOAD FORM ROUTE 
+

@@ -1,38 +1,24 @@
 import logo from './logo.svg';
 import './App.css';
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
-import Component1 from "./components/component1";
+import List from "./components/List";
+import Pg from "./components/Pg";
 import React from 'react';
 
-class App extends React.Component {
+function App() {
 
-  constructor(props) {
-    super(props);
-    this.state = { apiResponse: "" };
-  }
+return (
+<Router>
 
-callAPI() {
-    fetch("http://localhost:9000/testAPI")
-        .then(res => res.text())
-        .then(res => this.setState({ apiResponse: res }))
-        .catch(err => err);
-  }
+<Routes>
+  <Route exact path="/" element={<List />}/>
+  {/*<Route path="/form"><Form /></Route>*/}
+  <Route path="/personaggio/:nome" element={<Pg />} />
+</Routes>
 
-componentWillMount() {
-    this.callAPI();
-  }
+</Router>
+)
 
-  render() {
-    return (
-        <div className="App">
-          <header className="App-header">
-            <img src={logo} className="App-logo" alt="logo" />
-            <h1 className="App-title">Welcome to React</h1>
-          </header>
-          <p className="App-intro">{this.state.apiResponse}</p>
-        </div>
-    );
-  }
 }
 
 export default App;

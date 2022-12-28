@@ -45,13 +45,13 @@ const PersonaggioSchema = new Schema({
     },
     favskill: { type: String, required: true }
   },
-  abilita_innate: [{ type: Schema.Types.ObjectId, ref: "Abilita" }],
-  missioni: [{ type: Schema.Types.ObjectId, ref: "Missione" }],
-  tattiche: [{ type: Schema.Types.ObjectId, ref: "Tattica" }],
-  magie: [{ type: Schema.Types.ObjectId, ref: "Magia" }],
-  attacchi: [{ type: Schema.Types.ObjectId, ref: "Attacco" }],
-  bonus: [{ type: Schema.Types.ObjectId, ref: "Bonus" }],
-  inventario: [{ type: Schema.Types.ObjectId, ref: "Inventario" }],
+  abilita_innate: { type: Array },
+  missioni: { type: Array },
+  tattiche: { type: Array },
+  magie: { type: Array },
+  attacchi: { type: Array },
+  bonus: { type: Array },
+  inventario: { type: Array },
   background: { type: String }  
 });
 

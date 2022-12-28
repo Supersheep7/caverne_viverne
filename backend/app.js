@@ -28,7 +28,7 @@ const abilita_innate = require("./models/abilita_innate");
 const tattiche = require("./models/tattiche");
 
 var indexRouter = require('./routes/index');
-var testAPIRouter = require("./routes/testAPI");
+var dataAPIRouter = require("./routes/dataAPI");
 
 var app = express();
 
@@ -46,7 +46,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Use routes 
 
 app.use('/', indexRouter);
-app.use("/testAPI", testAPIRouter);
+app.use("/dataAPI", dataAPIRouter);
 
 // error handler
 app.use(function(err, req, res, next) {
