@@ -21,11 +21,8 @@
 
 # BACK END
     # CONTROLLERS
-        # PG CARD CONTROLLERS
         # UI CONTROLLERS 
         # CARD UPLOAD FORM CONTROLLER 
     # ROUTES 
-        # INDEX ROUTE
-        # PG CARD ROUTES 
         # CARD UPLOAD FORM ROUTE 
 

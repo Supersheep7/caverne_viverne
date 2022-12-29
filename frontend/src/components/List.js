@@ -19,11 +19,11 @@ class List extends React.Component {
 
     return (
       <div className="App">
-      <h2><a href="http://localhost:3000/personaggio/kalim%20malik">Kalim</a></h2>
-      <h2><a href="http://localhost:3000/personaggio/guiburgis">Guiburgis</a></h2>
-      <h2><a href="http://localhost:3000/personaggio/aruhara%20mitski">Aruhara</a></h2>
-      <h2><a href="http://localhost:3000/personaggio/kleonikos%20da%20bolina">Kleonikos</a></h2>
-      <h2><a href="http://localhost:3000/personaggio/syd%20rodrigo%20da%20gorbuc">Syd</a></h2>
+      <h2><a href="http://localhost:3000/personaggio/Kalim%20Malik">Kalim</a></h2>
+      <h2><a href="http://localhost:3000/personaggio/Guiburgis">Guiburgis</a></h2>
+      <h2><a href="http://localhost:3000/personaggio/Aruhara%20Mitski">Aruhara</a></h2>
+      <h2><a href="http://localhost:3000/personaggio/Kleonikos%20da%20Bolina">Kleonikos</a></h2>
+      <h2><a href="http://localhost:3000/personaggio/Syd%20Rodrigo%20da%20Gorbuc">Syd</a></h2>
         </div>
     );
   }

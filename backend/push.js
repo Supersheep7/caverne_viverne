@@ -1800,8 +1800,7 @@ function(err, results) {
         console.log('FINAL ERR: '+err);
     }
     else {
-        console.log('Done');
-        
+        console.log('Done');       
     }
     // All done, disconnect from database
     mongoose.connection.close();

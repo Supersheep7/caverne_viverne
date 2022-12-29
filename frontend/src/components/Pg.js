@@ -2,13 +2,12 @@ import '../App.css';
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import React from 'react';
 
-
 class Pg extends React.Component {
   
   constructor(props) {
     super(props);
     this.state = { 
-      pgDetails: "",
+      data: "",
       magie: [],
       abilita: [],
       inventario: [],
@@ -22,7 +21,7 @@ class Pg extends React.Component {
   async pgAPI() {
     await fetch(`http://localhost:9000${window.location.pathname}`)
         .then(res => res.text())
-        .then(res => this.setState({ pgDetails: JSON.parse(res) }))
+        .then(res => this.setState({ data: JSON.parse(res) }))
         .catch(err => err);
     await fetch(`http://localhost:9000/dataAPI/abilita666`)
         .then(res => res.text())
@@ -54,29 +53,37 @@ class Pg extends React.Component {
         .catch(err => err);
   }
 
-  render() {
-  const { isLoading } = this.state
-  const data = this.state.pgDetails
-    const abilita = this.state.abilita
-    const magie = this.state.magie
-    const attacchi = this.state.attacchi
-    const bonus = this.state.bonus
-    const tattiche = this.state.tattiche
-    const missioni = this.state.missioni
-    const inventario = this.state.inventario 
-  const points = data.skills
+  match(elemName, docName, detail1, detail2 = "", detail3 = "") {
 
-  if (isLoading) {
-    return <h1>Loading...</h1>;
+    if (arguments.length == 5) {
+    return docName.filter(obj => obj.nome.toLowerCase() == elemName.toLowerCase())[0][detail1][detail2][detail3]
   }
+  else if (arguments.length == 4) {
+    return docName.filter(obj => obj.nome.toLowerCase() == elemName.toLowerCase())[0][detail1][detail2]
+  }
+
+  else {
+    return docName.filter(obj => obj.nome.toLowerCase() == elemName.toLowerCase())[0][detail1]
+  }
+
+}
+
+  render() {
+
+    const { isLoading, magie, abilita, attacchi, bonus, tattiche, missioni, inventario, data } = this.state
+    const points = data.skills
+
+    if (isLoading) {
+      return <h1>Loading...</h1>;
+    }
 
     return (
         <div className="App">
-          <h2><a href="http://localhost:3000/personaggio/kalim%20malik">Kalim</a></h2>
-          <h2><a href="http://localhost:3000/personaggio/guiburgis">Guiburgis</a></h2>
-          <h2><a href="http://localhost:3000/personaggio/aruhara%20mitski">Aruhara</a></h2>
-          <h2><a href="http://localhost:3000/personaggio/kleonikos%20da%20bolina">Kleonikos</a></h2>
-          <h2><a href="http://localhost:3000/personaggio/syd%20rodrigo%20da%20gorbuc">Syd</a></h2>
+      <h2><a href="http://localhost:3000/personaggio/Kalim%20Malik">Kalim</a></h2>
+      <h2><a href="http://localhost:3000/personaggio/Guiburgis">Guiburgis</a></h2>
+      <h2><a href="http://localhost:3000/personaggio/Aruhara%20Mitski">Aruhara</a></h2>
+      <h2><a href="http://localhost:3000/personaggio/Kleonikos%20da%20Bolina">Kleonikos</a></h2>
+      <h2><a href="http://localhost:3000/personaggio/Syd%20Rodrigo%20da%20Gorbuc">Syd</a></h2>
           <h1>Nome personaggio</h1>
           <p>{data.nome}</p>
           <h1>Caratteristiche personaggio</h1>
@@ -128,7 +135,7 @@ class Pg extends React.Component {
             return (
               <ul>
                 <li>Nome abilità: {d}</li>
-                <li>Descrizione abilità: {abilita.filter(obj => obj.nome.toLowerCase() == d.toLowerCase())[0].summary}</li>
+                <li>Descrizione abilità: {this.match(d, abilita, "summary")}</li>
               </ul>
             )
           })}</p>
@@ -137,11 +144,19 @@ class Pg extends React.Component {
             return (
               <ul>
                 <li>Nome tattica: {d}</li>
-                <li>Descrizione tattica: {tattiche.filter(obj => obj.nome.toLowerCase() == d.toLowerCase())[0].summary}</li>
-                <li>Prova da effettuare: {tattiche.filter(obj => obj.nome.toLowerCase() == d.toLowerCase())[0].costo.check}: CD {tattiche.filter(obj => obj.nome.toLowerCase() == d.toLowerCase())[0].costo.cd}</li>              
-                <li>Altri requisiti: {tattiche.filter(obj => obj.nome.toLowerCase() == d.toLowerCase())[0].costo.altro}</li>              
-                <li>Bonus abilità: {tattiche.filter(obj => obj.nome.toLowerCase() == d.toLowerCase())[0].effetto.skill}: {tattiche.filter(obj => obj.nome.toLowerCase() == d.toLowerCase())[0].effetto.bonus}</li>              
-                <li>Dadi: {tattiche.filter(obj => obj.nome.toLowerCase() == d.toLowerCase())[0].effetto.dadi}</li>                            
+                <li>Descrizione tattica: { this.match(d, tattiche, "summary") }</li>
+                { this.match(d, tattiche, "costo", "check") !== "\\" &&
+                <li>Prova da effettuare: {this.match(d, tattiche, "costo", "check")}: CD {this.match(d, tattiche, "costo", "cd")}</li>              
+                }
+                { this.match(d, tattiche, "costo", "altro") !== "\\" &&
+                <li>Altri requisiti: {this.match(d, tattiche, "costo", "altro")}</li>              
+                }
+                { this.match(d, tattiche, "effetto", "skill") !== "\\" &&
+                <li>Bonus abilità: {this.match(d, tattiche, "effetto", "skill")}: {this.match(d, tattiche, "effetto", "bonus")}</li>
+                }
+                { this.match(d, tattiche, "effetto", "dadi") !== "\\" &&   
+                <li>Dadi: {this.match(d, tattiche, "effetto", "dadi")}</li>
+                }                            
               </ul>
             )
           })}</p>
@@ -150,13 +165,25 @@ class Pg extends React.Component {
             return (
               <ul>
                 <li>Nome magia: {d}</li>
-                <li>Descrizione magia: { magie.filter(obj => obj.nome.toLowerCase() == d.toLowerCase())[0].summary }</li>
-                <li>Costo di mana: { magie.filter(obj => obj.nome.toLowerCase() == d.toLowerCase())[0].costo.mana }%</li>
-                <li>Prova da effettuare: { magie.filter(obj => obj.nome.toLowerCase() == d.toLowerCase())[0].costo.skill }: CD { magie.filter(obj => obj.nome.toLowerCase() == d.toLowerCase())[0].costo.cd }</li>
-                <li>Altri requisiti: { magie.filter(obj => obj.nome.toLowerCase() == d.toLowerCase())[0].costo.altro }</li>
-                <li>Bonus abilità: { magie.filter(obj => obj.nome.toLowerCase() == d.toLowerCase())[0].effetto.skill }; { magie.filter(obj => obj.nome.toLowerCase() == d.toLowerCase())[0].effetto.bonus } </li>
-                <li>Dadi: { magie.filter(obj => obj.nome.toLowerCase() == d.toLowerCase())[0].effetto.dadi }</li>
-                <li>Altri effetti: { magie.filter(obj => obj.nome.toLowerCase() == d.toLowerCase())[0].effetto.altro }</li>
+                { this.match(d, magie, "summary") !== "\\" &&   
+                <li>Descrizione magia: { this.match(d, magie, "summary") }</li>
+                }
+                <li>Costo di mana: { this.match(d, magie, "costo", "mana") }%</li>
+                { this.match(d, magie, "costo", "skill") !== "\\" && 
+                <li>Prova da effettuare: { this.match(d, magie, "costo", "skill") }: CD { this.match(d, magie, "costo", "cd") }</li>
+                }
+                { this.match(d, magie, "costo", "altro") !== "\\" &&
+                <li>Altri requisiti: { this.match(d, magie, "costo", "altro") }</li>
+                }
+                { this.match(d, magie, "effetto", "skill") !== "\\" &&
+                <li>Bonus abilità: { this.match(d, magie, "effetto", "skill") }; { this.match(d, magie, "effetto", "bonus") } </li>
+                }
+                { this.match(d, magie, "effetto", "dadi") !== "\\" &&
+                <li>Dadi: { this.match(d, magie, "effetto", "dadi") }</li>
+                }
+                { this.match(d, magie, "effetto", "altro") !== "\\" &&
+                <li>Altri effetti: { this.match(d, magie, "effetto", "altro") }</li>
+                }
               </ul>
             )
           })}</p>
@@ -165,10 +192,12 @@ class Pg extends React.Component {
             return (
               <ul>
                 <li>Nome attacco: {d}</li>
-                <li>Descrizione attacco: { attacchi.filter(obj => obj.nome.toLowerCase() == d.toLowerCase())[0].summary }</li>
-                <li>Check: { attacchi.filter(obj => obj.nome.toLowerCase() == d.toLowerCase())[0].check }</li>
-                <li>Danni: { attacchi.filter(obj => obj.nome.toLowerCase() == d.toLowerCase())[0].effetto.danni }</li>
-                <li>Altri modificatori: { attacchi.filter(obj => obj.nome.toLowerCase() == d.toLowerCase())[0].effetto.skill }: { attacchi.filter(obj => obj.nome.toLowerCase() == d.toLowerCase())[0].effetto.bonus_malus }</li>
+                <li>Descrizione attacco: { this.match(d, attacchi, "summary") }</li>
+                <li>Check: { this.match(d, attacchi, "check") }</li>
+                <li>Danni: { this.match(d, attacchi, "effetto", "danni") }</li>
+                { this.match(d, attacchi, "effetto", "modificatore", "skill") !== "\\" &&
+                <li>Altri modificatori: { this.match(d, attacchi, "effetto", "modificatore", "skill") }: { this.match(d, attacchi, "effetto", "modificatore", "bonus_malus") }</li>
+                }
               </ul>
             )
           })}</p>
@@ -177,8 +206,10 @@ class Pg extends React.Component {
             return (
               <ul>
                 <li>Nome bonus: {d}</li>
-                <li>Descrizione bonus: { bonus.filter(obj => obj.nome.toLowerCase() == d.toLowerCase())[0].summary }</li>
-                <li>Modificatore: { bonus.filter(obj => obj.nome.toLowerCase() == d.toLowerCase())[0].modificatore.skill }: { bonus.filter(obj => obj.nome.toLowerCase() == d.toLowerCase())[0].modificatore.bonus }</li>
+                <li>Descrizione bonus: { this.match(d, bonus, "summary") }</li>
+                { this.match(d, bonus, "modificatore", "skill") !== "\\" &&
+                <li>Modificatore: { this.match(d, bonus, "modificatore", "skill") }: { this.match(d, bonus, "modificatore", "bonus") }</li>
+                } 
               </ul>
             )
           })}</p>
@@ -186,31 +217,31 @@ class Pg extends React.Component {
           <p>{data.inventario.map(d => {
             return (
               <ul>
-                <li>Nome oggetto: {d}</li>
-                <li>Descrizione oggetto: { inventario.filter(obj => obj.nome.toLowerCase() == d.toLowerCase())[0].summary }</li>
-                <li>Quantità: { inventario.filter(obj => obj.nome.toLowerCase() == d.toLowerCase())[0].quantita }</li>
-                <li>Magia: { inventario.filter(obj => obj.nome.toLowerCase() == d.toLowerCase())[0].magia }</li>
-                <li>Modificatore: { inventario.filter(obj => obj.nome.toLowerCase() == d.toLowerCase())[0].modificatore.skill }: { inventario.filter(obj => obj.nome.toLowerCase() == d.toLowerCase())[0].modificatore.bonus }</li>
+                <li>Nome oggetto: {d.nome}</li>
+                <li>Descrizione oggetto: { this.match(d.nome, inventario, "summary") }</li>
+                <li>Quantità: {d.quantita}</li>
+                { this.match(d.nome, inventario, "magia") !== "\\" &&
+                <li>Magia: { this.match(d.nome, inventario, "magia") }</li>
+                }
+                { this.match(d.nome, inventario, "modificatore", "skill") !== "\\" &&
+                <li>Modificatore: { this.match(d.nome, inventario, "modificatore", "skill") }: { this.match(d.nome, inventario, "modificatore", "bonus") }</li>
+                }
               </ul>
-            )
+              )
           })}</p>
           <h1>Missioni</h1>
           <p>{data.missioni.map(d => {
             return (
               <ul>
                 <li>Nome missione: {d}</li>
-                <li>Descrizione missione: {
-                missioni.filter(obj => obj.nome.toLowerCase() == d.toLowerCase())[0].summary
-                }</li>
+                <li>Descrizione missione: { this.match(d, missioni, "summary") }</li>
               </ul>
             )
           })}</p>
           <h1>Background</h1>
           <p>{data.background}</p>
         </div>
-    );
-
-    
+      );  
   }
 
   componentDidMount() {
@@ -218,6 +249,6 @@ class Pg extends React.Component {
     this.pgAPI();
   } catch (e) {console.log(e)}
   }
-
 }
+
 export default Pg;

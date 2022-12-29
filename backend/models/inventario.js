@@ -5,7 +5,6 @@ const Schema = mongoose.Schema;
 const InventarioSchema = new Schema ({
     nome: { type: String, required: true },
     summary: { type: String, required: true },
-    quantita: { type: String, required: true },
     magia: { type: String },
     modificatore: {
         skill: { type: String },

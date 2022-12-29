@@ -51,7 +51,12 @@ const PersonaggioSchema = new Schema({
   magie: { type: Array },
   attacchi: { type: Array },
   bonus: { type: Array },
-  inventario: { type: Array },
+  inventario: [
+    {
+    nome: { type: String, required: true },
+    quantita: { type: Number, required: true }
+    }
+  ],
   background: { type: String }  
 });
 
