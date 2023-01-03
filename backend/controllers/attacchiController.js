@@ -1,6 +1,5 @@
 
 const Attacchi = require("../models/attacchi");
-const async = require("async");
 
 exports.attacchiList = function(req, res, next) {
     Attacchi.find()

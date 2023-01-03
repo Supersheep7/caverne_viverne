@@ -1,6 +1,5 @@
 
 const Magie = require("../models/magie");
-const async = require("async");
 
 exports.magieList = function(req, res, next) {
     Magie.find()

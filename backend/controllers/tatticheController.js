@@ -1,6 +1,4 @@
-
 const Tattiche = require("../models/tattiche");
-const async = require("async");
 
 exports.tatticheList = function(req, res, next) {
     Tattiche.find()

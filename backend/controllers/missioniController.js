@@ -1,5 +1,3 @@
-const async = require("async");
-
 const Missioni = require("../models/missioni");
 
 exports.missioniList = function(req, res, next) {

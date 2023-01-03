@@ -1,6 +1,5 @@
 
 const Inventario = require("../models/inventario");
-const async = require("async");
 
 exports.inventarioList = function(req, res, next) {
     Inventario.find()

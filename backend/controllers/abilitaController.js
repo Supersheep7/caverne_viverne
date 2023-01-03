@@ -1,6 +1,5 @@
 
 const Abilita = require("../models/abilita_innate");
-const async = require("async");
 
 exports.abilitaList = function(req, res, next) {
     Abilita.find()
