@@ -1,5 +1,4 @@
 import '../App.css';
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import React from 'react';
 import ModAPI from "./ModAPI";
 import AddAPI from "./AddAPI";
@@ -17,9 +16,13 @@ class Pg extends React.Component {
       attacchi: [],
       missioni: [],
       bonus: [], 
-      modificatore: 0,
+      modificatore: {
+        skill: "",
+        mod: 0
+      },
       addstack: 0,
       isLoading: true };
+      this.AddAPI = React.createRef();
   }
 
   async pgAPI() {
@@ -59,27 +62,39 @@ class Pg extends React.Component {
 
   match(elemName, docName, detail1, detail2 = "", detail3 = "") {
 
-  if (arguments.length == 5) {
-    return docName.filter(obj => obj.nome.toLowerCase() == elemName.toLowerCase())[0][detail1][detail2][detail3]
+  if (arguments.length === 5) {
+    return docName.filter(obj => obj.nome.toLowerCase() === elemName.toLowerCase())[0][detail1][detail2][detail3]
   }
-  else if (arguments.length == 4) {
-    return docName.filter(obj => obj.nome.toLowerCase() == elemName.toLowerCase())[0][detail1][detail2]
+  else if (arguments.length === 4) {
+    return docName.filter(obj => obj.nome.toLowerCase() === elemName.toLowerCase())[0][detail1][detail2]
   }
   else {
-    return docName.filter(obj => obj.nome.toLowerCase() == elemName.toLowerCase())[0][detail1]
+    return docName.filter(obj => obj.nome.toLowerCase() === elemName.toLowerCase())[0][detail1]
   }
 
   }
 
-  mod(int) {
+  mod(int, name) {
     this.setState({
-        modificatore: int
+        modificatore: {
+          skill: name,
+          mod: int
+        } 
     })
   }
 
   add(int) {
     this.setState({
         addstack: this.state.addstack + int
+    })
+  }
+
+  flush() {
+    this.setState({
+      addstack: 0
+    })
+    this.AddAPI.current.setState({
+      active: []
     })
   }
 
@@ -94,11 +109,11 @@ class Pg extends React.Component {
     }
 
     return (
-        <div className="App">
+        <div className={data.religione + " App"}>
           <div>
-            <p>Risultato finale mod + add = {this.state.modificatore + this.state.addstack}</p>
-            <ModAPI modificatore={this.state.modificatore} data={this.state.data} mod={this.mod.bind(this)}/>
-            <AddAPI addstack={this.state.addstack} data={this.state.data} bonus={this.state.bonus} add={this.add.bind(this)}/>
+            <p>Risultato finale mod + add = {this.state.modificatore.mod + this.state.addstack}</p>
+            <ModAPI modificatore={this.state.modificatore.mod} data={this.state.data} mod={this.mod.bind(this)} flush={this.flush.bind(this)}/>
+            <AddAPI ref={this.AddAPI} addstack={this.state.addstack} modificatore={this.state.modificatore} data={this.state.data} bonus={this.state.bonus} add={this.add.bind(this)}/>
           </div>
           <div>
             <h2><a href="http://localhost:3000/personaggio/Kalim%20Malik">Kalim</a></h2>

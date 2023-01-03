@@ -1,4 +1,3 @@
-const async = require("async");
 const Bonus = require("../models/bonus");
 
 exports.bonusList = function(req, res, next) {
