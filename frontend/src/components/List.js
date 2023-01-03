@@ -2,7 +2,6 @@
 import logo from '../logo.svg';
 import '../App.css';
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
-import Component1 from "./component1";
 import React from 'react';
 
 
