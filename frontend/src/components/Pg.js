@@ -2,12 +2,14 @@ import '../App.css';
 import React from 'react';
 import ModAPI from "./ModAPI";
 import AddAPI from "./AddAPI";
+import Avatar from "./Avatar"
 
 class Pg extends React.Component {
   
   constructor(props) {
     super(props);
-    this.state = { 
+    this.state = {
+      /* Data viz and JSON fetch */ 
       data: "",
       magie: [],
       abilita: [],
@@ -16,6 +18,7 @@ class Pg extends React.Component {
       attacchi: [],
       missioni: [],
       bonus: [], 
+      /* Interactivity */
       modificatore: {
         skill: "",
         mod: 0
@@ -25,6 +28,7 @@ class Pg extends React.Component {
       this.AddAPI = React.createRef();
   }
 
+  // This machine fetches all the details from the controllers located in localhost:9000
   async pgAPI() {
     await fetch(`http://localhost:9000${window.location.pathname}`)
         .then(res => res.text())
@@ -59,7 +63,8 @@ class Pg extends React.Component {
         .then(res => this.setState({ missioni: JSON.parse(res), isLoading: false }))
         .catch(err => err);
   }
-
+  
+  // Finds details of character skills, items, attacks, etc
   match(elemName, docName, detail1, detail2 = "", detail3 = "") {
 
   if (arguments.length === 5) {
@@ -73,6 +78,8 @@ class Pg extends React.Component {
   }
 
   }
+
+  /* State management for modifiers */
 
   mod(int, name) {
     this.setState({
@@ -100,8 +107,13 @@ class Pg extends React.Component {
 
   render() {
 
+    // This whole render was made with blood sweat and tears, some notable sanitizers:
+      // 1 - "Double db entries merger": whenever there's a "_" this method renders only the first occurrence of the repeating entries. Fixes multiple entries in the database 
+      // 2 - Conditional rendering: if the character has not the entry in the db, the method will render null
+
     const { isLoading, magie, abilita, attacchi, bonus, tattiche, missioni, inventario, data } = this.state
     const points = data.skills
+    const baseUrl = "C:/Repo/Projects/caverne_viverne/frontend/public/images/";
     let arry = [] 
 
     if (isLoading) {
@@ -111,6 +123,7 @@ class Pg extends React.Component {
     return (
         <div className={data.religione + " App"}>
           <div>
+            <Avatar nome={data.nome} source={baseUrl + data.nome}/>
             <p>Risultato finale mod + add = {this.state.modificatore.mod + this.state.addstack}</p>
             <ModAPI modificatore={this.state.modificatore.mod} data={this.state.data} mod={this.mod.bind(this)} flush={this.flush.bind(this)}/>
             <AddAPI ref={this.AddAPI} addstack={this.state.addstack} modificatore={this.state.modificatore} data={this.state.data} bonus={this.state.bonus} add={this.add.bind(this)}/>
