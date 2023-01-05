@@ -2,7 +2,8 @@ import '../App.css';
 import React from 'react';
 import ModAPI from "./ModAPI";
 import AddAPI from "./AddAPI";
-import Avatar from "./Avatar"
+import Avatar from "./Avatar";
+import Stats from "./Stats";
 
 class Pg extends React.Component {
   
@@ -24,7 +25,9 @@ class Pg extends React.Component {
         mod: 0
       },
       addstack: 0,
-      isLoading: true };
+      isLoading: true,
+      gaugeOn: false
+    };
       this.AddAPI = React.createRef();
   }
 
@@ -81,6 +84,12 @@ class Pg extends React.Component {
 
   /* State management for modifiers */
 
+  gauge() {
+    this.setState ({
+      gaugeOn: !this.state.gaugeOn
+    })
+  }
+
   mod(int, name) {
     this.setState({
         modificatore: {
@@ -123,63 +132,19 @@ class Pg extends React.Component {
     return (
         <div className={data.religione + " App"}>
           <div>
-            <Avatar nome={data.nome} source={baseUrl + data.nome}/>
+            <Avatar gaugeOn={this.state.gaugeOn} gauge={this.gauge.bind(this)} nome={data.nome} magia={data.religione} eta={data.eta} altezza={data.altezza} data={data} source={baseUrl + data.nome}/>
             <p>Risultato finale mod + add = {this.state.modificatore.mod + this.state.addstack}</p>
             <ModAPI modificatore={this.state.modificatore.mod} data={this.state.data} mod={this.mod.bind(this)} flush={this.flush.bind(this)}/>
-            <AddAPI ref={this.AddAPI} addstack={this.state.addstack} modificatore={this.state.modificatore} data={this.state.data} bonus={this.state.bonus} add={this.add.bind(this)}/>
+            <AddAPI ref={this.AddAPI} addstack={this.state.addstack} modificatore={this.state.modificatore} data={data} bonus={this.state.bonus} add={this.add.bind(this)}/>
           </div>
           <div>
-            <h2><a href="http://localhost:3000/personaggio/Kalim%20Malik">Kalim</a></h2>
-            <h2><a href="http://localhost:3000/personaggio/Guiburgis">Guiburgis</a></h2>
-            <h2><a href="http://localhost:3000/personaggio/Aruhara%20Mitski">Aruhara</a></h2>
-            <h2><a href="http://localhost:3000/personaggio/Kleonikos%20da%20Bolina">Kleonikos</a></h2>
-            <h2><a href="http://localhost:3000/personaggio/Syd%20Rodrigo%20da%20Gorbuc">Syd</a></h2>
-            <h1>Nome personaggio</h1>
-            <p>{data.nome}</p>
-            <h1>Caratteristiche personaggio</h1>
+            <h1>Gauges</h1>
               <ul>
-                <li>Età: {data.eta}</li>
-                <li>Religione: {data.religione}</li>
-                <li>Altezza: {data.altezza}</li>
                 <li>Pf: {data.pf}/{data.maxpf}</li>
                 <li>Mana: {data.mana}/{data.maxmana}</li>
                 <li>Lucidità: {data.luc}/{data.maxluc}</li>
               </ul>
-            <h1>Stats</h1>
-              <ul>
-                <li>Intelletto: {data.stats.intelletto}</li>
-                  <ul>
-                    <li>Logica: {points.intskills.logica}</li>
-                    <li>Cultura: {points.intskills.cultura}</li>
-                    <li>Pragmatica: {points.intskills.pragmatica}</li>
-                    <li>Concettualizzazione: {points.intskills.concettualizzazione}</li>
-                    <li>Tattica: {points.intskills.tattica}</li>
-                  </ul>
-                <li>Psiche: {data.stats.psiche}</li>
-                  <ul>
-                    <li>Forza di volontà: {points.psiskills.forza_di_volonta}</li>
-                    <li>Sesto senso: {points.psiskills.sesto_senso}</li>
-                    <li>Pratica magica: {points.psiskills.pratica_magica}</li>
-                    <li>Empatia: {points.psiskills.empatia}</li>
-                    <li>Connessione divina: {points.psiskills.connessione_divina}</li>
-                  </ul>
-                <li>Forza: {data.stats.forza}</li>
-                  <ul>
-                    <li>Sopportazione del dolore: {points.forskills.sopportazione_del_dolore}</li>
-                    <li>Forza bruta: {points.forskills.forza_bruta}</li>
-                    <li>Elettrochimica: {points.forskills.elettrochimica}</li>
-                    <li>Prestanza: {points.forskills.prestanza}</li>
-                    <li>Istinto animale: {points.forskills.istinto_animale}</li>
-                  </ul>
-                <li>Motorics: {data.stats.motorics}</li>
-                  <ul>
-                    <li>Coordinazione: {points.motskills.coordinazione}</li>
-                    <li>Percezione: {points.motskills.percezione}</li>
-                    <li>Reazione: {points.motskills.reazione}</li>
-                    <li>Precisione: {points.motskills.precisione}</li>
-                    <li>Intuito di razza: {points.motskills.intuito_di_razza}</li>
-                  </ul>
-              </ul>
+            <Stats className="stats" data={data} colore={data.religione}/>
             <h1>Abilità innate</h1>
             <p>{data.abilita_innate.map(d => {
               return (

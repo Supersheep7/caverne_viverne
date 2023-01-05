@@ -1,33 +1,29 @@
 .App {
   margin: -20px -10px;
-  padding: 10px;
+  padding-top: 20px;
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
   font-size: large;
   box-sizing: border-box;
+  background-color: #1F1D36;
 }
 
 .rosa {
-  background-color: #ffc1fb;
   color: #1F1D36;
 }
 
 .celeste {
-  background-color: #8ebcc6;
   color: #1F1D36;
 }
 
 .ebano {
-  background-color: #4e2727;
   color: whitesmoke;
 }
 
 .nera {
-  background-color: #1F1D36;
   color: rgb(255, 253, 234);
 }
 
 .nessuna {
-  background-color: rgb(127, 0, 0);
   color: #d7d7d7;
 }
 
@@ -52,22 +48,248 @@ button:active {
   color: black
 }
 
-#avatar {
-  position: relative;
+#header > :first-child {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  flex-grow: 2;
 }
 
-#avatar * {
+#header > :first-child > * {
+  display: flex;
+  height: 130px;
+  font-size: large;
+  margin: 0px 20px;
+  justify-content: space-around;
+  align-items: center;
+}
+
+#avatar {
+  position: relative;
+  width: auto;
+  height: 450px;
+}
+
+#avatar > * {
   position: absolute;
-  top: 0;
-  left: 0;
+}
+
+#avatar h1 {
+  z-index: 1;
+  bottom: 0;
+  right: 0;
+  margin-right: 5%;
+  margin-bottom: 0px;
+  font-size: 400%;
+  color: whitesmoke;
+  text-shadow: 0 0 6px black, 0 0 6px black, 0 0 6px black;;
+}
+
+#avatar p {
+  z-index: 1;
+  bottom: 0;
+  right: 0;
+  margin-right: 5%;
+  margin-bottom: -25px;
+  color: whitesmoke;
+  text-shadow: 0 0 6px black, 0 0 6px black, 0 0 6px black;;
+}
+
+.stats {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.stats-wrapper {
+  display: flex;
+  flex-direction: row;
+}
+
+.stat-skill-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border: 1px solid black;
+  border-radius: 5px;
+  border-collapse: collapse;
+  overflow: hidden;
+  box-shadow: 2px 2px 2px black;
+  background-color: #fff;
+  margin: 5px;
+}
+
+.stat-tag {
+  height: auto;
+  font-size: 12px;
+  line-height: 0;
+  border-radius: 5px 5px 0px 0px;
+  border-collapse: collapse;
+  border: 1px solid black;
+}
+
+.skill-tag {
+  width: 70px;  
+  height: auto;
+  font-size: 10px;
+  border-radius: 5px;
+  border-radius: 5px 5px 0px 0px;
+  border-collapse: collapse;
+  line-height: 0;
+}
+
+.skill-content, .stat-content {
+  background-color: white;
+  height: auto;
+  padding: 5px;
+  border-radius: 0px 0px 5px 5px;
+  border-collapse: collapse;
+  font-size: 12px;
 }
 
 #face {
   z-index: 1;
+  height: 600px;
+  top: -100px;
+  left: -20px;
+  filter:drop-shadow(0px -1px 2px #fff)
+}
+
+#bg {
+  width: 100%;
+  top: 0;
+  left: 0;
   height: 500px;
+  object-fit: cover;
+  object-position: 50% 50%; 
 }
 
 #face:hover {
   cursor: pointer;
-  height: 550px;
+  filter:drop-shadow(0px -4px 4px #fff)
+}
+
+#face:hover + #bg {
+  filter:blur(3px)
+}
+
+.blurtrue {
+  filter:blur(3px)
+}
+
+/* Character Buttons */
+
+.Home {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.Home * {
+  width: 200px;
+  filter:drop-shadow(0px 0px 2px #fff)
+}
+
+.Home *:hover {
+  filter:drop-shadow(0px 0px 4px #fff)
+}
+
+.navigator {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.navigator * {
+  width: 65px;
+  filter:drop-shadow(0px 0px 2px #fff)
+}
+
+.navigator *:hover {
+  filter:drop-shadow(0px 0px 4px #fff)
+}
+
+#home {
+  width: 55px; 
+  margin-right: 10px; 
+  filter:drop-shadow(0px 0px 2px #fff)
+}
+
+#home:hover {
+  filter:drop-shadow(0px 0px 4px #fff);
+}
+
+.icon {
+  width: 100px;
+  margin: 5px;
+  filter:drop-shadow(0px 0px 4px #fff)
+}
+
+.icon:hover {
+  cursor: pointer;
+  filter:drop-shadow(0px 0px 8px #fff)
+}
+
+.active {
+  filter:
+  drop-shadow(0px 0px 4px orange)
+  drop-shadow(0px 0px 4px orange)
+  drop-shadow(0px 0px 4px orange)
+}
+
+.flex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.row {
+  flex-direction: row;
+}
+
+.column {
+  flex-direction: column;
+  align-items: center;
+}
+
+.iconTitle {
+  font-size: 16px;
+  min-width: 150px;
+}
+
+.gauges {
+  position: absolute;
+  right: 5%;
+  top: 5%;
+}
+
+.gauge {
+  width: 50vw;
+  height: 30px;
+  border-radius: 20px;
+  background-color: none;
+  border: 4px solid #1F1D36;
+  z-index: 2;
+  margin-top: 40px;
+  overflow: hidden;
+}
+
+.bar {
+  width: 150%;
+  height: 150%;
+  margin-top: -10px;
+  margin-left: 0px;
+}
+
+.pf {
+  background-color: rgb(142, 0, 0);
+}
+
+.mana {
+  background-color: rgb(0, 0, 123);
+}
+
+.luc {
+  background-color: green;
 }
