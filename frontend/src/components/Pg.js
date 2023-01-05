@@ -132,7 +132,21 @@ class Pg extends React.Component {
     return (
         <div className={data.religione + " App"}>
           <div>
-            <Avatar gaugeOn={this.state.gaugeOn} gauge={this.gauge.bind(this)} nome={data.nome} magia={data.religione} eta={data.eta} altezza={data.altezza} data={data} source={baseUrl + data.nome}/>
+            <Avatar 
+            gaugeOn={this.state.gaugeOn} 
+            gauge={this.gauge.bind(this)} 
+            nome={data.nome} 
+            magia={data.religione} 
+            eta={data.eta} 
+            altezza={data.altezza} 
+            data={data} 
+            pf={data.pf}
+            mana={data.mana}
+            luc={data.luc}
+            maxpf={data.maxpf}
+            maxmana={data.maxmana}
+            maxluc={data.maxluc}
+            source={baseUrl + data.nome}/>
             <p>Risultato finale mod + add = {this.state.modificatore.mod + this.state.addstack}</p>
             <ModAPI modificatore={this.state.modificatore.mod} data={this.state.data} mod={this.mod.bind(this)} flush={this.flush.bind(this)}/>
             <AddAPI ref={this.AddAPI} addstack={this.state.addstack} modificatore={this.state.modificatore} data={data} bonus={this.state.bonus} add={this.add.bind(this)}/>

@@ -25,8 +25,17 @@ class Avatar extends React.Component {
             <div id="avatar">
                 <img id="face" onClick={() => {this.props.gauge(); this.setState({gaugeOn: !this.state.gaugeOn})}} src={"/images/" + this.props.nome + ".png"} />
                 <img id="bg" className={"blur" + this.state.gaugeOn} src={"/images/" + this.props.nome + (" bg.jpg")} />
-                <div className="gauges"><Gauges gaugeOn={this.props.gaugeOn} /></div>
-                 <p>{this.props.eta} anni, {(this.props.altezza).toString().charAt(0)}.{(this.props.altezza).toString().substring(1, 3)} m{this.props.magia !== "nessuna" && ", Magia " + this.props.magia.charAt(0).toUpperCase() + this.props.magia.slice(1)}</p>
+                <div className="gauges">
+                    <Gauges gaugeOn={this.props.gaugeOn} 
+                    pf={this.props.pf}
+                    mana={this.props.mana}
+                    luc={this.props.luc}
+                    maxpf={this.props.maxpf}
+                    maxmana={this.props.maxmana}
+                    maxluc={this.props.maxluc}
+                    />
+                    </div>
+                 <p className="infos">{this.props.eta} anni, {(this.props.altezza).toString().charAt(0)}.{(this.props.altezza).toString().substring(1, 3)} m{this.props.magia !== "nessuna" && ", Magia " + this.props.magia.charAt(0).toUpperCase() + this.props.magia.slice(1)}</p>
                 <h1>{this.props.nome}</h1>
             </div>
         </div>
