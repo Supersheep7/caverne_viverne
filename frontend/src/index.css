@@ -1,29 +1,38 @@
+body {
+  background: url("../public/images/bgs/app.jpg") no-repeat center center fixed;
+}
+
 .App {
   margin: -20px -10px;
   padding-top: 20px;
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
   font-size: large;
   box-sizing: border-box;
-  background-color: #1F1D36;
+
 }
 
 .rosa {
+  backdrop-filter: brightness(0.8) contrast(1.5) hue-rotate(300deg);
   color: #1F1D36;
 }
 
 .celeste {
+  backdrop-filter: brightness(0.8) contrast(1.2) hue-rotate(120deg);
   color: #1F1D36;
 }
 
 .ebano {
+  backdrop-filter: invert(8) brightness(1) contrast(1) hue-rotate(170deg);
   color: whitesmoke;
 }
 
 .nera {
+  backdrop-filter: invert(9) brightness(0.7) contrast(1.4) hue-rotate(50deg);
   color: rgb(255, 253, 234);
 }
 
 .nessuna {
+  backdrop-filter: invert(9) brightness(1.3) contrast(1.7) hue-rotate(120deg);
   color: #d7d7d7;
 }
 
@@ -37,6 +46,7 @@ button:active {
   background-color: rgb(111, 0, 215);
   color: black
 }
+
 
 #header > :first-child {
   display: flex;
