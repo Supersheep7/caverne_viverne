@@ -26,7 +26,7 @@ class Avatar extends React.Component {
                 <img id="face" onClick={() => {this.props.gauge(); this.setState({gaugeOn: !this.state.gaugeOn})}} src={"/images/" + this.props.nome + ".png"} />
                 <img id="bg" className={"blur" + this.state.gaugeOn} src={"/images/" + this.props.nome + (" bg.jpg")} />
                 <div className="gauges">
-                    <Gauges gaugeHandleClick={this.props.gaugeHandleClick} gaugeOn={this.props.gaugeOn} 
+                    <Gauges gaugeHandleClick={this.props.gaugeHandleClick} gaugeCallback={this.props.gaugeCallback} gaugeOn={this.props.gaugeOn} 
                     CA={this.props.CA}
                     prestanza={this.props.data.skills.forskills.prestanza + this.props.data.stats.forza}
                     precisione={this.props.data.skills.motskills.precisione + this.props.data.stats.motorics}

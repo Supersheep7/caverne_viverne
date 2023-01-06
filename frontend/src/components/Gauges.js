@@ -1,14 +1,22 @@
 import React from 'react';
+import { ReactDOM } from 'react-dom';
 
 class Gauges extends React.Component {
+    constructor(props) {
+        super(props)
+    }
+        
+
+
     render() {
+
         return(
         this.props.gaugeOn === true &&
         <div>
             <div className='gauge-wrapper'>
-                <Gauge nome="pf" gaugeHandleClick={this.props.gaugeHandleClick} qty={this.props.pf} max={this.props.maxpf}/>
-                <Gauge nome="mana" gaugeHandleClick={this.props.gaugeHandleClick} qty={this.props.mana} max={this.props.maxmana}/>
-                <Gauge nome="luc" gaugeHandleClick={this.props.gaugeHandleClick} qty={this.props.luc} max={this.props.maxluc}/>
+                <Gauge nome="pf" callback={this.callback} gaugeCallback={this.props.gaugeCallback} gaugeHandleClick={this.props.gaugeHandleClick} qty={this.props.pf} max={this.props.maxpf} />
+                <Gauge nome="mana" callback={this.callback} gaugeCallback={this.props.gaugeCallback} gaugeHandleClick={this.props.gaugeHandleClick} qty={this.props.mana} max={this.props.maxmana} />
+                <Gauge nome="luc" callback={this.callback} gaugeCallback={this.props.gaugeCallback} gaugeHandleClick={this.props.gaugeHandleClick} qty={this.props.luc} max={this.props.maxluc}/>
             </div>
             <div className='dial-wrapper'>
                 <Dial nome="CA" int={this.props.CA}/>
@@ -21,29 +29,66 @@ class Gauges extends React.Component {
 }
 }
 
-class Gauge extends React.Component {
+function Gauge(props) {
+    
+    const [counter, setCounter] = React.useState(props.qty);
+    const intervalRef = React.useRef(null);
 
-    constructor(props) {
-        super(props)
+    React.useEffect(() => {
+        return () => stopCounter(); // when App is unmounted we should stop counter
+    }, []);
+
+  const upCounter = () => {
+    if (intervalRef.current) return;
+    intervalRef.current = setInterval(() => {
+      setCounter((prevCounter) => prevCounter + 1)
+      this.setState({counter: counter});
+    }, 50);
+  };
+
+  const downCounter = () => {
+    if (intervalRef.current) return;
+    intervalRef.current = setInterval(() => {
+      setCounter((prevCounter) => prevCounter - 1)
+      this.setState({counter: counter});
+    }, 50);
+  };
+
+  const stopCounter = () => {
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current);
+      intervalRef.current = null;
+      return props.gaugeCallback(props.nome, counter) 
+    }
+  };
+  
+  function downMouse (direction){
+    
+    if (direction === "up") {
+        upCounter();
     }
 
+    else {
+        downCounter();
+    }
+        }
 
-    render() {
-        
-    var percent = (this.props.qty / this.props.max * 100)
+const upMouse = () => {
+    stopCounter()
+}
+    
+    var percent = (counter / props.max * 100)
         return (
             <div className="outer-gauge">
                 <div className="inner-gauge gauge">
-                <button className='left btn' onClick={() => this.props.gaugeHandleClick(-1, this.props.nome)}>&lt;</button>
-                <p className="gauge-text">{this.props.nome.toUpperCase()}:  {this.props.qty} / {this.props.max}</p>
-                <button className='right btn' onClick={() => this.props.gaugeHandleClick(1, this.props.nome)}>&gt;</button>
-                    <div className={this.props.nome + " bar"} style={{'width': percent+'%'}} />
+                <button className='left btn' onMouseDown={() => downMouse("down")} onMouseUp={() => upMouse()} onMouseLeave={() => upMouse()}>&lt;</button>
+                <p className="gauge-text">{props.nome.toUpperCase()}:  {counter} / {props.max}</p>
+                <button className='right btn' onMouseDown={() => downMouse("up")} onMouseUp={() => upMouse()} onMouseLeave={() => upMouse()}>&gt;</button>
+                    <div className={props.nome + " bar"} style={{'width': percent+'%'}} />
                 </div>
             </div>
-            
         )
     }
-}
 
 class Dial extends React.Component {
     render() {

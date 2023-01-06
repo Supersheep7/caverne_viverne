@@ -102,6 +102,10 @@ class Pg extends React.Component {
   }) 
 }
 
+gaugeCallback = (stat, count) => {
+  this.setState({[stat]: count})
+}
+
   mod(int, nome) {
     this.setState({
         modificatore: {
@@ -151,6 +155,7 @@ class Pg extends React.Component {
             gaugeOn={this.state.gaugeOn} 
             gauge={this.gauge.bind(this)} 
             gaugeHandleClick={this.gaugeHandleClick.bind(this)}
+            gaugeCallback={this.gaugeCallback.bind(this)}
             nome={data.nome} 
             magia={data.religione} 
             eta={data.eta} 
