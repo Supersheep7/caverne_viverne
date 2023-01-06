@@ -5,10 +5,16 @@ class Gauges extends React.Component {
         return(
         this.props.gaugeOn === true &&
         <div>
-            <Gauge nome="pf" qty={this.props.pf} max={this.props.maxpf}/>
-            <Gauge nome="mana" qty={this.props.mana} max={this.props.maxmana}/>
-            <Gauge nome="luc" qty={this.props.luc} max={this.props.maxluc}/>
-            <CA />
+            <div className='gauge-wrapper'>
+                <Gauge nome="pf" gaugeHandleClick={this.props.gaugeHandleClick} qty={this.props.pf} max={this.props.maxpf}/>
+                <Gauge nome="mana" gaugeHandleClick={this.props.gaugeHandleClick} qty={this.props.mana} max={this.props.maxmana}/>
+                <Gauge nome="luc" gaugeHandleClick={this.props.gaugeHandleClick} qty={this.props.luc} max={this.props.maxluc}/>
+            </div>
+            <div className='dial-wrapper'>
+                <Dial nome="CA" int={this.props.CA}/>
+                <Dial nome="prestanza" int={this.props.prestanza}/>
+                <Dial nome="precisione" int={this.props.precisione}/>
+            </div>
         </div>
         
     )
@@ -19,29 +25,18 @@ class Gauge extends React.Component {
 
     constructor(props) {
         super(props)
-        this.state = {
-            max: this.props.max,
-            qty: this.props.qty
-        }
-        this.qtyHandleClick = this.qtyHandleClick.bind(this);
     }
 
-
-    qtyHandleClick(int) {
-        this.setState({
-            qty: this.state.qty + int
-        })
-     
-    }
 
     render() {
-    var percent = (this.state.qty / this.state.max) * 100
+        
+    var percent = (this.props.qty / this.props.max * 100)
         return (
             <div className="outer-gauge">
                 <div className="inner-gauge gauge">
-                <button className='left btn' onClick={() => this.qtyHandleClick(-1)}>&lt;</button>
-                <p className="gauge-text">{this.props.nome.toUpperCase()}:  {this.state.qty} / {this.state.max}</p>
-                <button className='right btn' onClick={() => this.qtyHandleClick(1)}>&gt;</button>
+                <button className='left btn' onClick={() => this.props.gaugeHandleClick(-1, this.props.nome)}>&lt;</button>
+                <p className="gauge-text">{this.props.nome.toUpperCase()}:  {this.props.qty} / {this.props.max}</p>
+                <button className='right btn' onClick={() => this.props.gaugeHandleClick(1, this.props.nome)}>&gt;</button>
                     <div className={this.props.nome + " bar"} style={{'width': percent+'%'}} />
                 </div>
             </div>
@@ -50,9 +45,14 @@ class Gauge extends React.Component {
     }
 }
 
-class CA extends React.Component {
+class Dial extends React.Component {
     render() {
-        return null
+        return (
+            <div className='inner-dial'>
+            <img src={"/images/" + this.props.nome + ".png"} className="dial"/>
+            <p className="gauge-text dial-text">{this.props.int}</p>
+            </div>
+        )
     }
 }
 

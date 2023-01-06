@@ -1,13 +1,10 @@
 # FRONT END
 
     # INDEX PAGE
-        # LINK TO PG CARDS
         # LINK TO CARD UPLOAD FORM
     # PG CARDS
-        # HEADER
-        # BASIC DATA
+        # CA
         # STATS & SKILLS
-            # BONUSES
         # ETC
             # MAGIC
             # TACTICS
@@ -15,13 +12,13 @@
             # MISSIONS & BACKGROUND
         # UI
             # SKILL WHEEL
-            # DICE ROLLER
+            # ACTION SHOOTER
             # ETC
     # CARD UPLOAD FORM
 
 # BACK END
+    # COOKIES
     # CONTROLLERS
-        # UI CONTROLLERS 
         # CARD UPLOAD FORM CONTROLLER 
     # ROUTES 
         # CARD UPLOAD FORM ROUTE 

@@ -19,6 +19,10 @@ class Pg extends React.Component {
       attacchi: [],
       missioni: [],
       bonus: [], 
+      CA: [],
+      pf: 0,
+      mana: 0,
+      luc: 0,
       /* Interactivity */
       modificatore: {
         skill: "",
@@ -29,13 +33,15 @@ class Pg extends React.Component {
       gaugeOn: false
     };
       this.AddAPI = React.createRef();
+      this.gaugeHandleClick = this.gaugeHandleClick.bind(this)
+      this.match = this.match.bind(this)
   }
 
   // This machine fetches all the details from the controllers located in localhost:9000
   async pgAPI() {
     await fetch(`http://localhost:9000${window.location.pathname}`)
         .then(res => res.text())
-        .then(res => this.setState({ data: JSON.parse(res) }))
+        .then(res => this.setState({ data: JSON.parse(res), pf: JSON.parse(res)["pf"], mana: JSON.parse(res)["mana"], luc: JSON.parse(res)["luc"] }))
         .catch(err => err);
     await fetch(`http://localhost:9000/dataAPI/abilita666`)
         .then(res => res.text())
@@ -89,11 +95,17 @@ class Pg extends React.Component {
       gaugeOn: !this.state.gaugeOn
     })
   }
+ 
+  gaugeHandleClick(int, bar) {
+    this.setState({
+        [bar]: this.state[bar] + int
+  }) 
+}
 
-  mod(int, name) {
+  mod(int, nome) {
     this.setState({
         modificatore: {
-          skill: name,
+          skill: nome,
           mod: int
         } 
     })
@@ -121,7 +133,6 @@ class Pg extends React.Component {
       // 2 - Conditional rendering: if the character has not the entry in the db, the method will render null
 
     const { isLoading, magie, abilita, attacchi, bonus, tattiche, missioni, inventario, data } = this.state
-    const points = data.skills
     const baseUrl = "C:/Repo/Projects/caverne_viverne/frontend/public/images/";
     let arry = [] 
 
@@ -129,20 +140,26 @@ class Pg extends React.Component {
       return <h1>Loading...</h1>;
     }
 
+    let arrCA = this.state.data.inventario.filter(d => this.match(d.nome, this.state.inventario, "modificatore", "skill") === "CA")
+                                          .map(d => this.match(d.nome, this.state.inventario, "modificatore", "bonus"))
+    let totalCA = arrCA.reduce((a, b) => a + b, 0)  
+
     return (
         <div className={data.religione + " App"}>
           <div>
             <Avatar 
             gaugeOn={this.state.gaugeOn} 
             gauge={this.gauge.bind(this)} 
+            gaugeHandleClick={this.gaugeHandleClick.bind(this)}
             nome={data.nome} 
             magia={data.religione} 
             eta={data.eta} 
             altezza={data.altezza} 
             data={data} 
-            pf={data.pf}
-            mana={data.mana}
-            luc={data.luc}
+            CA={10 + data.skills.motskills.reazione + totalCA}
+            pf={this.state.pf}
+            mana={this.state.mana}
+            luc={this.state.luc}
             maxpf={data.maxpf}
             maxmana={data.maxmana}
             maxluc={data.maxluc}
