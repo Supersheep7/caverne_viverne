@@ -6,8 +6,6 @@ class Gauges extends React.Component {
         super(props)
     }
         
-
-
     render() {
 
         return(
@@ -35,7 +33,7 @@ function Gauge(props) {
     const intervalRef = React.useRef(null);
 
     React.useEffect(() => {
-        return () => stopCounter(); // when App is unmounted we should stop counter
+        return () => stopCounter();
     }, []);
 
   const upCounter = () => {
@@ -73,9 +71,9 @@ function Gauge(props) {
     }
         }
 
-const upMouse = () => {
+  const upMouse = () => {
     stopCounter()
-}
+  };
     
     var percent = (counter / props.max * 100)
         return (

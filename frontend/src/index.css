@@ -1,3 +1,6 @@
+* {
+}
+
 body {
   background: url("../public/images/bgs/app.jpg") no-repeat center center fixed;
 }
@@ -68,6 +71,7 @@ button:active {
   position: relative;
   width: auto;
   height: 450px;
+  margin-bottom: 51px;
 }
 
 #avatar > * {
@@ -373,4 +377,39 @@ button:active {
 .dial-text {
   font-size: 200%;
   filter: drop-shadow(0px 0px 2px black) drop-shadow(0px 0px 2px black) drop-shadow(0px 0px 2px black) drop-shadow(0px 0px 2px black) 
+}
+
+.dropdown-outer {
+  width: 100%;
+  height: auto;
+  cursor: pointer;
+}
+
+.dropdown-tag {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  width: auto;
+  height: auto;
+  border: 2px solid black;
+  background-color: rgba(0, 0, 0, 50%);
+}
+
+.dropdown-text {
+  justify-self: center;
+  margin-left: 20px;
+  font-size: 40px;
+  height: auto;
+  color: whitesmoke;
+}
+
+.dropdown-inner {
+  background-color: rgba(0, 0, 0, 20%);
+}
+
+.dropdown-inner * {
+  
+  margin: 0;
+	padding: 0;
 }

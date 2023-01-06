@@ -4,6 +4,7 @@ import ModAPI from "./ModAPI";
 import AddAPI from "./AddAPI";
 import Avatar from "./Avatar";
 import Stats from "./Stats";
+import Dropdown from "./Dropdown"
 
 class Pg extends React.Component {
   
@@ -169,18 +170,26 @@ gaugeCallback = (stat, count) => {
             maxmana={data.maxmana}
             maxluc={data.maxluc}
             source={baseUrl + data.nome}/>
+            <div className='dropdown-wrapper'>
+              <Dropdown nome="abilita_innate" base={abilita} data={data.abilita_innate}/>
+              <Dropdown nome="tattiche" base={tattiche} data={data.tattiche}/>
+              <Dropdown nome="magie" base={magie} data={data.magie}/>
+              <Dropdown nome="attacchi" base={attacchi} data={data.attacchi}/>
+              <Dropdown nome="bonus" base={bonus} data={data.bonus}/>
+              <Dropdown nome="inventario" base={inventario} data={data.inventario}/>
+              <Dropdown nome="missioni" base={missioni} data={data.missioni}/>
+              <Dropdown nome="missioni" base={data.background} />
+            </div>
             <p>Risultato finale mod + add = {this.state.modificatore.mod + this.state.addstack}</p>
             <ModAPI modificatore={this.state.modificatore.mod} data={this.state.data} mod={this.mod.bind(this)} flush={this.flush.bind(this)}/>
             <AddAPI ref={this.AddAPI} addstack={this.state.addstack} modificatore={this.state.modificatore} data={data} bonus={this.state.bonus} add={this.add.bind(this)}/>
           </div>
           <div>
-            <h1>Gauges</h1>
-              <ul>
-                <li>Pf: {data.pf}/{data.maxpf}</li>
-                <li>Mana: {data.mana}/{data.maxmana}</li>
-                <li>Lucidità: {data.luc}/{data.maxluc}</li>
-              </ul>
             <Stats className="stats" data={data} colore={data.religione}/>
+
+
+
+
             <h1>Abilità innate</h1>
             <p>{data.abilita_innate.map(d => {
               return (
