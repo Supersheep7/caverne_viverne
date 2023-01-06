@@ -46,8 +46,9 @@ export default class AddAPI extends React.Component {
           (this.props.modificatore.skill === this.match(d, this.props.bonus, "modificatore", "skill"))
           // Checks stat modifiers
           || (this.props.data.stats[stat] !== undefined
-          && this.props.data.skills[`${statSlice}skills`].hasOwnProperty(this.props.modificatore.skill)
-        )) {
+          && this.props.data.skills[`${statSlice}skills`].hasOwnProperty(this.props.modificatore.skill))
+          || (this.match(d, this.props.bonus, "modificatore", "skill") === "\\")
+        ) {
           if (!this.state.active.includes(d)) {
             return (
               <div className="flex column">

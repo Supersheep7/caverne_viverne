@@ -244,6 +244,7 @@ button:active {
 
 .flex {
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
   align-items: center;
 }
@@ -283,7 +284,7 @@ button:active {
   height: 40px;
   border-radius: 20px;
   background-color: none;
-  border: 4px solid #1F1D36;
+  border: 4px solid black;
   z-index: 2;
   overflow: hidden;
   filter: drop-shadow(0px 0px 4px black);
@@ -392,7 +393,7 @@ button:active {
   justify-content: center;
   width: auto;
   height: auto;
-  border: 2px solid black;
+  border: 2px solid whitesmoke;
   background-color: rgba(0, 0, 0, 50%);
 }
 
@@ -406,10 +407,17 @@ button:active {
 
 .dropdown-inner {
   background-color: rgba(0, 0, 0, 20%);
+  padding: 50px;
 }
 
-.dropdown-inner * {
-  
+.dropdown-inner > * {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-auto-flow: dense;
   margin: 0;
 	padding: 0;
+}
+
+.card > img {
+  width:150px;
 }

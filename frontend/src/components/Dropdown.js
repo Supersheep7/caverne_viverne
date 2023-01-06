@@ -59,42 +59,42 @@ export default class Dropdown extends React.Component {
                 arry = []
                 arry.push(d)
                 return (
-                  <ul>
-                  <li>Nome: {arry[0].substring(0, arry[0].indexOf("_"))}</li>
+                  <div className="card">
                   <img className="icon" src={"/images/icons/" + d + ".png"} />
+                  <p>Nome: {arry[0].substring(0, arry[0].indexOf("_"))}</p>
                   { this.match(d, base, "summary") !== "\\" &&   
-                  <li>Descrizione: { this.match(d, base, "summary") }</li>
+                  <p>Descrizione: { this.match(d, base, "summary") }</p>
                   }
                   {(this.props.nome === "magie") && 
-                  <li>Costo di mana: { this.match(d, base, "costo", "mana") }%</li> }
+                  <p>Costo di mana: { this.match(d, base, "costo", "mana") }%</p> }
                   {(this.props.nome === "magie") && this.match(d, base, "costo", "skill") !== "\\" && 
-                  <li>Prova da effettuare: { this.match(d, base, "costo", "skill") }: CD { this.match(d, base, "costo", "cd") }</li>
+                  <p>Prova da effettuare: { this.match(d, base, "costo", "skill") }: CD { this.match(d, base, "costo", "cd") }</p>
                   }
                 {(this.props.nome === "attacchi") && 
-                    <li>Check: { this.match(d, base, "check") }</li>
+                    <p>Check: { this.match(d, base, "check") }</p>
                 }                   
                 {(this.props.nome === "attacchi") && 
-                    <li>Danni: { this.match(d, base, "effetto", "danni") }</li>
+                    <p>Danni: { this.match(d, base, "effetto", "danni") }</p>
                 }                   
                 {(this.props.nome === "attacchi") && this.match(d, base, "effetto", "modificatore", "skill") !== "\\" &&
-                    <li>Altri modificatori: { this.match(d, base, "effetto", "modificatore", "skill") }: { this.match(d, base, "effetto", "modificatore", "bonus_malus") }</li>
+                    <p>Altri modificatori: { this.match(d, base, "effetto", "modificatore", "skill") }: { this.match(d, base, "effetto", "modificatore", "bonus_malus") }</p>
                 }       
                 {(this.props.nome === "bonus") && this.match(d, base, "modificatore", "skill") !== "\\" &&
-                    <li>Modificatore: { this.match(d, base, "modificatore", "skill") }: { this.match(d, base, "modificatore", "bonus") }</li>
+                    <p>Modificatore: { this.match(d, base, "modificatore", "skill") }: { this.match(d, base, "modificatore", "bonus") }</p>
                 }     
                   {(this.props.nome === "magie") && this.match(d, base, "costo", "altro") !== "\\" &&
-                  <li>Altri requisiti: { this.match(d, base, "costo", "altro") }</li>
+                  <p>Altri requisiti: { this.match(d, base, "costo", "altro") }</p>
                   }
                   {(this.props.nome === "magie") && this.match(d, base, "effetto", "skill") !== "\\" &&
-                  <li>Bonus abilità: { this.match(d, base, "effetto", "skill") }; { this.match(d, base, "effetto", "bonus") } </li>
+                  <p>Bonus abilità: { this.match(d, base, "effetto", "skill") }; { this.match(d, base, "effetto", "bonus") } </p>
                   }
                   {(this.props.nome === "magie") && this.match(d, base, "effetto", "dadi") !== "\\" &&
-                  <li>Dadi: { this.match(d, base, "effetto", "dadi") }</li>
+                  <p>Dadi: { this.match(d, base, "effetto", "dadi") }</p>
                   }
                   {(this.props.nome === "magie") && this.match(d, base, "effetto", "altro") !== "\\" &&
-                  <li>Altri effetti: { this.match(d, base, "effetto", "altro") }</li>
+                  <p>Altri effetti: { this.match(d, base, "effetto", "altro") }</p>
                   }
-                </ul>
+                </div>
                 )
               }
 
@@ -106,42 +106,42 @@ export default class Dropdown extends React.Component {
               else {
               arry = []
               return (
-                <ul>
-                  <li>Nome: {d}</li>
+                <div className="card">
                   <img className="icon" src={"/images/icons/" + d + ".png"} />
+                  <p>Nome: {d}</p>
                   { this.match(d, base, "summary") !== "\\" &&   
-                  <li>Descrizione: { this.match(d, base, "summary") }</li>
+                  <p>Descrizione: { this.match(d, base, "summary") }</p>
                   }
                   {(this.props.nome === "magie") && 
-                  <li>Costo di mana: { this.match(d, base, "costo", "mana") }%</li> }
+                  <p>Costo di mana: { this.match(d, base, "costo", "mana") }%</p> }
                   {(this.props.nome === "magie") && this.match(d, base, "costo", "skill") !== "\\" && 
-                  <li>Prova da effettuare: { this.match(d, base, "costo", "skill") }: CD { this.match(d, base, "costo", "cd") }</li>
+                  <p>Prova da effettuare: { this.match(d, base, "costo", "skill") }: CD { this.match(d, base, "costo", "cd") }</p>
                   }
                 {(this.props.nome === "attacchi") && 
-                    <li>Check: { this.match(d, base, "check") }</li>
+                    <p>Check: { this.match(d, base, "check") }</p>
                 }                   
                 {(this.props.nome === "attacchi") && 
-                    <li>Danni: { this.match(d, base, "effetto", "danni") }</li>
+                    <p>Danni: { this.match(d, base, "effetto", "danni") }</p>
                 }                   
                 {(this.props.nome === "attacchi") && this.match(d, base, "effetto", "modificatore", "skill") !== "\\" &&
-                    <li>Altri modificatori: { this.match(d, base, "effetto", "modificatore", "skill") }: { this.match(d, base, "effetto", "modificatore", "bonus_malus") }</li>
+                    <p>Altri modificatori: { this.match(d, base, "effetto", "modificatore", "skill") }: { this.match(d, base, "effetto", "modificatore", "bonus_malus") }</p>
                 }       
                 {(this.props.nome === "bonus") && this.match(d, base, "modificatore", "skill") !== "\\" &&
-                    <li>Modificatore: { this.match(d, base, "modificatore", "skill") }: { this.match(d, base, "modificatore", "bonus") }</li>
+                    <p>Modificatore: { this.match(d, base, "modificatore", "skill") }: { this.match(d, base, "modificatore", "bonus") }</p>
                 }     
                   {(this.props.nome === "magie") && this.match(d, base, "costo", "altro") !== "\\" &&
-                  <li>Altri requisiti: { this.match(d, base, "costo", "altro") }</li>
+                  <p>Altri requisiti: { this.match(d, base, "costo", "altro") }</p>
                   }
                   {(this.props.nome === "magie") && this.match(d, base, "effetto", "skill") !== "\\" &&
-                  <li>Bonus abilità: { this.match(d, base, "effetto", "skill") }; { this.match(d, base, "effetto", "bonus") } </li>
+                  <p>Bonus abilità: { this.match(d, base, "effetto", "skill") }; { this.match(d, base, "effetto", "bonus") } </p>
                   }
                   {(this.props.nome === "magie") && this.match(d, base, "effetto", "dadi") !== "\\" &&
-                  <li>Dadi: { this.match(d, base, "effetto", "dadi") }</li>
+                  <p>Dadi: { this.match(d, base, "effetto", "dadi") }</p>
                   }
                   {(this.props.nome === "magie") && this.match(d, base, "effetto", "altro") !== "\\" &&
-                  <li>Altri effetti: { this.match(d, base, "effetto", "altro") }</li>
+                  <p>Altri effetti: { this.match(d, base, "effetto", "altro") }</p>
                   }
-                </ul>
+                </div>
               )
                 }
             })}</div>
