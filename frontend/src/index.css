@@ -2,7 +2,7 @@
 }
 
 body {
-  background: url("../public/images/bgs/app.jpg") no-repeat center center fixed;
+  background: url("../public/images/bgs/app.jpg")  no-repeat center center fixed;
 }
 
 .App {
@@ -11,7 +11,6 @@ body {
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
   font-size: large;
   box-sizing: border-box;
-
 }
 
 .rosa {
@@ -40,14 +39,18 @@ body {
 }
 
 button:hover {
-  background-color: rgb(170, 122, 215);
-  color: black;
+  background-color: #1F1D36;
+  color: whitesmoke;
   cursor: pointer;
 }
 
 button:active {
-  background-color: rgb(111, 0, 215);
+  background-color: whitesmoke;
   color: black
+}
+
+h1, h2, h3, p, .infos, .skill-content, .btn {
+  color: whitesmoke
 }
 
 
@@ -85,7 +88,6 @@ button:active {
   margin-right: 5%;
   margin-bottom: 0px;
   font-size: 400%;
-  color: whitesmoke;
   text-shadow: 0 0 6px black, 0 0 6px black, 0 0 6px black;;
 }
 
@@ -107,7 +109,6 @@ button:active {
 }
 
 .stat-container * {
-  color: whitesmoke;
   filter: drop-shadow(0 0 1px black) drop-shadow(0 0 1px black) drop-shadow(0 0 1px black)
 }
 
@@ -122,16 +123,35 @@ button:active {
 
 .stats {
   background: url("../public/images/bgs/app.jpg") no-repeat center center fixed;
+}
+
+.stats.opentrue {
+  
   border-bottom: 2px solid whitesmoke
 }
 
-.stats > div {
+.gauges-wrapper.opentrue, .dial-wrapper.opentrue {
+  opacity: 1;
+  margin-right: 0;
+  transition: all 1s ease-out;
+}
+
+.gauges-wrapper.openfalse, .dial-wrapper.openfalse {
+  opacity: 0;
+  margin-right: 1500px;
+  transition: all 1s ease-in;
+}
+
+.statscards {
   display: grid;
   grid-template-columns: auto 1fr;
   align-items: center;
   text-align: center;
   padding: 10px;
-  backdrop-filter: brightness(0.5) contrast(2) grayscale(0.5);
+}
+
+.backdrop, .dropdown-inner {
+  background: url("../public/images/bgs/backdrop.jpg") no-repeat center center fixed;
 }
 
 .stats-wrapper {
@@ -146,18 +166,64 @@ button:active {
   position: relative;
 }
 
+.svgarrow {
+  width: 40px;
+  padding: 20px;
+  transition: transform 0.5s ease-out;
+  transform: rotate(180deg);
+  filter: drop-shadow(0px 0px 1px black) drop-shadow(0px 0px 1px black) drop-shadow(0px 0px 1px black)
+}
+
+.svgarrow.opentrue {
+  transition: transform 0.5s ease-out;
+  transform: rotate(360deg)
+}
+
+.dropdown-inner.openfalse, .dropdown-bg.openfalse, .backdrop.openfalse, .stats.openfalse {
+  opacity: 1;
+  max-height: 0;
+  padding: 0;
+  overflow: hidden;
+  transition: max-height 0.7s ease-out;
+  transition-delay: -0.2s;
+}
+
+.dropdown-inner.opentrue, .dropdown-bg.opentrue, .backdrop.opentrue, .stats.opentrue {
+  opacity: 1;
+  max-height: 3000px;
+  transition:  max-height 0.7s ease-in;
+}
+
+.padding-container {
+  padding: 50px;
+}
+
+.card.openfalse, .background.openfalse, .statscards.openfalse {
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.card.opentrue, .background.opentrue, .statscards.opentrue {
+  opacity: 1;
+  transition: opacity 1s;
+  transition-delay: 0.3s;
+}
+
 .skillimg {
   width: 200px;
   border-radius: 5px;
   filter: contrast(1) brightness(0.8) drop-shadow(0px 0px 2px whitesmoke) drop-shadow(0px 0px 2px whitesmoke) drop-shadow(0px 0px 2px whitesmoke)
 }
 
+.favtrue {
+  filter:  drop-shadow(0px 0px 4px orange) drop-shadow(0px 0px 4px orange) drop-shadow(0px 0px 4px orange) 
+  }
+
 .stats-wrapper h3, .skill-content {
   position: absolute;
   font-size: 18px;
   text-align: center;
   z-index: 3;
-  color: whitesmoke;
   filter: drop-shadow(0 0 1px black) drop-shadow(0 0 1px black) drop-shadow(0 0 1px black)
 }
 
@@ -211,7 +277,6 @@ button:active {
   font-size: 18px;
   position: absolute;
   z-index: 4;
-  color: whitesmoke;
   filter: drop-shadow(0 0 1px black) drop-shadow(0 0 1px black) drop-shadow(0 0 1px black);
   text-align: center;
   width: 20px;
@@ -220,7 +285,7 @@ button:active {
 }
 
 #face {
-  z-index: 1;
+  z-index: 4;
   height: 600px;
   top: -100px;
   left: -20px;
@@ -373,7 +438,6 @@ button:active {
   transform: translate(-50%, -50%);
   z-index: 3;
   font-size: 20px;
-  color: whitesmoke;
   filter: drop-shadow(0px 0px 2px black) drop-shadow(0px 0px 2px black) 
 }
 
@@ -456,9 +520,10 @@ button:active {
 .dropdown-tag {
   display: flex;
   cursor: pointer;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: center;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 40px;
   width: auto;
   height: auto;
   border-bottom: 2px solid whitesmoke;
@@ -466,10 +531,8 @@ button:active {
 
 .dropdown-text {
   justify-self: center;
-  margin-left: 20px;
   font-size: 40px;
   height: auto;
-  color: whitesmoke;
   filter:  drop-shadow(0px 0px 1px black) drop-shadow(0px 0px 1px black) drop-shadow(0px 0px 1px black)
 }
 
@@ -478,8 +541,6 @@ button:active {
 }
 
 .dropdown-inner {
-  backdrop-filter: brightness(0.5) contrast(2) grayscale(0.5);
-  padding: 50px;
   border-bottom: 2px solid whitesmoke
 }
 
@@ -523,7 +584,6 @@ button:active {
   text-align: center;
   z-index: 9;
   font-size: 20px;
-  color: whitesmoke;
   filter: drop-shadow(0px 0px 1px black) drop-shadow(0px 0px 1px black) drop-shadow(0px 0px 1px black) drop-shadow(0px 0px 1px black) 
 
 }
@@ -536,7 +596,6 @@ button:active {
   text-align: center;
   z-index: 9;
   font-size: 16px;
-  color: whitesmoke;
   filter: drop-shadow(0px 0px 1px black) drop-shadow(0px 0px 1px black) drop-shadow(0px 0px 1px black)
 
 }
@@ -549,7 +608,7 @@ button:active {
   transform: rotate(-10deg);
 }
 
-.dropdown-inner > * {
+.dropdown-inner > div > * {
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -587,19 +646,15 @@ button:active {
 #footer > * {
   margin: 0;
   padding: 0;
-  color: whitesmoke
 }
 
-.card .icon:hover {
+.card .icon:hover, .activetrue {
 filter: drop-shadow(0px 0px 4px orange) drop-shadow(0px 0px 4px orange) drop-shadow(0px 0px 4px orange)
 }
 
-.activetrue {
-  filter: drop-shadow(0px 0px 4px orange) drop-shadow(0px 0px 4px orange) drop-shadow(0px 0px 4px orange)
-}
-
 .showfalse {
-  display: none;
+  opacity: 0;
+  max-height: 0;
   position: absolute;
 }
 
@@ -611,7 +666,6 @@ filter: drop-shadow(0px 0px 4px orange) drop-shadow(0px 0px 4px orange) drop-sha
 .card-name {
   font-size: 22px;
   margin-top: 15px;
-  color: whitesmoke;
   filter: drop-shadow(0px 0px 1px black)
   drop-shadow(0px 0px 1px black)
   drop-shadow(0px 0px 1px black)
@@ -619,7 +673,7 @@ filter: drop-shadow(0px 0px 4px orange) drop-shadow(0px 0px 4px orange) drop-sha
 }
 
 .background {
-  filter: drop-shadow(0px 0px 1px black) drop-shadow(0px 0px 1px black); 
+  filter: drop-shadow(0px 0px 1px black) drop-shadow(0px 0px 1px black) drop-shadow(0px 0px 1px black); 
   line-height: 140%;
 }
 
@@ -632,12 +686,13 @@ filter: drop-shadow(0px 0px 4px orange) drop-shadow(0px 0px 4px orange) drop-sha
   z-index: 3;
   background-color: #1F1D36;
   border-radius: 20px;
-  color: whitesmoke;
   width: 150%;
   padding: 25px;
   z-index: 5;
   margin: 0;
+  max-height: 500px;
   opacity: 90%;
+  transition: opacity 0.25s;
   filter: drop-shadow(0px 0px 1px black) drop-shadow(0px 0px 1px black) drop-shadow(0px 0px 1px black)
 }
 
@@ -668,28 +723,23 @@ filter: drop-shadow(0px 0px 4px orange) drop-shadow(0px 0px 4px orange) drop-sha
   transform: scaleX(-1) rotate(30deg) 
 }
 
-.quantity {
+.quantity, .mana-cost {
   margin: 0;
   padding: 0;
   width: 30px;
-  font-size: 22px;
-  color: whitesmoke;
   position: absolute;
   text-align: center;
   top: 21px;
-  right: 32px;
   filter: drop-shadow(0px 0px 1px black) drop-shadow(0px 0px 1px black) drop-shadow(0px 0px 1px black)
 }
 
+.quantity {
+  font-size: 22px;
+  right: 32px;
+}
+
 .mana-cost {
-  margin: 0;
-  padding: 0;
-  width: 30px;
   font-size: 16px;
-  color: whitesmoke;
-  position: absolute;
-  text-align: center;
-  top: 21px;
   right: 42px;
   filter: drop-shadow(0px 0px 1px black) drop-shadow(0px 0px 1px black) drop-shadow(0px 0px 1px black)
 }
@@ -701,11 +751,9 @@ filter: drop-shadow(0px 0px 4px orange) drop-shadow(0px 0px 4px orange) drop-sha
 }
 
 .daylimit {
-  
   right: 94px;
 }
 
 .combatlimit {
-  
   right: 96px;
 }

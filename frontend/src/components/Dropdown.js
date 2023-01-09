@@ -10,18 +10,26 @@ export default class Dropdown extends React.Component {
     }
 
     dropClick() {
+        console.log(this.props.data)
+        console.log(typeof this.props.data)
         this.setState ({
             open: !this.state.open
         })
     }
 
     showHandleClick(nome) {
-
-        if (this.state.show.indexOf(nome) < 0) {
-        this.setState ({show: [nome]})}
-        else {
-            this.setState({show: []})
+        if (!this.state.show.includes(nome)) {
+        this.setState ({show: [nome]})
         }
+        else {this.setState ({show: []})}
+    }
+
+    flushClick (e) {
+        if (e.target.toString() === "[object HTMLDivElement]") {
+        if (this.state.show.length > 0) {
+            this.setState ({show: []})
+        }  
+    }
     }
 
     tagHelper() {
@@ -55,209 +63,214 @@ export default class Dropdown extends React.Component {
 
         return (
             <div className="dropdown-outer"> 
-                <div className="dropdown-tag" onClick={() => this.dropClick()}><h2 className="dropdown-text" >{this.tagHelper()}</h2></div>
+                <div className="dropdown-tag" onClick={() => this.dropClick()}>
+                    <h2 className="dropdown-text" >{this.tagHelper()}</h2>
+                    <img className={"svgarrow" + " open" + this.state.open} src="/images/chevron.png" />
+                </div>
 
                 {/*************** INNER DROPDOWN ***************/}
-                <div>{ this.state.open && 
-                <div className="dropdown-bg">
-                    <div className="dropdown-inner">
-                        {/********** BACKGROUND SPECIAL **********/}    
-                        {this.props.nome === "background" &&
-                        <p class="card-name background">{base}</p>}
-                        <div>    
-                        { this.props.nome !== "background" && 
-                            (data.map(d => {
-                                {/********** INVENTARIO SPECIAL **********/}
-                                if (typeof d === "object") {
-                                    if ((d.nome.includes("_") && arry.length === 0) || (d.nome.includes("_")
-                                    && arry[0].substring(0, arry[0].indexOf("_")) !== d.nome.substring(0, d.nome.indexOf("_")) 
-                                    && arry.length > 0)) {
-                                    arry = []
-                                    arry.push(d.nome)
-                                    return (
-                                        <div className="card">
-                                            <div className="card-dropdown">
-                                            <img onClick={() => this.showHandleClick(d.nome)} className={"icon" + " active" + (show.indexOf(d.nome) > -1)} src={"/images/icons/" + arry[0].substring(0, arry[0].indexOf("_")) + ".png"} />
-                                            <p className="card-name">{arry[0].substring(0, arry[0].indexOf("_"))}</p>
-                                            { this.match(d.nome, base, "summary") !== "\\" &&   
-                                            <p className={"summary show" + (show.indexOf(d.nome) > -1)}>{ this.match(d.nome, base, "summary") }</p>
+                <div className={"dropdown-father open" + this.state.open}>
+                    {((typeof data === "object" && data.length > 0) || typeof data === "undefined") &&
+                    <div className={"dropdown-bg open" + this.state.open}>
+                        <div className={"dropdown-inner open" + this.state.open} onClick={(event) => this.flushClick(event)}>
+                            <div className="padding-container">
+                                {/********** BACKGROUND SPECIAL **********/}    
+                                {this.props.nome === "background" &&
+                                <p className={"card-name background open" + this.state.open}>{base}</p>}
+                                <div className={"open" + this.state.open}>    
+                                { this.props.nome !== "background" && 
+                                    (data.map(d => {
+                                        {/********** INVENTARIO SPECIAL **********/}
+                                        if (typeof d === "object") {
+                                            if ((d.nome.includes("_") && arry.length === 0) || (d.nome.includes("_")
+                                            && arry[0].substring(0, arry[0].indexOf("_")) !== d.nome.substring(0, d.nome.indexOf("_")) 
+                                            && arry.length > 0)) {
+                                                arry = []
+                                                arry.push(d.nome)
+                                                return (
+                                                    <div className={"card open" + this.state.open}>
+                                                        <div className="card-dropdown">
+                                                        <img onClick={() => this.showHandleClick(d.nome)} className={"icon" + " active" + (show.indexOf(d.nome) > -1)} src={"/images/icons/" + arry[0].substring(0, arry[0].indexOf("_")) + ".png"} />
+                                                        <p className="card-name">{arry[0].substring(0, arry[0].indexOf("_"))}</p>
+                                                        { this.match(d.nome, base, "summary") !== "\\" &&   
+                                                        <p className={"summary show" + (show.indexOf(d.nome) > -1)}>{ this.match(d.nome, base, "summary") }</p>
+                                                        }
+                                                        <p className="quantity">{d.quantita}</p>
+                                                        { this.match(d.nome, base, "magia") !== "\\" &&
+                                                        <div>
+                                                            <img src={"/images/magias/" + this.match(d.nome, base, "magia") + ".png"} className="crystal-spell" />
+                                                        </div>
+                                                        }
+                                                        <div>
+                                                            <img src="/images/bag.png" className="bag" />
+                                                            <p className="quantity">{d.quantita}</p>
+                                                        </div>
+                                                    </div>
+                                                    </div>
+                                                )
                                             }
-                                            <p className="quantity">{d.quantita}</p>
-                                            { this.match(d.nome, base, "magia") !== "\\" &&
-                                            <div>
-                                                <img src={"/images/magias/" + this.match(d.nome, base, "magia") + ".png"} className="crystal-spell" />
-                                            </div>
+                                            else if (d.nome.includes("_") 
+                                            && arry.length > 0) {
+                                                return null
                                             }
-                                            <div>
-                                                <img src="/images/bag.png" className="bag" />
-                                                <p className="quantity">{d.quantita}</p>
-                                            </div>
-                                        </div>
-                                        </div>
-                                    )
-                                    }
-                                    else if (d.nome.includes("_") 
-                                    && arry.length > 0) {
-                                        return null
-                                    }
-                                    else {
-                                    arry = []
-                                    return (
-                                        <div className="card">
-                                            <div className="card-dropdown">
-                                            <img onClick={() => this.showHandleClick(d.nome)} className={"icon" + " active" + (show.indexOf(d.nome) > -1)} src={"/images/icons/" + d.nome + ".png"} />
-                                            <p className="card-name">{d.nome}</p>
-                                            { this.match(d.nome, base, "summary") !== "\\" &&   
-                                            <p className={"summary show" + (show.indexOf(d.nome) > -1)}>{ this.match(d.nome, base, "summary") }</p>
+                                            else {
+                                                arry = []
+                                                return (
+                                                    <div className={"card open" + this.state.open}>
+                                                        <div className="card-dropdown">
+                                                        <img onClick={() => this.showHandleClick(d.nome)} className={"icon" + " active" + (show.indexOf(d.nome) > -1)} src={"/images/icons/" + d.nome + ".png"} />
+                                                        <p className="card-name">{d.nome}</p>
+                                                        { this.match(d.nome, base, "summary") !== "\\" &&   
+                                                        <p className={"summary show" + (show.indexOf(d.nome) > -1)}>{ this.match(d.nome, base, "summary") }</p>
+                                                        }
+                                                        <p className="quantity">{d.quantita}</p>
+                                                        { this.match(d.nome, base, "magia") !== "\\" &&
+                                                        <div>
+                                                            <img src={"/images/magias/" + this.match(d.nome, base, "magia") + ".png"} className="crystal-spell" />
+                                                        </div>
+                                                        }
+                                                        <div>
+                                                            <img src="/images/bag.png" className="bag" />
+                                                            <p className="quantity">{d.quantita}</p>
+                                                        </div>
+                                                    </div>
+                                                    </div>
+                                                    )
                                             }
-                                            <p className="quantity">{d.quantita}</p>
-                                            { this.match(d.nome, base, "magia") !== "\\" &&
-                                            <div>
-                                                <img src={"/images/magias/" + this.match(d.nome, base, "magia") + ".png"} className="crystal-spell" />
-                                            </div>
-                                            }
-                                            <div>
-                                                <img src="/images/bag.png" className="bag" />
-                                                <p className="quantity">{d.quantita}</p>
-                                            </div>
-                                        </div>
-                                        </div>
-                                        )
-                                    }
-                                } 
-                                {/********** ABILITIES, MAGIC, ETC. **********/}
-                                {/******** CHECK "_" CONDITION ********/}
-                                if ((d.includes("_") && arry.length === 0) || (d.includes("_")
-                                && arry[0].substring(0, arry[0].indexOf("_")) !== d.substring(0, d.indexOf("_")) 
-                                && arry.length > 0)) {
-                                    arry = []
-                                    arry.push(d)
-                                    return (
-                                    <div className="card">
-                                        <div className="card-dropdown">
-                                            <img onClick={() => this.showHandleClick(d)} className={"icon" + " active" + (show.indexOf(d) > -1)} src={"/images/icons/" + arry[0].substring(0, arry[0].indexOf("_")) + ".png"} />
-                                            <p className="card-name">{arry[0].substring(0, arry[0].indexOf("_"))}</p>
-                                            { this.match(d, base, "summary") !== "\\" &&   
-                                            <p className={"summary show" + (show.indexOf(d) > -1)}>{ this.match(d, base, "summary") }</p>
-                                            }
-                                            {(this.props.nome === "magie") && this.match(d, base, "costo", "mana") !== 0 &&
-                                            <div>
-                                                <img src="/images/mana.png" className="mana-bottle" />
-                                                <p>{ this.match(d, base, "costo", "mana") }</p>
-                                            </div>
-                                            }
-                                            {(this.props.nome === "magie") && this.match(d, base, "costo", "mana") === 0 &&
-                                            <div>
-                                                <img src="/images/mana.png" className="mana-bottle" />
-                                                <p className="mana-cost">?</p>
-                                            </div>
-                                            }
-                                            {(this.props.nome === "magie") && this.match(d, base, "costo", "skill") === "pratica_magica" &&
-                                            <div>
-                                                <img src="/images/magias/pratica_magica_ruota.png" className="magic-wheel" />
-                                                { this.match(d, base, "costo", "cd") !== 0 &&
-                                                <p className="cd-cost">{ this.match(d, base, "costo", "cd") }</p>
-                                                }
-                                                { this.match(d, base, "costo", "cd") === 0 &&
-                                                <p className="cd-cost">?</p>
-                                                }
-                                            </div>
-                                            }
-                                            {(this.props.nome === "magie") && this.match(d, base, "costo", "petali") !== undefined &&
-                                            <div>
-                                                <img src="/images/petali.png" className="petali" />
-                                                <p className="petali-cost"> { this.match(d, base, "costo", "petali") }</p>
-                                            </div>
-                                            }
+                                        } 
+                                        {/********** ABILITIES, MAGIC, ETC. **********/}
+                                        {/******** CHECK "_" CONDITION ********/}
+                                        if ((d.includes("_") && arry.length === 0) || (d.includes("_")
+                                        && arry[0].substring(0, arry[0].indexOf("_")) !== d.substring(0, d.indexOf("_")) 
+                                        && arry.length > 0)) {
+                                            arry = []
+                                            arry.push(d)
+                                            return (
+                                            <div className={"card open" + this.state.open}>
+                                                <div className="card-dropdown">
+                                                    <img onClick={() => this.showHandleClick(d)} className={"icon" + " active" + (show.indexOf(d) > -1)} src={"/images/icons/" + arry[0].substring(0, arry[0].indexOf("_")) + ".png"} />
+                                                    <p className="card-name">{arry[0].substring(0, arry[0].indexOf("_"))}</p>
+                                                    { this.match(d, base, "summary") !== "\\" &&   
+                                                    <p className={"summary show" + (show.indexOf(d) > -1)}>{ this.match(d, base, "summary") }</p>
+                                                    }
+                                                    {(this.props.nome === "magie") && this.match(d, base, "costo", "mana") !== 0 &&
+                                                    <div>
+                                                        <img src="/images/mana.png" className="mana-bottle" />
+                                                        <p>{ this.match(d, base, "costo", "mana") }</p>
+                                                    </div>
+                                                    }
+                                                    {(this.props.nome === "magie") && this.match(d, base, "costo", "mana") === 0 &&
+                                                    <div>
+                                                        <img src="/images/mana.png" className="mana-bottle" />
+                                                        <p className="mana-cost">?</p>
+                                                    </div>
+                                                    }
+                                                    {(this.props.nome === "magie") && this.match(d, base, "costo", "skill") === "pratica_magica" &&
+                                                    <div>
+                                                        <img src="/images/magias/pratica_magica_ruota.png" className="magic-wheel" />
+                                                        { this.match(d, base, "costo", "cd") !== 0 &&
+                                                        <p className="cd-cost">{ this.match(d, base, "costo", "cd") }</p>
+                                                        }
+                                                        { this.match(d, base, "costo", "cd") === 0 &&
+                                                        <p className="cd-cost">?</p>
+                                                        }
+                                                    </div>
+                                                    }
+                                                    {(this.props.nome === "magie") && this.match(d, base, "costo", "petali") !== undefined &&
+                                                    <div>
+                                                        <img src="/images/petali.png" className="petali" />
+                                                        <p className="petali-cost"> { this.match(d, base, "costo", "petali") }</p>
+                                                    </div>
+                                                    }
 
-                                            {this.match(d, base, "daylimit") !== undefined &&
-                                            <div>
-                                                {Array(this.match(d, base, "combatlimit")).fill(<img src="/images/daylimit.png" className='daylimit' style={{width: "12px"}}/>)}
+                                                    {this.match(d, base, "daylimit") !== undefined &&
+                                                    <div>
+                                                        {Array(this.match(d, base, "combatlimit")).fill(<img src="/images/daylimit.png" className='daylimit' style={{width: "12px"}}/>)}
+                                                    </div>
+                                                    }
+                                                    {this.match(d, base, "combatlimit") !== undefined &&
+                                                    <div>
+                                                        {Array(this.match(d, base, "combatlimit")).fill(<img src="/images/combatlimit.png" className='combatlimit' style={{width: "7px"}}/>)}
+                                                    </div>
+                                                    }
+                                                    {(this.props.nome === "attacchi") && 
+                                                    <img src={"/images/" + this.match(d, base, "check") + ".png"} className="dial"/>
+                                                    }                   
+                                                    {(this.props.nome === "attacchi") && 
+                                                    <img src = {"/images/dice/" + this.match(d, base, "effetto", "danni") + ".png"} className="d8s"/>
+                                                    }       
+                                                </div>        
                                             </div>
-                                            }
-                                            {this.match(d, base, "combatlimit") !== undefined &&
-                                            <div>
-                                                {Array(this.match(d, base, "combatlimit")).fill(<img src="/images/combatlimit.png" className='combatlimit' style={{width: "7px"}}/>)}
+                                            )
+                                        }
+                                        else if (d.includes("_") 
+                                        && arry.length > 0) {
+                                            return null
+                                        }
+                                        else {
+                                            arry = []
+                                            return (
+                                            <div className={"card open" + this.state.open}>
+                                                <div className="card-dropdown">
+                                                    <img onClick={() => this.showHandleClick(d)} className={"icon" + " active" + (show.indexOf(d) > -1)} src={"/images/icons/" + d + ".png"} />
+                                                    <p className="card-name">{d}</p>
+                                                    { this.match(d, base, "summary") !== "\\" &&   
+                                                    <p className={"summary show" + (show.indexOf(d) > -1)}>{ this.match(d, base, "summary") }</p>
+                                                    }
+                                                    {(this.props.nome === "magie") && this.match(d, base, "costo", "mana") !== 0 &&
+                                                    <div>
+                                                        <img src="/images/mana.png" className="mana-bottle" />
+                                                        <p className="mana-cost">{ this.match(d, base, "costo", "mana") }%</p>
+                                                    </div>
+                                                    }
+                                                    {(this.props.nome === "magie") && this.match(d, base, "costo", "mana") === 0 &&
+                                                    <div>
+                                                        <img src="/images/mana.png" className="mana-bottle" />
+                                                        <p className="mana-cost">?</p>
+                                                    </div>
+                                                    }
+                                                    {(this.props.nome === "magie") && this.match(d, base, "costo", "skill") === "pratica_magica" &&
+                                                    <div>
+                                                        <img src="/images/magias/pratica_magica_ruota.png" className="magic-wheel" />
+                                                        { this.match(d, base, "costo", "cd") !== 0 &&
+                                                        <p className="cd-cost">{ this.match(d, base, "costo", "cd") }</p>
+                                                        }
+                                                        { this.match(d, base, "costo", "cd") === 0 &&
+                                                        <p className="cd-cost">?</p>
+                                                        }
+                                                    </div>
+                                                    }
+                                                    {(this.props.nome === "magie") && this.match(d, base, "costo", "petali") !== undefined &&
+                                                    <div>
+                                                        <img src="/images/petali.png" className="petali" />
+                                                        <p className="petali-cost"> { this.match(d, base, "costo", "petali") }</p>
+                                                    </div>
+                                                    }
+                                                    {this.match(d, base, "daylimit") !== undefined &&
+                                                    <div>
+                                                        {Array(this.match(d, base, "combatlimit")).fill(<img src="/images/daylimit.png" className='daylimit' style={{width: "12px"}}/>)}
+                                                    </div>
+                                                    }
+                                                    {this.match(d, base, "combatlimit") !== undefined &&
+                                                    <div>
+                                                        {Array(this.match(d, base, "combatlimit")).fill(<img src="/images/combatlimit.png" className='combatlimit' style={{width: "7px"}}/>)}
+                                                    </div>
+                                                    }
+                                                    {(this.props.nome === "attacchi") && 
+                                                    <img src={"/images/" + this.match(d, base, "check") + ".png"} className="dial"/>
+                                                    }                   
+                                                    {(this.props.nome === "attacchi") && 
+                                                    <img src = {"/images/dice/" + this.match(d, base, "effetto", "danni") + ".png"} className="d8s"/>
+                                                    }              
+                                                </div>                                        
                                             </div>
-                                            }
-                                            {(this.props.nome === "attacchi") && 
-                                            <img src={"/images/" + this.match(d, base, "check") + ".png"} className="dial"/>
-                                            }                   
-                                            {(this.props.nome === "attacchi") && 
-                                            <img src = {"/images/dice/" + this.match(d, base, "effetto", "danni") + ".png"} className="d8s"/>
-                                            }       
-                                        </div>        
-                                    </div>
-                                    )
+                                            )
+                                        }
+                                    }))
                                 }
-                                else if (d.includes("_") 
-                                && arry.length > 0) {
-                                return null
-                                }
-                                else {
-                                    arry = []
-                                    return (
-                                    <div className="card">
-                                        <div className="card-dropdown">
-                                            <img onClick={() => this.showHandleClick(d)} className={"icon" + " active" + (show.indexOf(d) > -1)} src={"/images/icons/" + d + ".png"} />
-                                            <p className="card-name">{d}</p>
-                                            { this.match(d, base, "summary") !== "\\" &&   
-                                            <p className={"summary show" + (show.indexOf(d) > -1)}>{ this.match(d, base, "summary") }</p>
-                                            }
-                                            {(this.props.nome === "magie") && this.match(d, base, "costo", "mana") !== 0 &&
-                                            <div>
-                                                <img src="/images/mana.png" className="mana-bottle" />
-                                                <p className="mana-cost">{ this.match(d, base, "costo", "mana") }%</p>
-                                            </div>
-                                            }
-                                            {(this.props.nome === "magie") && this.match(d, base, "costo", "mana") === 0 &&
-                                            <div>
-                                                <img src="/images/mana.png" className="mana-bottle" />
-                                                <p className="mana-cost">?</p>
-                                            </div>
-                                            }
-                                            {(this.props.nome === "magie") && this.match(d, base, "costo", "skill") === "pratica_magica" &&
-                                            <div>
-                                                <img src="/images/magias/pratica_magica_ruota.png" className="magic-wheel" />
-                                                { this.match(d, base, "costo", "cd") !== 0 &&
-                                                <p className="cd-cost">{ this.match(d, base, "costo", "cd") }</p>
-                                                }
-                                                { this.match(d, base, "costo", "cd") === 0 &&
-                                                <p className="cd-cost">?</p>
-                                                }
-                                            </div>
-                                            }
-                                            {(this.props.nome === "magie") && this.match(d, base, "costo", "petali") !== undefined &&
-                                            <div>
-                                                <img src="/images/petali.png" className="petali" />
-                                                <p className="petali-cost"> { this.match(d, base, "costo", "petali") }</p>
-                                            </div>
-                                            }
-                                            {this.match(d, base, "daylimit") !== undefined &&
-                                            <div>
-                                                {Array(this.match(d, base, "combatlimit")).fill(<img src="/images/daylimit.png" className='daylimit' style={{width: "12px"}}/>)}
-                                            </div>
-                                            }
-                                            {this.match(d, base, "combatlimit") !== undefined &&
-                                            <div>
-                                                {Array(this.match(d, base, "combatlimit")).fill(<img src="/images/combatlimit.png" className='combatlimit' style={{width: "7px"}}/>)}
-                                            </div>
-                                            }
-                                             {(this.props.nome === "attacchi") && 
-                                            <img src={"/images/" + this.match(d, base, "check") + ".png"} className="dial"/>
-                                            }                   
-                                            {(this.props.nome === "attacchi") && 
-                                            <img src = {"/images/dice/" + this.match(d, base, "effetto", "danni") + ".png"} className="d8s"/>
-                                            }              
-                                        </div>                                        
-            
-            </div>
-            )
-                                }
-                            }))
-                        }
+                                </div>
+                            </div>
                         </div>
-                </div>
                     </div>
                 }</div>
             </div>

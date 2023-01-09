@@ -135,32 +135,32 @@ class Pg extends React.Component {
     let totalCA = arrCA.reduce((a, b) => a + b, 0)  
 
     return (
-        <div className={data.religione + " App"}>
-          <div>
-            <Avatar 
-            gaugeOn={this.state.gaugeOn} gauge={this.gauge.bind(this)} gaugeHandleClick={this.gaugeHandleClick.bind(this)} gaugeCallback={this.gaugeCallback.bind(this)}
-            nome={data.nome} magia={data.religione} eta={data.eta} altezza={data.altezza} 
-            data={data} CA={10 + data.skills.motskills.reazione + totalCA} pf={this.state.pf}
-            mana={this.state.mana} luc={this.state.luc} maxpf={data.maxpf} maxmana={data.maxmana} maxluc={data.maxluc}
-            source={baseUrl + data.nome}/>
-            <div className='dropdown-wrapper'>
-              <Stats className="stats" data={data} />
-              <Dropdown nome="abilita_innate" base={abilita} data={data.abilita_innate}/>
-              <Dropdown nome="tattiche" base={tattiche} data={data.tattiche}/>
-              <Dropdown nome="magie" base={magie} data={data.magie}/>
-              <Dropdown nome="attacchi" base={attacchi} data={data.attacchi}/>
-              <Dropdown nome="bonus" base={bonus} data={data.bonus}/>
-              <Dropdown nome="inventario" base={inventario} data={data.inventario}/>
-              <Dropdown nome="missioni" base={missioni} data={data.missioni}/>
-              <Dropdown nome="background" base={data.background} />
-            </div>
-            <p>Risultato finale mod + add = {this.state.modificatore.mod + this.state.addstack}</p>
-            <ModAPI modificatore={this.state.modificatore.mod} data={this.state.data} mod={this.mod.bind(this)} flush={this.flush.bind(this)}/>
-            <AddAPI ref={this.AddAPI} addstack={this.state.addstack} modificatore={this.state.modificatore} data={data} bonus={this.state.bonus} add={this.add.bind(this)}/>
+      <div className={data.religione + " App"}>
+        <div>
+          <Avatar 
+          gaugeOn={this.state.gaugeOn} gauge={this.gauge.bind(this)} gaugeHandleClick={this.gaugeHandleClick.bind(this)} gaugeCallback={this.gaugeCallback.bind(this)}
+          nome={data.nome} magia={data.religione} eta={data.eta} altezza={data.altezza} 
+          data={data} CA={10 + data.skills.motskills.reazione + totalCA} pf={this.state.pf}
+          mana={this.state.mana} luc={this.state.luc} maxpf={data.maxpf} maxmana={data.maxmana} maxluc={data.maxluc}
+          source={baseUrl + data.nome} />
+          <div className='dropdown-wrapper'>
+            <Stats className="stats" data={data} />
+            <Dropdown nome="abilita_innate" base={abilita} data={data.abilita_innate}/>
+            <Dropdown nome="tattiche" base={tattiche} data={data.tattiche}/>
+            <Dropdown nome="magie" base={magie} data={data.magie}/>
+            <Dropdown nome="attacchi" base={attacchi} data={data.attacchi}/>
+            <Dropdown nome="bonus" base={bonus} data={data.bonus}/>
+            <Dropdown nome="inventario" base={inventario} data={data.inventario}/>
+            <Dropdown nome="missioni" base={missioni} data={data.missioni}/>
+            <Dropdown nome="background" base={data.background} />
           </div>
-          <Footer />
+          <p>Risultato finale mod + add = {this.state.modificatore.mod + this.state.addstack}</p>
+          <ModAPI modificatore={this.state.modificatore.mod} data={this.state.data} mod={this.mod.bind(this)} flush={this.flush.bind(this)}/>
+          <AddAPI ref={this.AddAPI} addstack={this.state.addstack} modificatore={this.state.modificatore} data={data} bonus={this.state.bonus} add={this.add.bind(this)}/>
         </div>
-      );  
+        <Footer />
+      </div>
+    );  
   }
 
   componentDidMount() {

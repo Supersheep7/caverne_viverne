@@ -9,14 +9,13 @@ class Gauges extends React.Component {
     render() {
 
         return(
-        this.props.gaugeOn === true &&
-        <div>
-            <div className='gauge-wrapper'>
+        <div className={"gauges-wrapper open" + this.props.gaugeOn}>
+            <div className={'gauge-wrapper'}>
                 <Gauge nome="pf" callback={this.callback} gaugeCallback={this.props.gaugeCallback} gaugeHandleClick={this.props.gaugeHandleClick} qty={this.props.pf} max={this.props.maxpf} />
                 <Gauge nome="mana" callback={this.callback} gaugeCallback={this.props.gaugeCallback} gaugeHandleClick={this.props.gaugeHandleClick} qty={this.props.mana} max={this.props.maxmana} />
                 <Gauge nome="luc" callback={this.callback} gaugeCallback={this.props.gaugeCallback} gaugeHandleClick={this.props.gaugeHandleClick} qty={this.props.luc} max={this.props.maxluc}/>
             </div>
-            <div className='dial-wrapper'>
+            <div className={'dial-wrapper'}>
                 <Dial nome="CA" int={this.props.CA}/>
                 <Dial nome="prestanza" int={this.props.prestanza}/>
                 <Dial nome="precisione" int={this.props.precisione}/>
@@ -64,11 +63,8 @@ function Gauge(props) {
     
     if (direction === "up") {
         upCounter();
-    }
+    } else { downCounter() }
 
-    else {
-        downCounter();
-    }
         }
 
   const upMouse = () => {
@@ -76,24 +72,24 @@ function Gauge(props) {
   };
     
     var percent = (counter / props.max * 100)
-        return (
-            <div className="outer-gauge">
-                <div className="inner-gauge gauge">
+    return (
+        <div className="outer-gauge">
+            <div className="inner-gauge gauge">
                 <button className='left btn' onMouseDown={() => downMouse("down")} onMouseUp={() => upMouse()} onMouseLeave={() => upMouse()}>&lt;</button>
                 <p className="gauge-text">{props.nome.toUpperCase()}:  {counter} / {props.max}</p>
                 <button className='right btn' onMouseDown={() => downMouse("up")} onMouseUp={() => upMouse()} onMouseLeave={() => upMouse()}>&gt;</button>
-                    <div className={props.nome + " bar"} style={{'width': percent+'%'}} />
-                </div>
+                <div className={props.nome + " bar"} style={{'width': percent+'%'}} />
             </div>
-        )
-    }
+        </div>
+    )
+}
 
 class Dial extends React.Component {
     render() {
         return (
             <div className='inner-dial'>
-            <img src={"/images/" + this.props.nome + ".png"} className="dial"/>
-            <p className="gauge-text dial-text">{this.props.int}</p>
+                <img src={"/images/" + this.props.nome + ".png"} className="dial"/>
+                <p className="gauge-text dial-text">{this.props.int}</p>
             </div>
         )
     }

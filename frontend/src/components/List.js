@@ -18,8 +18,8 @@ class List extends React.Component {
 
     return (
       <div className="App">
-      <Buttons className="Home"/>
-        </div>
+        <Buttons className="Home"/>
+      </div>
     );
   }
 }
