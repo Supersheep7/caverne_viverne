@@ -123,9 +123,11 @@ class Skill extends React.Component {
                         !this.props.nome.includes("_") &&
                         this.props.nome.charAt(0).toUpperCase() + this.props.nome.slice(1)
                         }
-                        {this.props.nome.includes("_") &&
+                        {this.props.nome.includes("_") && this.props.nome !== "forza_di_volonta" &&
                         this.props.nome.charAt(0).toUpperCase() + this.props.nome.slice(1).replace(/_/g, " ")
                         }
+                        {this.props.nome === "forza_di_volonta" && 
+                        "Forza di volontà"}
                         </h3>
                     </div>
                     <div className="skill-content">

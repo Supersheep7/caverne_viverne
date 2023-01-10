@@ -1,7 +1,5 @@
-import '../App.css';
 import React from 'react';
-import ModAPI from "./ModAPI";
-import AddAPI from "./AddAPI";
+import { DiceRoller, Overlay } from './DiceRoller';
 import Avatar from "./Avatar";
 import Footer from "./Footer"
 import Stats from "./Stats";
@@ -23,7 +21,8 @@ class Pg extends React.Component {
         mod: 0
       },
       addstack: 0,
-      isLoading: true, gaugeOn: false
+      isLoading: true, gaugeOn: false,
+      overlayOn: false
     };
       this.AddAPI = React.createRef();
       this.gaugeHandleClick = this.gaugeHandleClick.bind(this)
@@ -97,29 +96,43 @@ class Pg extends React.Component {
     this.setState({[stat]: count})
   }
 
-  mod(int, nome) {
-    this.setState({
-        modificatore: {
-          skill: nome,
-          mod: int
-        } 
-    })
-  }
 
-  add(int) {
-    this.setState({
-        addstack: this.state.addstack + int
-    })
-  }
+  overlayHandleClick() {
+    this.setState({overlayOn: !this.state.overlayOn})
+    if (this.state.overlayOn !== true) {
+    document.body.style.overflowY = "hidden"
+    }
+    else {
+    document.body.style.overflowY = "auto"
+    }
+}
 
-  flush() {
-    this.setState({
-      addstack: 0
-    })
-    this.AddAPI.current.setState({
-      active: []
-    })
-  }
+
+mod(int, nome) {
+  this.setState({
+      modificatore: {
+        skill: nome,
+        mod: int
+      } 
+  })
+}
+
+
+flush() {
+  this.setState({
+  addstack: 0
+  })
+  this.AddAPI.current.setState({
+  active: []
+  })
+}
+
+
+add(int) {
+  this.setState({
+      addstack: this.state.addstack + int
+  })
+}
 
   render() {
 
@@ -135,7 +148,13 @@ class Pg extends React.Component {
     let totalCA = arrCA.reduce((a, b) => a + b, 0)  
 
     return (
-      <div className={data.religione + " App"}>
+      <div className={data.religione + " App " + "overlay" + this.state.overlayOn}>
+                <div className={"dice-roller-overlay open" + this.state.overlayOn}><Overlay open={this.state.overlayOn}
+                  modificatore={this.state.modificatore} modificatoremod={this.state.modificatore.mod}
+                  data={data} bonus={bonus}
+                  ref={this.AddAPI} addstack={this.state.addstack}  mod={this.mod.bind(this)} flush={this.flush.bind(this)} add={this.add.bind(this)}
+          
+        /> </div>  
         <div>
           <Avatar 
           gaugeOn={this.state.gaugeOn} gauge={this.gauge.bind(this)} gaugeHandleClick={this.gaugeHandleClick.bind(this)} gaugeCallback={this.gaugeCallback.bind(this)}
@@ -154,11 +173,19 @@ class Pg extends React.Component {
             <Dropdown nome="missioni" base={missioni} data={data.missioni}/>
             <Dropdown nome="background" base={data.background} />
           </div>
-          <p>Risultato finale mod + add = {this.state.modificatore.mod + this.state.addstack}</p>
-          <ModAPI modificatore={this.state.modificatore.mod} data={this.state.data} mod={this.mod.bind(this)} flush={this.flush.bind(this)}/>
-          <AddAPI ref={this.AddAPI} addstack={this.state.addstack} modificatore={this.state.modificatore} data={data} bonus={this.state.bonus} add={this.add.bind(this)}/>
-        </div>
-        <Footer />
+        {/*  <AddAPI ref={this.props.AddAPI} addstack={this.props.addstack} modificatore={this.props.modificatore} data={this.props.data} bonus={this.props.bonus} add={this.props.add()}/>
+          <ModAPI modificatore={this.props.modificatoremod} data={this.props.data} mod={this.props.mod()} flush={this.props.flush()}/>        
+    */}</div>
+        
+        <DiceRoller 
+          modificatore={this.state.modificatore} modificatoremod={this.state.modificatore.mod}
+          data={data} bonus={bonus}
+          ref={this.AddAPI} addstack={this.state.addstack}
+          overlayHandleClick={this.overlayHandleClick.bind(this)}
+          mod={this.mod.bind(this)} flush={this.flush.bind(this)} add={this.add.bind(this)}
+          />
+          <Footer />
+
       </div>
     );  
   }
