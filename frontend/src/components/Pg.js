@@ -3,6 +3,7 @@ import { DiceRoller, Overlay } from './DiceRoller';
 import Avatar from "./Avatar";
 import Footer from "./Footer"
 import Stats from "./Stats";
+import Background from './Background';
 import Dropdown from "./Dropdown"
 
 class Pg extends React.Component {
@@ -11,21 +12,18 @@ class Pg extends React.Component {
     super(props);
     this.state = {
       /* Data viz and JSON fetch */ 
-      data: "", 
-      magie: [], abilita: [], inventario: [], tattiche: [], 
-      attacchi: [], missioni: [], bonus: [], CA: [],
+      data: "", inventario: [], CA: [],
       pf: 0, mana: 0, luc: 0,
       /* Interactivity */
       modificatore: {
         skill: "",
         mod: 0
       },
-      addstack: 0,
       active: [],
       isLoading: true, gaugeOn: false,
       overlayOn: false
     };
-      this.AddAPI = React.createRef();
+      this.DiceRoller = React.createRef();
       this.gaugeHandleClick = this.gaugeHandleClick.bind(this)
       this.match = this.match.bind(this)
   }
@@ -36,33 +34,9 @@ class Pg extends React.Component {
         .then(res => res.text())
         .then(res => this.setState({ data: JSON.parse(res), pf: JSON.parse(res)["pf"], mana: JSON.parse(res)["mana"], luc: JSON.parse(res)["luc"] }))
         .catch(err => err);
-    await fetch(`http://localhost:9000/dataAPI/abilita666`)
-        .then(res => res.text())
-        .then(res => this.setState({ abilita: JSON.parse(res) }))
-        .catch(err => err);
     await fetch(`http://localhost:9000/dataAPI/inventario666`)
         .then(res => res.text())
-        .then(res => this.setState({ inventario: JSON.parse(res) }))
-        .catch(err => err);
-    await fetch(`http://localhost:9000/dataAPI/bonus666`)
-        .then(res => res.text())
-        .then(res => this.setState({ bonus: JSON.parse(res) }))
-        .catch(err => err);
-    await fetch(`http://localhost:9000/dataAPI/tattiche666`)
-        .then(res => res.text())
-        .then(res => this.setState({ tattiche: JSON.parse(res) }))
-        .catch(err => err);
-    await fetch(`http://localhost:9000/dataAPI/attacchi666`)
-        .then(res => res.text())
-        .then(res => this.setState({ attacchi: JSON.parse(res) }))
-        .catch(err => err);
-    await fetch(`http://localhost:9000/dataAPI/magie666`)
-        .then(res => res.text())
-        .then(res => this.setState({ magie: JSON.parse(res) }))
-        .catch(err => err);
-    await fetch(`http://localhost:9000/dataAPI/missioni666`)
-        .then(res => res.text())
-        .then(res => this.setState({ missioni: JSON.parse(res), isLoading: false }))
+        .then(res => this.setState({ inventario: JSON.parse(res), isLoading: false }))
         .catch(err => err);
   }
   
@@ -78,10 +52,6 @@ class Pg extends React.Component {
       return docName.filter(obj => obj.nome.toLowerCase() === elemName.toLowerCase())[0][detail1]
     }
   }
-
-  activeFlush () {
-    this.setState ({active: [], addstack: 0})
-  } 
 
   /* State management for modifiers */
 
@@ -108,7 +78,7 @@ class Pg extends React.Component {
     document.body.style.overflowY = "hidden"
     }
     else {
-    document.body.style.overflowY = "auto"
+    document.body.style.overflowY = "overlay"
     }
 }
 
@@ -119,23 +89,6 @@ mod(int, nome) {
         skill: nome,
         mod: int
       } 
-  })
-}
-
-
-flush() {
-  this.setState({
-  addstack: 0
-  })
-  this.AddAPI.current.setState({
-  active: []
-  })
-}
-
-
-add(int) {
-  this.setState({
-      addstack: this.state.addstack + int
   })
 }
 
@@ -157,7 +110,7 @@ add(int) {
                 <div className={"dice-roller-overlay open" + this.state.overlayOn}><Overlay open={this.state.overlayOn}
                   modificatore={this.state.modificatore} modificatoremod={this.state.modificatore.mod}
                   data={data} bonus={bonus}
-                  ref={this.AddAPI} addstack={this.state.addstack}  mod={this.mod.bind(this)} flush={this.flush.bind(this)} add={this.add.bind(this)}
+                  ref={this.AddAPI} addstack={this.state.addstack}  mod={this.mod.bind(this)}
           
         /> </div>  
         <div>
@@ -169,23 +122,24 @@ add(int) {
           source={baseUrl + data.nome} />
           <div className='dropdown-wrapper'>
             <Stats data={data} />
-            <Dropdown nome="abilita_innate" base={abilita} data={data.abilita_innate}/>
-            <Dropdown nome="tattiche" base={tattiche} data={data.tattiche}/>
-            <Dropdown nome="magie" base={magie} data={data.magie}/>
-            <Dropdown nome="attacchi" base={attacchi} data={data.attacchi}/>
-            <Dropdown nome="bonus" base={bonus} data={data.bonus}/>
-            <Dropdown nome="inventario" base={inventario} data={data.inventario}/>
-            <Dropdown nome="missioni" base={missioni} data={data.missioni}/>
-            <Dropdown nome="background" base={data.background} />
+            <Dropdown nome="abilita_innate" base={"abilita"} data={data.abilita_innate}/>
+            <Dropdown nome="tattiche" base={"tattiche"} data={data.tattiche}/>
+            <Dropdown nome="magie" base={"magie"} data={data.magie}/>
+            <Dropdown nome="attacchi" base={"attacchi"} data={data.attacchi}/>
+            <Dropdown nome="bonus" base={"bonus"} data={data.bonus}/>
+            <Dropdown nome="inventario" base={"inventario"} data={data.inventario}/>
+            <Dropdown nome="missioni" base={"missioni"} data={data.missioni}/>
+            <Background nome="background" data={data}/>
           </div>
         </div>
         
         <DiceRoller 
+          ref={this.DiceRoller}
           modificatore={this.state.modificatore} modificatoremod={this.state.modificatore.mod}
           data={data} bonus={bonus} active={this.state.active}
-          ref={this.AddAPI} addstack={this.state.addstack}
+          addstack={this.state.addstack}
           overlayHandleClick={this.overlayHandleClick.bind(this)}
-          mod={this.mod.bind(this)} flush={this.flush.bind(this)} add={this.add.bind(this)} activeFlush={this.activeFlush.bind(this)}
+          mod={this.mod.bind(this)} 
           />
           <Footer />
         
@@ -194,7 +148,8 @@ add(int) {
   }
 
   componentDidMount() {
-  try {this.pgAPI()
+  try {
+    this.pgAPI()
   } catch (e) {console.log(e)}
   }
 }

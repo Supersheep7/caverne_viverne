@@ -103,12 +103,12 @@ class Inner extends React.Component {
 
     return (
         <div className={"inner-circle " + this.props.nome}>
-            <p onClick={() => {this.props.mod(modSum); this.props.setProva(this.props.nome)}}>{this.props.nome.charAt(0).toUpperCase() + this.props.nome.slice(1)}</p>
+            <p onClick={() => {this.props.mod(modSum); this.props.setProva(this.props.nome); this.props.flush()}}>{this.props.nome.charAt(0).toUpperCase() + this.props.nome.slice(1)}</p>
             <div className='stats-arrows'>
                 <img src="/images/arrows.png" style={{
                     transform: "rotate(180deg)"
-                }} onClick={() => this.props.turner(-1)}/>
-                <img src="/images/arrows.png" onClick={() => this.props.turner(1)}></img>
+                }} onClick={() => {this.props.turner(-1); this.props.flush()}}/>
+                <img src="/images/arrows.png" onClick={() => {this.props.turner(1); this.props.flush()}}></img>
             </div>
         </div>
     )

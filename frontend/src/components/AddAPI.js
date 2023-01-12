@@ -5,8 +5,17 @@ export default class AddAPI extends React.Component {
   constructor(props) {
       super(props)
       this.state = {
-        hover: []
+        hover: [],
+        bonus: [],
+        isLoading: true
       }
+  }
+
+  async adderAPI() {
+    await fetch(`http://localhost:9000/dataAPI/bonus666`)
+        .then(res => res.text())
+        .then(res => this.setState({ bonus: JSON.parse(res), isLoading: false }))
+        .catch(err => err);
   }
 
   match(elemName, docName, detail1, detail2 = "", detail3 = "") {
@@ -51,27 +60,35 @@ export default class AddAPI extends React.Component {
   
   render() {
 
+    let bonus = this.state.bonus
+
+    if (this.state.isLoading) {
+      return null
+    }
+
+    else {
+
     return (
       <div className='icons'>
       {this.props.data.bonus.map(d => {
         // Renders clean button
-        const stat = this.match(d, this.props.bonus, "modificatore", "skill")
+        const stat = this.match(d, bonus, "modificatore", "skill")
         const statSlice = stat.slice(0, 3).toLowerCase()
         if (
-          (this.props.modificatore.skill === this.match(d, this.props.bonus, "modificatore", "skill"))
+          (this.props.modificatore.skill === this.match(d, bonus, "modificatore", "skill"))
           // Checks stat modifiers
           || (this.props.data.stats[stat] !== undefined
           && this.props.data.skills[`${statSlice}skills`].hasOwnProperty(this.props.modificatore.skill))
-          || (this.match(d, this.props.bonus, "modificatore", "skill") === "\\")
+          || (this.match(d, bonus, "modificatore", "skill") === "\\")
         ) {
           if (!this.props.active.includes(d)) {
             return (
               <div className="flex column addcard">
-                <img onClick={() => {this.props.add(this.match(d, this.props.bonus, "modificatore", "bonus")); this.turnOn(d)}}
+                <img onClick={() => {this.props.add(this.match(d, bonus, "modificatore", "bonus")); this.turnOn(d)}}
                 className="icon" src={"/images/icons/" + this.cleanName(d) + ".png"} />
                 <div className="add-summary cardactivetrue">
                   <h2 className="iconTitle">{this.cleanName(d)}</h2>
-                  <p>{this.match(d, this.props.bonus, "summary")}</p>
+                  <p>{this.match(d, bonus, "summary")}</p>
                 </div>
               </div>     
               )
@@ -79,11 +96,11 @@ export default class AddAPI extends React.Component {
           else {
             return (
               <div className="flex column addcard">
-                <img onClick={() => {this.props.add(-(this.match(d, this.props.bonus, "modificatore", "bonus"))); this.turnOff(d)}}
+                <img onClick={() => {this.props.add(-(this.match(d, bonus, "modificatore", "bonus"))); this.turnOff(d)}}
                 className="icon active" src={"/images/icons/" + this.cleanName(d) + ".png"} />
                 <div className="add-summary cardactivetrue">
                   <h2 className="iconTitle">{this.cleanName(d)}</h2>
-                  <p>{this.match(d, this.props.bonus, "summary")}</p>
+                  <p>{this.match(d, bonus, "summary")}</p>
                 </div>
               </div>
             )
@@ -93,5 +110,12 @@ export default class AddAPI extends React.Component {
       }
       </div>
     )
+    }
   }
+
+  componentDidMount() {
+  try {this.adderAPI()
+  } catch (e) {console.log(e)}
+  }
+
 }

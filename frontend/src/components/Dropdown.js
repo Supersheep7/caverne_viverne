@@ -5,16 +5,26 @@ export default class Dropdown extends React.Component {
         super(props)
         this.state = {
             open: false,
-            show: []
+            show: [],
+            base: [],
+            isLoading: true
         }
     }
 
-    dropClick() {
-        console.log(this.props.data)
-        console.log(typeof this.props.data)
-        this.setState ({
-            open: !this.state.open
-        })
+    async dropAPI() {
+        await fetch(`http://localhost:9000/dataAPI/${this.props.base}666`)
+        .then(res => res.text())
+        .then(res => this.setState({ base: JSON.parse(res), isLoading: false }))
+        .catch(err => err);
+    }
+
+
+   async dropClick() {
+
+        await this.dropAPI()
+        .then(setTimeout(() => {
+            this.setState ({ open: !this.state.open })
+        }, 60))
     }
 
     showHandleClick(nome) {
@@ -53,17 +63,29 @@ export default class Dropdown extends React.Component {
             }
         }
 
-
     render() {
-        
+
         let data = this.props.data;
-        let base = this.props.base;
+        let base = this.state.base;
         let arry = []; 
         let show = this.state.show
 
+        if (this.state.isLoading) {
+            return ( 
+                <div className="dropdown-outer"> 
+                    <div className="dropdown-tag" onClick={() => {this.dropClick()}}>
+                        <h2 className="dropdown-text" >{this.tagHelper()}</h2>
+                        <img className={"svgarrow" + " open" + this.state.open} src="/images/chevron.png" />
+                    </div>
+                </div>
+             ) 
+    }
+
+        else {
+
         return (
             <div className="dropdown-outer"> 
-                <div className="dropdown-tag" onClick={() => this.dropClick()}>
+                <div className="dropdown-tag" onClick={() => {this.dropClick()}}>
                     <h2 className="dropdown-text" >{this.tagHelper()}</h2>
                     <img className={"svgarrow" + " open" + this.state.open} src="/images/chevron.png" />
                 </div>
@@ -74,9 +96,6 @@ export default class Dropdown extends React.Component {
                     <div className={"dropdown-bg open" + this.state.open}>
                         <div className={"dropdown-inner open" + this.state.open} onClick={(event) => this.flushClick(event)}>
                             <div className="padding-container">
-                                {/********** BACKGROUND SPECIAL **********/}    
-                                {this.props.nome === "background" &&
-                                <p className={"background open" + this.state.open}>{base}</p>}
                                 <div className={"open" + this.state.open}>    
                                 { this.props.nome !== "background" && 
                                     (data.map(d => {
@@ -274,6 +293,9 @@ export default class Dropdown extends React.Component {
                     </div>
                 }</div>
             </div>
-        )
+        ) 
+            }
     }
+
 }
+

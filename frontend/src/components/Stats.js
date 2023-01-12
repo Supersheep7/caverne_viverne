@@ -115,11 +115,11 @@ class Skill extends React.Component {
         let fav = this.props.nome === this.props.data.skills.favskill
 
         return (
-            <div id={this.props.nome}>
+            <div id={this.props.nome} className="skillcard">
                 <div className="skill-tag"> 
                     <img className={"skillimg" + " fav" + fav} src={"/images/attr/" + this.props.nome + ".png"}/>
-                    <div>
-                        <h3>{
+                    <div className='skilltitle'>
+                        <h4>{
                         !this.props.nome.includes("_") &&
                         this.props.nome.charAt(0).toUpperCase() + this.props.nome.slice(1)
                         }
@@ -128,12 +128,12 @@ class Skill extends React.Component {
                         }
                         {this.props.nome === "forza_di_volonta" && 
                         "Forza di volontà"}
-                        </h3>
+                        </h4>
                     </div>
                     <div className="skill-content">
                         <div>
                             <div>
-                                {Array(num).fill(<img src="/images/attr/attrpointfull.png" classNamen='attrfull' style={{width: "12px"}}/>)}
+                                {Array(num).fill(<img src="/images/attr/attrpointfull.png" className='attrfull' style={{width: "12px"}}/>)}
                             </div>
                         </div>
                     </div>
