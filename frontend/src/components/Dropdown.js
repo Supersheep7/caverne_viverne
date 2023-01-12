@@ -12,7 +12,7 @@ export default class Dropdown extends React.Component {
     }
 
     async dropAPI() {
-        await fetch(`http://localhost:9000/dataAPI/${this.props.base}666`)
+        await fetch(`http://192.168.1.36:9000/dataAPI/${this.props.base}666`)
         .then(res => res.text())
         .then(res => this.setState({ base: JSON.parse(res), isLoading: false }))
         .catch(err => err);
@@ -29,15 +29,15 @@ export default class Dropdown extends React.Component {
 
     showHandleClick(nome) {
         if (!this.state.show.includes(nome)) {
-        this.setState ({show: [nome]})
+            this.setState ({show: [nome]})
         }
-        else {this.setState ({show: []})}
+        else { this.setState ({show: []}) }
     }
 
     flushClick (e) {
         if (e.target.toString() === "[object HTMLDivElement]") {
         if (this.state.show.length > 0) {
-            this.setState ({show: []})
+            this.setState ({ show: [] })
         }  
     }
     }
@@ -53,13 +53,13 @@ export default class Dropdown extends React.Component {
 
     match(elemName, docName, detail1 = "", detail2 = "", detail3 = "") {
             if (arguments.length === 5) {
-            return (docName.filter(obj => obj.nome.toLowerCase() === elemName.toLowerCase())[0][detail1][detail2][detail3])
+                return (docName.filter(obj => obj.nome.toLowerCase() === elemName.toLowerCase())[0][detail1][detail2][detail3])
             }
             else if (arguments.length === 4) {
-            return (docName.filter(obj => obj.nome.toLowerCase() === elemName.toLowerCase())[0][detail1][detail2]) 
+                return (docName.filter(obj => obj.nome.toLowerCase() === elemName.toLowerCase())[0][detail1][detail2]) 
             }
             else {
-            return (docName.filter(obj => obj.nome.toLowerCase() === elemName.toLowerCase())[0][detail1]) 
+                return (docName.filter(obj => obj.nome.toLowerCase() === elemName.toLowerCase())[0][detail1]) 
             }
         }
 
@@ -79,7 +79,7 @@ export default class Dropdown extends React.Component {
                     </div>
                 </div>
              ) 
-    }
+        }
 
         else {
 
@@ -89,7 +89,6 @@ export default class Dropdown extends React.Component {
                     <h2 className="dropdown-text" >{this.tagHelper()}</h2>
                     <img className={"svgarrow" + " open" + this.state.open} src="/images/chevron.png" />
                 </div>
-
                 {/*************** INNER DROPDOWN ***************/}
                 <div className={"dropdown-father open" + this.state.open}>
                     {((typeof data === "object" && data.length > 0) || typeof data === "undefined") &&
@@ -109,22 +108,22 @@ export default class Dropdown extends React.Component {
                                                 return (
                                                     <div className={"card open" + this.state.open}>
                                                         <div className="card-dropdown">
-                                                        <img onClick={() => this.showHandleClick(d.nome)} className={"icon" + " active" + (show.indexOf(d.nome) > -1)} src={"/images/icons/" + arry[0].substring(0, arry[0].indexOf("_")) + ".png"} />
-                                                        <p className="card-name">{arry[0].substring(0, arry[0].indexOf("_"))}</p>
-                                                        { this.match(d.nome, base, "summary") !== "\\" &&   
-                                                        <p className={"summary show" + (show.indexOf(d.nome) > -1)}>{ this.match(d.nome, base, "summary") }</p>
-                                                        }
-                                                        <p className="quantity">{d.quantita}</p>
-                                                        { this.match(d.nome, base, "magia") !== "\\" &&
-                                                        <div>
-                                                            <img src={"/images/magias/" + this.match(d.nome, base, "magia") + ".png"} className="crystal-spell" />
-                                                        </div>
-                                                        }
-                                                        <div>
-                                                            <img src="/images/bag.png" className="bag" />
+                                                            <img onClick={() => this.showHandleClick(d.nome)} className={"icon" + " active" + (show.indexOf(d.nome) > -1)} src={"/images/icons/" + arry[0].substring(0, arry[0].indexOf("_")) + ".png"} />
+                                                            <p className="card-name">{arry[0].substring(0, arry[0].indexOf("_"))}</p>
+                                                            { this.match(d.nome, base, "summary") !== "\\" &&   
+                                                            <p className={"summary show" + (show.indexOf(d.nome) > -1)}>{ this.match(d.nome, base, "summary") }</p>
+                                                            }
                                                             <p className="quantity">{d.quantita}</p>
+                                                            { this.match(d.nome, base, "magia") !== "\\" &&
+                                                            <div>
+                                                                <img src={"/images/magias/" + this.match(d.nome, base, "magia") + ".png"} className="crystal-spell" />
+                                                            </div>
+                                                            }
+                                                            <div>
+                                                                <img src="/images/bag.png" className="bag" />
+                                                                <p className="quantity">{d.quantita}</p>
+                                                            </div>
                                                         </div>
-                                                    </div>
                                                     </div>
                                                 )
                                             }
@@ -137,24 +136,24 @@ export default class Dropdown extends React.Component {
                                                 return (
                                                     <div className={"card open" + this.state.open}>
                                                         <div className="card-dropdown">
-                                                        <img onClick={() => this.showHandleClick(d.nome)} className={"icon" + " active" + (show.indexOf(d.nome) > -1)} src={"/images/icons/" + d.nome + ".png"} />
-                                                        <p className="card-name">{d.nome}</p>
-                                                        { this.match(d.nome, base, "summary") !== "\\" &&   
-                                                        <p className={"summary show" + (show.indexOf(d.nome) > -1)}>{ this.match(d.nome, base, "summary") }</p>
-                                                        }
-                                                        <p className="quantity">{d.quantita}</p>
-                                                        { this.match(d.nome, base, "magia") !== "\\" &&
-                                                        <div>
-                                                            <img src={"/images/magias/" + this.match(d.nome, base, "magia") + ".png"} className="crystal-spell" />
-                                                        </div>
-                                                        }
-                                                        <div>
-                                                            <img src="/images/bag.png" className="bag" />
+                                                            <img onClick={() => this.showHandleClick(d.nome)} className={"icon" + " active" + (show.indexOf(d.nome) > -1)} src={"/images/icons/" + d.nome + ".png"} />
+                                                            <p className="card-name">{d.nome}</p>
+                                                            { this.match(d.nome, base, "summary") !== "\\" &&   
+                                                            <p className={"summary show" + (show.indexOf(d.nome) > -1)}>{ this.match(d.nome, base, "summary") }</p>
+                                                            }
                                                             <p className="quantity">{d.quantita}</p>
+                                                            { this.match(d.nome, base, "magia") !== "\\" &&
+                                                            <div>
+                                                                <img src={"/images/magias/" + this.match(d.nome, base, "magia") + ".png"} className="crystal-spell" />
+                                                            </div>
+                                                            }
+                                                            <div>
+                                                                <img src="/images/bag.png" className="bag" />
+                                                                <p className="quantity">{d.quantita}</p>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                    </div>
-                                                    )
+                                                )
                                             }
                                         } 
                                         {/********** ABILITIES, MAGIC, ETC. **********/}
@@ -201,7 +200,6 @@ export default class Dropdown extends React.Component {
                                                         <p className="petali-cost"> { this.match(d, base, "costo", "petali") }</p>
                                                     </div>
                                                     }
-
                                                     {this.match(d, base, "daylimit") !== undefined &&
                                                     <div>
                                                         {Array(this.match(d, base, "combatlimit")).fill(<img src="/images/daylimit.png" className='daylimit' style={{width: "12px"}}/>)}
@@ -293,9 +291,8 @@ export default class Dropdown extends React.Component {
                     </div>
                 }</div>
             </div>
-        ) 
-            }
+            ) 
+        }
     }
-
 }
 

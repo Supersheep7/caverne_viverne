@@ -12,7 +12,7 @@ export default class AddAPI extends React.Component {
   }
 
   async adderAPI() {
-    await fetch(`http://localhost:9000/dataAPI/bonus666`)
+    await fetch(`http://192.168.1.36:9000/dataAPI/bonus666`)
         .then(res => res.text())
         .then(res => this.setState({ bonus: JSON.parse(res), isLoading: false }))
         .catch(err => err);
@@ -68,54 +68,54 @@ export default class AddAPI extends React.Component {
 
     else {
 
-    return (
-      <div className='icons'>
-      {this.props.data.bonus.map(d => {
-        // Renders clean button
-        const stat = this.match(d, bonus, "modificatore", "skill")
-        const statSlice = stat.slice(0, 3).toLowerCase()
-        if (
-          (this.props.modificatore.skill === this.match(d, bonus, "modificatore", "skill"))
-          // Checks stat modifiers
-          || (this.props.data.stats[stat] !== undefined
-          && this.props.data.skills[`${statSlice}skills`].hasOwnProperty(this.props.modificatore.skill))
-          || (this.match(d, bonus, "modificatore", "skill") === "\\")
-        ) {
-          if (!this.props.active.includes(d)) {
-            return (
-              <div className="flex column addcard">
-                <img onClick={() => {this.props.add(this.match(d, bonus, "modificatore", "bonus")); this.turnOn(d)}}
-                className="icon" src={"/images/icons/" + this.cleanName(d) + ".png"} />
-                <div className="add-summary cardactivetrue">
-                  <h2 className="iconTitle">{this.cleanName(d)}</h2>
-                  <p>{this.match(d, bonus, "summary")}</p>
+      return (
+        <div className='icons'>
+        {this.props.data.bonus.map(d => {
+          // Renders clean button
+          const stat = this.match(d, bonus, "modificatore", "skill")
+          const statSlice = stat.slice(0, 3).toLowerCase()
+          if (
+            (this.props.modificatore.skill === this.match(d, bonus, "modificatore", "skill"))
+            // Checks stat modifiers
+            || (this.props.data.stats[stat] !== undefined
+            && this.props.data.skills[`${statSlice}skills`].hasOwnProperty(this.props.modificatore.skill))
+            || (this.match(d, bonus, "modificatore", "skill") === "\\")
+          ) {
+            if (!this.props.active.includes(d)) {
+              return (
+                <div className="flex column addcard">
+                  <img onClick={() => {this.props.add(this.match(d, bonus, "modificatore", "bonus")); this.turnOn(d)}}
+                  className="icon" src={"/images/icons/" + this.cleanName(d) + ".png"} />
+                  <div className="add-summary cardactivetrue">
+                    <h2 className="iconTitle">{this.cleanName(d)}</h2>
+                    <p>{this.match(d, bonus, "summary")}</p>
+                  </div>
+                </div>     
+                )
+              }
+            else {
+              return (
+                <div className="flex column addcard">
+                  <img onClick={() => {this.props.add(-(this.match(d, bonus, "modificatore", "bonus"))); this.turnOff(d)}}
+                  className="icon active" src={"/images/icons/" + this.cleanName(d) + ".png"} />
+                  <div className="add-summary cardactivetrue">
+                    <h2 className="iconTitle">{this.cleanName(d)}</h2>
+                    <p>{this.match(d, bonus, "summary")}</p>
+                  </div>
                 </div>
-              </div>     
               )
+              }
             }
-          else {
-            return (
-              <div className="flex column addcard">
-                <img onClick={() => {this.props.add(-(this.match(d, bonus, "modificatore", "bonus"))); this.turnOff(d)}}
-                className="icon active" src={"/images/icons/" + this.cleanName(d) + ".png"} />
-                <div className="add-summary cardactivetrue">
-                  <h2 className="iconTitle">{this.cleanName(d)}</h2>
-                  <p>{this.match(d, bonus, "summary")}</p>
-                </div>
-              </div>
-            )
-            }
-          }
-        })
-      }
-      </div>
-    )
+          })
+        }
+        </div>
+      )
     }
   }
 
   componentDidMount() {
-  try {this.adderAPI()
-  } catch (e) {console.log(e)}
+    try {this.adderAPI()
+    } catch (e) {console.log(e)}
   }
 
 }

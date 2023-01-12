@@ -959,11 +959,11 @@ position: absolute;
 padding: 15px 0px;
 }
 
-.greentrue * {
+.greentrue *, .result16, .result15 {
   filter: drop-shadow(0 0 2px rgb(0, 184, 0)) drop-shadow(0 0 2px rgb(0, 184, 0)) drop-shadow(0 0 2px rgb(0, 184, 0))
 }
 
-.redtrue * {
+.redtrue *, .result2, .result3 {
   filter: drop-shadow(0 0 2px red) drop-shadow(0 0 2px red) drop-shadow(0 0 2px red)
 }
 

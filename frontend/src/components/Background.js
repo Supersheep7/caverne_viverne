@@ -16,7 +16,6 @@ class Background extends React.Component {
             open: !this.state.open
         })
     }
-
     
     tagHelper() {
         if (this.props.nome === "abilita_innate") {

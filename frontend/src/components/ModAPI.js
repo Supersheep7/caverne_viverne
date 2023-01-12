@@ -46,14 +46,14 @@ class FullCircle extends React.Component {
         return (
         <div className={'wheel-wrapper wheelshow' + (this.props.show === this.props.turn)}>
             <div class="wheel">
-                    <Arc nome={Object.keys(skill)[0]} setProva={this.props.setProva} stat={this.props.nome} father={objSkills} data={this.props.data} mod={this.props.mod} flush={this.props.flush}/>
-                    <Arc nome={Object.keys(skill)[1]} setProva={this.props.setProva} stat={this.props.nome} father={objSkills} data={this.props.data} mod={this.props.mod} flush={this.props.flush}/>
-                    <Arc nome={Object.keys(skill)[2]} setProva={this.props.setProva} stat={this.props.nome} father={objSkills} data={this.props.data} mod={this.props.mod} flush={this.props.flush}/>
-                    <Arc nome={Object.keys(skill)[3]} setProva={this.props.setProva} stat={this.props.nome} father={objSkills} data={this.props.data} mod={this.props.mod} flush={this.props.flush}/>
-                    <Arc nome={Object.keys(skill)[4]} setProva={this.props.setProva} stat={this.props.nome} father={objSkills} data={this.props.data} mod={this.props.mod} flush={this.props.flush}/> 
-                    <div>
+                <Arc nome={Object.keys(skill)[0]} setProva={this.props.setProva} stat={this.props.nome} father={objSkills} data={this.props.data} mod={this.props.mod} flush={this.props.flush}/>
+                <Arc nome={Object.keys(skill)[1]} setProva={this.props.setProva} stat={this.props.nome} father={objSkills} data={this.props.data} mod={this.props.mod} flush={this.props.flush}/>
+                <Arc nome={Object.keys(skill)[2]} setProva={this.props.setProva} stat={this.props.nome} father={objSkills} data={this.props.data} mod={this.props.mod} flush={this.props.flush}/>
+                <Arc nome={Object.keys(skill)[3]} setProva={this.props.setProva} stat={this.props.nome} father={objSkills} data={this.props.data} mod={this.props.mod} flush={this.props.flush}/>
+                <Arc nome={Object.keys(skill)[4]} setProva={this.props.setProva} stat={this.props.nome} father={objSkills} data={this.props.data} mod={this.props.mod} flush={this.props.flush}/> 
+                <div>
                     <Inner nome={this.props.nome} setProva={this.props.setProva} turner={this.props.turner} stat={this.props.nome} data={this.props.data} mod={this.props.mod} flush={this.props.flush}/>
-                    </div>
+                </div>
             </div>
         </div>
         )
@@ -72,20 +72,21 @@ class Arc extends React.Component {
         let modSum = this.props.data.skills[this.props.father][this.props.nome] + this.props.data.stats[this.props.stat]
       
         return (
-            <div className={"arc"} style={{
-                backgroundImage: `url(${backgroundUrl})`,
-                backgroundSize: 'cover'
-            }}
-            onClick={() => {this.props.mod(modSum, this.props.nome); this.props.setProva(this.props.nome); this.props.flush()}}
-            > <p className="skillwheelname">{
-                !this.props.nome.includes("_") &&
-                this.props.nome.charAt(0).toUpperCase() + this.props.nome.slice(1)
-                }
-                {this.props.nome.includes("_") && this.props.nome !== "forza_di_volonta" &&
-                this.props.nome.charAt(0).toUpperCase() + this.props.nome.slice(1).replace(/_/g, " ")
-                }
-                {this.props.nome === "forza_di_volonta" && 
-                "Forza di volontà"}</p>
+            <div className={"arc"} style={{ backgroundImage: `url(${backgroundUrl})`, backgroundSize: 'cover' }}
+            onClick={() => {this.props.mod(modSum, this.props.nome); 
+                            this.props.setProva(this.props.nome); 
+                            this.props.flush()}}> 
+                <p className="skillwheelname">
+                    {
+                    !this.props.nome.includes("_") &&
+                    this.props.nome.charAt(0).toUpperCase() + this.props.nome.slice(1)
+                    }
+                    {this.props.nome.includes("_") && this.props.nome !== "forza_di_volonta" &&
+                    this.props.nome.charAt(0).toUpperCase() + this.props.nome.slice(1).replace(/_/g, " ")
+                    }
+                    {this.props.nome === "forza_di_volonta" && 
+                    "Forza di volontà"}
+                </p>
             </div>
         )
     }
@@ -105,12 +106,10 @@ class Inner extends React.Component {
         <div className={"inner-circle " + this.props.nome}>
             <p onClick={() => {this.props.mod(modSum); this.props.setProva(this.props.nome); this.props.flush()}}>{this.props.nome.charAt(0).toUpperCase() + this.props.nome.slice(1)}</p>
             <div className='stats-arrows'>
-                <img src="/images/arrows.png" style={{
-                    transform: "rotate(180deg)"
-                }} onClick={() => {this.props.turner(-1); this.props.flush()}}/>
+                <img src="/images/arrows.png" style={{ transform: "rotate(180deg)" }} onClick={() => {this.props.turner(-1); this.props.flush()}}/>
                 <img src="/images/arrows.png" onClick={() => {this.props.turner(1); this.props.flush()}}></img>
             </div>
         </div>
-    )
+        )
     }
 }

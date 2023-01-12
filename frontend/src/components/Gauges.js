@@ -72,6 +72,7 @@ function Gauge(props) {
   };
     
     var percent = (counter / props.max * 100)
+    
     return (
         <div className="outer-gauge">
             <div className="inner-gauge gauge">
