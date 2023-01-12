@@ -21,6 +21,7 @@ class Pg extends React.Component {
         mod: 0
       },
       addstack: 0,
+      active: [],
       isLoading: true, gaugeOn: false,
       overlayOn: false
     };
@@ -77,6 +78,10 @@ class Pg extends React.Component {
       return docName.filter(obj => obj.nome.toLowerCase() === elemName.toLowerCase())[0][detail1]
     }
   }
+
+  activeFlush () {
+    this.setState ({active: [], addstack: 0})
+  } 
 
   /* State management for modifiers */
 
@@ -140,7 +145,7 @@ add(int) {
     const baseUrl = "C:/Repo/Projects/caverne_viverne/frontend/public/images/";
   
     if (isLoading) {
-      return <h1>Loading...</h1>;
+      return null;
     }
 
     let arrCA = this.state.data.inventario.filter(d => this.match(d.nome, this.state.inventario, "modificatore", "skill") === "CA")
@@ -163,7 +168,7 @@ add(int) {
           mana={this.state.mana} luc={this.state.luc} maxpf={data.maxpf} maxmana={data.maxmana} maxluc={data.maxluc}
           source={baseUrl + data.nome} />
           <div className='dropdown-wrapper'>
-            <Stats className="stats" data={data} />
+            <Stats data={data} />
             <Dropdown nome="abilita_innate" base={abilita} data={data.abilita_innate}/>
             <Dropdown nome="tattiche" base={tattiche} data={data.tattiche}/>
             <Dropdown nome="magie" base={magie} data={data.magie}/>
@@ -173,26 +178,23 @@ add(int) {
             <Dropdown nome="missioni" base={missioni} data={data.missioni}/>
             <Dropdown nome="background" base={data.background} />
           </div>
-        {/*  <AddAPI ref={this.props.AddAPI} addstack={this.props.addstack} modificatore={this.props.modificatore} data={this.props.data} bonus={this.props.bonus} add={this.props.add()}/>
-          <ModAPI modificatore={this.props.modificatoremod} data={this.props.data} mod={this.props.mod()} flush={this.props.flush()}/>        
-    */}</div>
+        </div>
         
         <DiceRoller 
           modificatore={this.state.modificatore} modificatoremod={this.state.modificatore.mod}
-          data={data} bonus={bonus}
+          data={data} bonus={bonus} active={this.state.active}
           ref={this.AddAPI} addstack={this.state.addstack}
           overlayHandleClick={this.overlayHandleClick.bind(this)}
-          mod={this.mod.bind(this)} flush={this.flush.bind(this)} add={this.add.bind(this)}
+          mod={this.mod.bind(this)} flush={this.flush.bind(this)} add={this.add.bind(this)} activeFlush={this.activeFlush.bind(this)}
           />
           <Footer />
-
+        
       </div>
     );  
   }
 
   componentDidMount() {
-  try {
-    this.pgAPI();
+  try {this.pgAPI()
   } catch (e) {console.log(e)}
   }
 }

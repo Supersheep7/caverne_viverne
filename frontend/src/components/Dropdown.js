@@ -76,7 +76,7 @@ export default class Dropdown extends React.Component {
                             <div className="padding-container">
                                 {/********** BACKGROUND SPECIAL **********/}    
                                 {this.props.nome === "background" &&
-                                <p className={"card-name background open" + this.state.open}>{base}</p>}
+                                <p className={"background open" + this.state.open}>{base}</p>}
                                 <div className={"open" + this.state.open}>    
                                 { this.props.nome !== "background" && 
                                     (data.map(d => {

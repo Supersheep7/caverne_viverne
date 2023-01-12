@@ -118,7 +118,6 @@ h1, h2, h3, p, .infos, .skill-content, .btn {
 }
 
 .stats.opentrue {
-  
   border-bottom: 2px solid whitesmoke
 }
 
@@ -631,8 +630,13 @@ h1, h2, h3, p, .infos, .skill-content, .btn {
 }
 
 .background {
-  font-size: 22px;
+  font-size: 24px;
+  font-weight: 600;
+  color: black;
+  filter: drop-shadow(0 0 2px whitesmoke) drop-shadow(0 0 2px whitesmoke) ;
   text-align: justify;
+  line-height: 140%;
+  margin-top: 15px;
 }
 
 #footer {
@@ -664,18 +668,12 @@ filter: drop-shadow(0px 0px 4px orange) drop-shadow(0px 0px 4px orange) drop-sha
 }
 
 .card-name {
-  font-size: 22px;
-  margin-top: 15px;
   filter: drop-shadow(0px 0px 1px black)
   drop-shadow(0px 0px 1px black)
   drop-shadow(0px 0px 1px black)
   drop-shadow(0px 0px 1px black)
 }
 
-.background {
-  filter: drop-shadow(0px 0px 1px black) drop-shadow(0px 0px 1px black) drop-shadow(0px 0px 1px black); 
-  line-height: 140%;
-}
 
 .showtrue {
   display: block;
@@ -759,8 +757,8 @@ filter: drop-shadow(0px 0px 4px orange) drop-shadow(0px 0px 4px orange) drop-sha
 }
 
 .dice-roller-wrapper {
-  width: 100px;
-  height: 100px;
+  width: 70px;
+  height: 70px;
   position: fixed;
   bottom: 60px;
   right: 40px;
@@ -783,8 +781,9 @@ filter: drop-shadow(0px 0px 4px orange) drop-shadow(0px 0px 4px orange) drop-sha
 }
 
 .dice-roller-circle img {
-  margin-top: 13px;
-  width: 70px;
+  margin-top: 10px;
+  margin-left: 0px;
+  width: 50px;
 }
 
 .dice-roller-overlay.openfalse {
@@ -833,7 +832,7 @@ filter: drop-shadow(0px 0px 4px orange) drop-shadow(0px 0px 4px orange) drop-sha
   width: 17%;
 }
 
-.overlay-content img {
+.overlay-content .icon {
   width: 100px;
 }
 
@@ -878,4 +877,92 @@ opacity: 0;
 height: 0;
 z-index: -1;
 position: absolute;
+}
+
+.dicerandom {
+  width: 60px;
+  filter: drop-shadow(0 0 2px whitesmoke) drop-shadow(0 0 2px whitesmoke)
+}
+
+.dicerandom:hover {
+  filter: drop-shadow(0 0 2px orange) drop-shadow(0 0 2px orange);
+  cursor: pointer
+}
+
+.dicerandom-wrapper {
+  position: relative;
+  padding: 0px 5px;
+  height: 100px;
+}
+
+.dicerandom-wrapper p {
+  position: absolute;
+  top: 65px;
+  font-size: x-large;
+  left: 15px;
+  width: 40px;
+}
+
+.total-wrapper {
+  position: relative
+}
+
+.total-wrapper p {
+  position: absolute;
+  top: -30px;
+  left: 101px;
+  font-size: 50px;
+  width: 50px;
+  filter: drop-shadow(0 0 2px orange) drop-shadow(0 0 2px orange) drop-shadow(0 0 2px orange)
+}
+
+.d8showfalse, .vantaggioshowfalse,.svantaggioshowfalse {
+  opacity: 0;
+  max-height: 0;
+  margin: 0;
+  padding: 0;
+  line-height: 0;
+  overflow: hidden;
+} 
+
+.d8showtrue, .vantaggioshowtrue, .svantaggioshowtrue {
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 1;
+  height: auto;
+  transition: opacity 1s;
+} 
+
+#dice-roller {
+
+  height: 500px;
+}
+
+#dice-roller > * {
+padding: 15px 0px;
+}
+
+.greentrue * {
+  filter: drop-shadow(0 0 2px rgb(0, 184, 0)) drop-shadow(0 0 2px rgb(0, 184, 0)) drop-shadow(0 0 2px rgb(0, 184, 0))
+}
+
+.redtrue * {
+  filter: drop-shadow(0 0 2px red) drop-shadow(0 0 2px red) drop-shadow(0 0 2px red)
+}
+
+.modificatore-wrapper {
+  justify-content: space-evenly;
+  height: auto;
+  padding: 0;
+}
+
+.overlay-header {
+  position: absolute;
+  top: 30px;
+  left: 50%;
+  transform: translate(-50%);
+  font-size: 50px;
+  color: whitesmoke;
+  filter: drop-shadow(0 0 1px black) drop-shadow(0 0 1px black) drop-shadow(0 0 1px black)
 }

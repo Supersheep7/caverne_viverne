@@ -5,7 +5,7 @@ export default class AddAPI extends React.Component {
   constructor(props) {
       super(props)
       this.state = {
-        active: []
+        hover: []
       }
   }
 
@@ -24,12 +24,21 @@ export default class AddAPI extends React.Component {
   }
   
   turnOn(b) {
-      this.state.active.push(b)
+      this.props.active.push(b)
   }
 
   turnOff(b) {
-    let dropBoy = this.state.active.indexOf(b)
-    if (dropBoy > -1) { this.state.active.splice(dropBoy, 1) }
+    let dropBoy = this.props.active.indexOf(b)
+    if (dropBoy > -1) { this.props.active.splice(dropBoy, 1) }
+  }
+  
+  hoverOn(b) {
+    this.state.hover.push(b)
+  }
+
+  hoverOff(b) {
+    let dropBoy = this.state.hover.indexOf(b)
+    if (dropBoy > -1) { this.state.hover.splice(dropBoy, 1) }
   }
 
   cleanName(string) {
@@ -44,7 +53,6 @@ export default class AddAPI extends React.Component {
 
     return (
       <div className='icons'>
-      {/* {this.props.addstack} */}
       {this.props.data.bonus.map(d => {
         // Renders clean button
         const stat = this.match(d, this.props.bonus, "modificatore", "skill")
@@ -56,11 +64,12 @@ export default class AddAPI extends React.Component {
           && this.props.data.skills[`${statSlice}skills`].hasOwnProperty(this.props.modificatore.skill))
           || (this.match(d, this.props.bonus, "modificatore", "skill") === "\\")
         ) {
-          if (!this.state.active.includes(d)) {
+          if (!this.props.active.includes(d)) {
             return (
               <div className="flex column addcard">
-                <img onClick={() => {this.props.add(this.match(d, this.props.bonus, "modificatore", "bonus")); this.turnOn(d)}} className="icon" src={"/images/icons/" + this.cleanName(d) + ".png"} />
-                <div className={"add-summary cardactive" + this.state.active.includes(d)}>
+                <img onClick={() => {this.props.add(this.match(d, this.props.bonus, "modificatore", "bonus")); this.turnOn(d)}}
+                className="icon" src={"/images/icons/" + this.cleanName(d) + ".png"} />
+                <div className="add-summary cardactivetrue">
                   <h2 className="iconTitle">{this.cleanName(d)}</h2>
                   <p>{this.match(d, this.props.bonus, "summary")}</p>
                 </div>
@@ -70,8 +79,9 @@ export default class AddAPI extends React.Component {
           else {
             return (
               <div className="flex column addcard">
-                <img onClick={() => {this.props.add(-(this.match(d, this.props.bonus, "modificatore", "bonus"))); this.turnOff(d)}} className="icon active" src={"/images/icons/" + this.cleanName(d) + ".png"} />
-                <div className={"add-summary cardactive" + this.state.active.includes(d)}>
+                <img onClick={() => {this.props.add(-(this.match(d, this.props.bonus, "modificatore", "bonus"))); this.turnOff(d)}}
+                className="icon active" src={"/images/icons/" + this.cleanName(d) + ".png"} />
+                <div className="add-summary cardactivetrue">
                   <h2 className="iconTitle">{this.cleanName(d)}</h2>
                   <p>{this.match(d, this.props.bonus, "summary")}</p>
                 </div>
