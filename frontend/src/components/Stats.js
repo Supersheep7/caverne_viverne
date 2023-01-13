@@ -19,7 +19,7 @@ class Stats extends React.Component {
         return(
             <div>
                 <div className={"dropdown-tag"} onClick={() => this.dropClick()}>
-                    <h2 className="dropdown-text" >Stats</h2>
+                    <h2 className="dropdown-text">Stats</h2>
                     <img className={"svgarrow" + " open" + this.state.open} src="/images/chevron.png" />
                 </div>
                 <div className={"stats open" + this.state.open}>

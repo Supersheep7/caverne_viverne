@@ -152,7 +152,7 @@ export class Overlay extends React.Component {
                             <img className="dicerandom" src="/images/dice/svantaggio.png" onClick={() => {this.roll3d8(); this.showroom("svantaggio")}} />
                             <p className={"svantaggioshow" + (this.state.nowshowing === "svantaggio") + " result" + this.svantaggio(this.state.d8n0, this.state.d8n1, this.state.d8n2)}>{this.svantaggio(this.state.d8n0, this.state.d8n1, this.state.d8n2)}</p>
                         </div>
-                        <div className="dicerandom-wrapper">
+                        <div className="dicerandom-wrapper d8dicerandom">
                             <img className="dicerandom" src="/images/dice/2d8.png" onClick={() => {this.roll2d8(); this.showroom("d8"); }} />
                             <p className={"d8show" + (this.state.nowshowing === "d8") + " result" + (this.state.d8n0 + this.state.d8n1)}>{this.state.d8n0 + this.state.d8n1}</p>
                         </div>

@@ -6,6 +6,7 @@
 body {
   background: url("../public/images/bgs/app.jpg")  no-repeat center center fixed;
   background-size: cover;
+  overflow-y: overlay;
 }
 
 .App {
@@ -392,7 +393,7 @@ button:active {
 
 /*** ALL DROPDOWNS ***/
 
-.backdrop, .dropdown-inner {
+.backdrop, .dropdown-inner, .dropdown-father {
   background: url("../public/images/bgs/backdrop.jpg") no-repeat center center fixed;
 }
 
@@ -668,6 +669,9 @@ filter: drop-shadow(0px 0px 4px orange) drop-shadow(0px 0px 4px orange) drop-sha
 
 .showfalse {
   opacity: 0;
+  height: 0;
+  width: 0;
+  overflow: hidden;
   max-height: 0;
   position: absolute;
 }
@@ -678,6 +682,7 @@ filter: drop-shadow(0px 0px 4px orange) drop-shadow(0px 0px 4px orange) drop-sha
 }
 
 .card-name {
+  font-size: 22px;
   filter: drop-shadow(0px 0px 1px black)
   drop-shadow(0px 0px 1px black)
   drop-shadow(0px 0px 1px black)
@@ -690,8 +695,8 @@ filter: drop-shadow(0px 0px 4px orange) drop-shadow(0px 0px 4px orange) drop-sha
   position: absolute;
   font-size: medium;
   top: 75%;
-  left: -77px;
-  z-index: 3;
+  left: 50%;
+  transform: translateX(-50%);
   background-color: #1F1D36;
   border-radius: 20px;
   width: 150%;
@@ -759,11 +764,13 @@ filter: drop-shadow(0px 0px 4px orange) drop-shadow(0px 0px 4px orange) drop-sha
 }
 
 .daylimit {
-  right: 94px;
+  right: 44%;
+  transform: translateX(-50%)
 }
 
 .combatlimit {
-  right: 96px;
+  right: 45%;
+  transform: translateX(-50%)
 }
 
 .dice-roller-wrapper {
@@ -837,6 +844,8 @@ filter: drop-shadow(0px 0px 4px orange) drop-shadow(0px 0px 4px orange) drop-sha
 
 .overlay-content > div:first-child {
   width: 33%;
+  
+  padding-right: 40px;
 }
 
 .overlay-content > div:nth-child(2) {
@@ -926,7 +935,8 @@ position: absolute;
 .total-wrapper p {
   position: absolute;
   top: -30px;
-  left: 101px;
+  left: 50%;
+  transform: translateX(-50%);
   font-size: 50px;
   width: 50px;
   filter: drop-shadow(0 0 2px orange) drop-shadow(0 0 2px orange) drop-shadow(0 0 2px orange)
@@ -951,12 +961,12 @@ position: absolute;
 } 
 
 #dice-roller {
-
   height: 500px;
 }
 
 #dice-roller > * {
 padding: 15px 0px;
+flex-wrap: nowrap;
 }
 
 .greentrue *, .result16, .result15 {
@@ -974,10 +984,9 @@ padding: 15px 0px;
 }
 
 .overlay-header {
-  position: absolute;
-  top: 30px;
-  left: 50%;
-  transform: translate(-50%);
+  position: static;
+  margin-top: 10px;
+  width: 100%;
   font-size: 50px;
   color: whitesmoke;
   filter: drop-shadow(0 0 1px black) drop-shadow(0 0 1px black) drop-shadow(0 0 1px black)
@@ -1001,6 +1010,61 @@ padding: 15px 0px;
   .infoname {
     font-size: 250%;
   }
+
+  .overlay-content {
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-evenly;
+    overflow-y: scroll;
+  }
+
+  .overlay-content > div:nth-child(2) {
+    width: 90%;
+    margin-left: 0px;
+    padding: 10px;
+}
+  .overlay-content > div:nth-child(1) {
+    padding: 10px;
+    width: 360px;
+    height: 360px;
+    align-self: flex-start;
+    margin-top: 100px;
+}
+
+.modificatore-wrapper {
+  justify-content: center;
+}
+
+.modificatore-wrapper > * {
+  padding: 0 10px;
+}
+
+.modificatore-wrapper p {
+  margin: 0;
+}
+
+.total-wrapper p {
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.overlay-content  .wheels {
+  width: 360px;
+  height: 360px;
+}
+
+.wheel-wrapper {
+  width: 360px;
+  height: 360px;
+}
+
+.icons {
+  padding: 10px;
+}
+
+  .overlay-content > div:nth-child(3) {
+    width: 100%;
+}
 
  }
 
@@ -1057,6 +1121,11 @@ padding: 15px 0px;
     font-size: 7vw;
   }
 
+  .total-wrapper p {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
   .navigator *, #home {
     width: 50px
   }
@@ -1067,19 +1136,42 @@ padding: 15px 0px;
 
   .dice-roller-wrapper {
     bottom: 5%;
-    left: 50%;
+    right: 0;
+    margin-top: 0;
+  }
+
+  
+  #dice-roller > div:nth-child(3) {
+    width: 100%;
+  }
+
+  .favtrue {
+    filter:  drop-shadow(0px 0px 4px orange) drop-shadow(0px 0px 4px orange) drop-shadow(0px 0px 4px orange) 
+ 
   }
   
+  .dropdown-text {
+    font-size: x-large;
+  }
+
+  .svgarrow {
+    width: 30px;
+    padding: 0;
+  }
+
   .statscards {
     display: flex;
     flex-direction: column;
     padding: 10px;
+    margin-right: 3%;
+    max-height: 30000px;
   }
 
   .stat-container {
     height: 50px;
     padding: 0;
-    width: 100%;
+    margin: 0;
+    width: 90%;
   }
 
   .stat-container > div {
@@ -1133,6 +1225,8 @@ padding: 15px 0px;
     transform: translateX(0)
   }
 
+ 
+
   .skill-content, .skill-content > div {
     width: 100px!important;
   }
@@ -1163,12 +1257,361 @@ padding: 15px 0px;
     height: 60px;
   }
 
+  
+  .overlay-header {
+    top: 0px;
+    right: 0;
+    position: fixed;
+    font-size: 20px;
+    z-index: 11;
+    background-color: #1F1D36;
+    width: 100%;
+    margin-top: 0px;
+    padding: 5px 0;
+  }
+
   .dice > div > img, .dice > div > p {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     margin: 0;
+  }
+
+  .card, .card-dropdown {
+    width: 100px;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0;
+  }
+
+ .icon {
+    width: 90%;
+  }
+
+  .padding-container {
+    padding: 30px;
+  }
+
+  .showtrue {
+    top: 75%;
+    max-height: 500px;
+  }
+
+  .daylimit, .combatlimit {
+    top: 101px;
+   }
+
+   .daylimit {
+    right: 37%;
+  }
+
+  .combatlimit {
+    right: 43%;
+  }
+
+  .card-name {
+    font-size: 14px;
+  }
+
+  .d8s, .dropdown-inner .dial, .bag {
+    width: 35px;
+  }
+
+  .d8s {
+    right: 10px;
+  }
+
+  .bag {
+    right: 0;
+  }
+
+  .quantity {
+    font-size: 16px;
+    right: 0;
+    top: 17px;
+  }
+
+  .crystal-spell {
+    width: 15px;
+    bottom: 0;
+    top: 70px;
+    left: 15px;
+  }
+
+  .mana-bottle {
+    width: 25px;
+    right: 10px;
+  }
+
+  .mana-cost, .petali-cost, .cd-cost {
+    font-size: 12px;
+  }
+
+  .petali-cost {
+    top: 64px;
+    right: 11px;
+  }
+
+  .cd-cost {
+    left: 10px;
+    top: 62px;
+  }
+
+  .mana-cost {
+    top: 10px;
+    right: 6px;
+  }
+
+  .petali {
+    width: 23px;
+    right: 10px;
+    bottom: 0;
+    top: 65px;
+  }
+
+  .magic-wheel {
+    width: 30px;
+    left: 5px;
+    bottom: 0;
+    top: 65px;
+  }
+
+  .dropdown-inner .dial {
+    top: 65px;
+    left: 40px;
+  }
+
+  .overlay-content {
+    flex-direction: column;
+    overflow-y: scroll;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+  }
+
+  .overlay-content > div {
+    top: 100px;
+  }
+  
+
+  .overlay-content .wheels {
+    position: static;
+  }
+
+  .wheel {
+    width: 240px;
+  }
+
+  .wheels .inner-circle {
+    width: 120px;
+    height: 120px;
+  }
+
+  .wheel > .arc {
+    width: 90px;
+    height: 90px;
+  }
+
+  .wheel > .arc:nth-child(1) {
+    top: 0;
+  }
+  .wheel > .arc:nth-child(2) {
+    
+    bottom: 27px;
+    left: 55px;
+
+  }
+  .wheel > .arc:nth-child(3) {
+    left: 20px;
+  }
+  .wheel > .arc:nth-child(4) {
+    
+    bottom: 27px;
+    right: 55px;
+  }
+  .wheel > .arc:nth-child(5) {
+    right: 20px;
+  }
+
+  .stats-arrows .stat-arrow {
+    width: 25px;
+    padding: 0 20px;
+  }
+
+  .arc .skillwheelname {
+    font-size: large;
+    min-width: 100px;
+    max-width: fit-content;
+  }
+
+  .wheels .wheel-wrapper {
+    position: static;
+    transform: translate(0, 0);
+    padding-top: 10px;
+    height: 360px;
+  }
+
+  .wheels .wheelshowfalse {
+    padding-top: 0;
+  }
+
+  .overlay-content > div:first-child {
+    width: 100%;
+    height: 360px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.overlay-content > div:nth-child(2) {
+  width: 95%;
+  margin-left: 0px;
+  margin-top: 0px;
+}
+
+.overlay-content > div:nth-child(3) {
+  width: 95%;
+}
+
+.overlay-content > div:nth-child(2) > .icons {
+  padding: 0 0;
+  justify-content: center;
+}
+
+.modificatore-wrapper {
+  flex-direction: column;
+  height: 200px;
+  margin-top: -20px;
+}
+
+.modificatore-wrapper  * {
+  height: fit-content;
+  margin: 0;
+}
+
+#dice-roller {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  height: auto;
+}
+
+}
+
+@media only screen and (max-width: 450px) {
+
+  
+    
+
+  .wheel {
+    width: 200px;
+  }
+
+  .wheels .inner-circle {
+    width: 100px;
+    height: 100px;
+  }
+
+  .wheel > .arc {
+    width: 75px;
+    height: 75px;
+  }
+
+  .wheel > .arc:nth-child(1) {
+    top: 30px;
+  }
+  .wheel > .arc:nth-child(2) {
+    
+    bottom: 57px;
+    left: 75px;
+
+  }
+  .wheel > .arc:nth-child(3) {
+    left: 40px;
+    top: 100px;
+  }
+  .wheel > .arc:nth-child(4) {
+    
+    bottom: 57px;
+    right: 75px;
+  }
+
+  .wheel > .arc:nth-child(5) {
+    right: 40px;
+    top: 100px;
+  }
+
+  .inner-circle p:first-child {
+    font-size: 24px;
+    margin-top: 40px;
+    margin-bottom: 15px;
+  }
+
+  .stats-arrows .stat-arrow {
+    width: 20px;
+    padding: 0 20px;
+    margin-top: 0;
+  }
+
+  .arc .skillwheelname {
+    font-size: medium;
+    min-width: 100px;
+    max-width: fit-content;
+  }
+
+  .dicerandom {
+    width: 60px;
+  }
+
+  .overlay-content > div:nth-child(2) {
+    margin-top: -20px;
+  }
+
+  .dicerandom-wrapper {
+    margin-top: 0;
+    height: 60px;
+  }
+
+  #dice-roller > div:nth-child(2) {
+    flex-direction: column;
+    padding-right: 50px;
+  }
+
+
+  #dice-roller > div:nth-child(3) > p {
+    display: none;
+  }
+
+  .d8dicerandom {
+    order: 3;
+  }
+
+  .dicerandom-wrapper p {
+    top: -8px;
+    left: 80px
+  }
+
+  .total-wrapper p {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .total-wrapper {
+    min-height: 100px;
+  }
+
+  .overlay-header {
+    top: 0px;
+    right: 0;
+    position: fixed;
+    font-size: 20px;
+    z-index: 11;
+    background-color: #1F1D36;
+    width: 100%;
+    padding: 5px 0;
   }
 
 }
