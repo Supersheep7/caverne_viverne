@@ -29,11 +29,11 @@ class Pg extends React.Component {
 
   // This machine fetches all the details from the controllers located in localhost:9000
   async pgAPI() {
-    await fetch(`http://192.168.1.138:9000${window.location.pathname}`)
+    await fetch(`http://localhost:9000${window.location.pathname}`)
         .then(res => res.text())
         .then(res => this.setState({ data: JSON.parse(res), pf: JSON.parse(res)["pf"], mana: JSON.parse(res)["mana"], luc: JSON.parse(res)["luc"] }))
         .catch(err => err);
-    await fetch(`http://192.168.1.138:9000/dataAPI/inventario666`)
+    await fetch(`http://localhost:9000/dataAPI/inventario666`)
         .then(res => res.text())
         .then(res => this.setState({ inventario: JSON.parse(res), isLoading: false }))
         .catch(err => err);
@@ -92,7 +92,7 @@ mod(int, nome) {
 
   render() {
 
-    const { isLoading, magie, abilita, attacchi, bonus, tattiche, missioni, inventario, data } = this.state
+    const { isLoading, bonus, data } = this.state
     const baseUrl = "C:/Repo/Projects/caverne_viverne/frontend/public/images/";
   
     if (isLoading) {
@@ -105,14 +105,8 @@ mod(int, nome) {
 
     return (
       <div className={data.religione + " App " + "overlay" + this.state.overlayOn + " visible" + this.state.visible}>
-          <div className={"dice-roller-overlay open" + this.state.overlayOn}>
-            <Overlay open={this.state.overlayOn}
-            modificatore={this.state.modificatore} modificatoremod={this.state.modificatore.mod}
-            data={data} bonus={bonus}
-            ref={this.AddAPI} addstack={this.state.addstack}  mod={this.mod.bind(this)}/> 
-          </div>  
         <div>
-          <Avatar 
+        <Avatar 
           gaugeOn={this.state.gaugeOn} gauge={this.gauge.bind(this)} gaugeHandleClick={this.gaugeHandleClick.bind(this)} gaugeCallback={this.gaugeCallback.bind(this)}
           nome={data.nome} magia={data.religione} eta={data.eta} altezza={data.altezza} 
           data={data} CA={10 + data.skills.motskills.reazione + totalCA} pf={this.state.pf}
@@ -139,6 +133,12 @@ mod(int, nome) {
           mod={this.mod.bind(this)} 
           />
         <Footer />  
+        <div className={"dice-roller-overlay open" + this.state.overlayOn}>
+            <Overlay open={this.state.overlayOn}
+            modificatore={this.state.modificatore} modificatoremod={this.state.modificatore.mod}
+            data={data} bonus={bonus}
+            ref={this.AddAPI} addstack={this.state.addstack}  mod={this.mod.bind(this)}/> 
+          </div>  
       </div>
     )  
   }
@@ -150,6 +150,7 @@ mod(int, nome) {
       try {
         this.pgAPI()
         setTimeout(() => {this.setState({visible: true})}, 200)
+
       } catch (e) {console.log(e)}
   });
   }

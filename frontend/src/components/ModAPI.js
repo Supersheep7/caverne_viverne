@@ -45,7 +45,7 @@ class FullCircle extends React.Component {
 
         return (
         <div className={'wheel-wrapper wheelshow' + (this.props.show === this.props.turn)}>
-            <div class="wheel">
+            <div className="wheel">
                 <Arc nome={Object.keys(skill)[0]} setProva={this.props.setProva} stat={this.props.nome} father={objSkills} data={this.props.data} mod={this.props.mod} flush={this.props.flush}/>
                 <Arc nome={Object.keys(skill)[1]} setProva={this.props.setProva} stat={this.props.nome} father={objSkills} data={this.props.data} mod={this.props.mod} flush={this.props.flush}/>
                 <Arc nome={Object.keys(skill)[2]} setProva={this.props.setProva} stat={this.props.nome} father={objSkills} data={this.props.data} mod={this.props.mod} flush={this.props.flush}/>

@@ -39,8 +39,10 @@ class Avatar extends React.Component {
                         maxluc={this.props.maxluc}
                         />
                     </div>
-                    <p className={"infos transright" + this.props.visible}>{this.props.eta} anni, {(this.props.altezza).toString().charAt(0)}.{(this.props.altezza).toString().substring(1, 3)} m{this.props.magia !== "nessuna" && ", Magia " + this.props.magia.charAt(0).toUpperCase() + this.props.magia.slice(1)}</p>
-                    <h1 className={"infoname transright" + this.props.visible}>{this.props.nome}</h1>
+                    <div className={"infowrapper transright" + this.props.visible}>
+                        <p className="infos">{this.props.eta} anni, {(this.props.altezza).toString().charAt(0)}.{(this.props.altezza).toString().substring(1, 3)} m{this.props.magia !== "nessuna" && ", Magia " + this.props.magia.charAt(0).toUpperCase() + this.props.magia.slice(1)}</p>
+                        <h1 className="infoname">{this.props.nome}</h1>
+                    </div>
                 </div>
             </div>
         )

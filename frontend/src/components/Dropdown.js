@@ -12,7 +12,7 @@ export default class Dropdown extends React.Component {
     }
 
     async dropAPI() {
-        await fetch(`http://192.168.1.138:9000/dataAPI/${this.props.base}666`)
+        await fetch(`http://localhost:9000/dataAPI/${this.props.base}666`)
         .then(res => res.text())
         .then(res => this.setState({ base: JSON.parse(res), isLoading: false }))
         .catch(err => err);
@@ -75,7 +75,7 @@ export default class Dropdown extends React.Component {
                 <div className="dropdown-outer"> 
                     <div className="dropdown-tag" onClick={() => {this.dropClick()}}>
                         <h2 className="dropdown-text" >{this.tagHelper()}</h2>
-                        <img className={"svgarrow" + " open" + this.state.open} src="/images/chevron.png" />
+                        <img className={"svgarrow open" + this.state.open} src="/images/chevron.png" />
                     </div>
                 </div>
              ) 
@@ -108,7 +108,7 @@ export default class Dropdown extends React.Component {
                                                 return (
                                                     <div className={"card open" + this.state.open}>
                                                         <div className="card-dropdown">
-                                                            <img onClick={() => this.showHandleClick(d.nome)} className={"icon" + " active" + (show.indexOf(d.nome) > -1)} src={"/images/icons/" + arry[0].substring(0, arry[0].indexOf("_")) + ".png"} />
+                                                            <img onClick={() => this.showHandleClick(d.nome)} className={"icon active" + (show.indexOf(d.nome) > -1)} src={"/images/icons/" + arry[0].substring(0, arry[0].indexOf("_")) + ".png"} />
                                                             <p className="card-name">{arry[0].substring(0, arry[0].indexOf("_"))}</p>
                                                             { this.match(d.nome, base, "summary") !== "\\" &&   
                                                             <p className={"summary show" + (show.indexOf(d.nome) > -1)}>{ this.match(d.nome, base, "summary") }</p>
@@ -136,7 +136,7 @@ export default class Dropdown extends React.Component {
                                                 return (
                                                     <div className={"card open" + this.state.open}>
                                                         <div className="card-dropdown">
-                                                            <img onClick={() => this.showHandleClick(d.nome)} className={"icon" + " active" + (show.indexOf(d.nome) > -1)} src={"/images/icons/" + d.nome + ".png"} />
+                                                            <img onClick={() => this.showHandleClick(d.nome)} className={"icon active" + (show.indexOf(d.nome) > -1)} src={"/images/icons/" + d.nome + ".png"} />
                                                             <p className="card-name">{d.nome}</p>
                                                             { this.match(d.nome, base, "summary") !== "\\" &&   
                                                             <p className={"summary show" + (show.indexOf(d.nome) > -1)}>{ this.match(d.nome, base, "summary") }</p>
@@ -166,7 +166,7 @@ export default class Dropdown extends React.Component {
                                             return (
                                             <div className={"card open" + this.state.open}>
                                                 <div className="card-dropdown">
-                                                    <img onClick={() => this.showHandleClick(d)} className={"icon" + " active" + (show.indexOf(d) > -1)} src={"/images/icons/" + arry[0].substring(0, arry[0].indexOf("_")) + ".png"} />
+                                                    <img onClick={() => this.showHandleClick(d)} className={"icon active" + (show.indexOf(d) > -1)} src={"/images/icons/" + arry[0].substring(0, arry[0].indexOf("_")) + ".png"} />
                                                     <p className="card-name">{arry[0].substring(0, arry[0].indexOf("_"))}</p>
                                                     { this.match(d, base, "summary") !== "\\" &&   
                                                     <p className={"summary show" + (show.indexOf(d) > -1)}>{ this.match(d, base, "summary") }</p>
@@ -229,7 +229,7 @@ export default class Dropdown extends React.Component {
                                             return (
                                             <div className={"card open" + this.state.open}>
                                                 <div className="card-dropdown">
-                                                    <img onClick={() => this.showHandleClick(d)} className={"icon" + " active" + (show.indexOf(d) > -1)} src={"/images/icons/" + d + ".png"} />
+                                                    <img onClick={() => this.showHandleClick(d)} className={"icon active" + (show.indexOf(d) > -1)} src={"/images/icons/" + d + ".png"} />
                                                     <p className="card-name">{d}</p>
                                                     { this.match(d, base, "summary") !== "\\" &&   
                                                     <p className={"summary show" + (show.indexOf(d) > -1)}>{ this.match(d, base, "summary") }</p>
@@ -295,4 +295,5 @@ export default class Dropdown extends React.Component {
         }
     }
 }
+
 
