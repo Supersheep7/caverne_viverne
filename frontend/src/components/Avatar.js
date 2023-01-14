@@ -24,7 +24,7 @@ class Avatar extends React.Component {
                     </div>
                 </div>
                 <div id="avatar">
-                    <img id="face" onClick={() => {this.props.gauge(); this.setState({gaugeOn: !this.state.gaugeOn})}} src={"/images/" + this.props.nome + ".png"} />
+                    <img id="face" className={"transleft" + this.props.visible} onClick={() => {this.props.gauge(); this.setState({gaugeOn: !this.state.gaugeOn})}} src={"/images/" + this.props.nome + ".png"} />
                     <img id="bg" className={"blur" + this.state.gaugeOn} src={"/images/" + this.props.nome + (" bg.jpg")} />
                     <div className="gauges">
                         <Gauges gaugeHandleClick={this.props.gaugeHandleClick} gaugeCallback={this.props.gaugeCallback} gaugeOn={this.props.gaugeOn} 
@@ -39,8 +39,8 @@ class Avatar extends React.Component {
                         maxluc={this.props.maxluc}
                         />
                     </div>
-                    <p className="infos">{this.props.eta} anni, {(this.props.altezza).toString().charAt(0)}.{(this.props.altezza).toString().substring(1, 3)} m{this.props.magia !== "nessuna" && ", Magia " + this.props.magia.charAt(0).toUpperCase() + this.props.magia.slice(1)}</p>
-                    <h1 className="infoname">{this.props.nome}</h1>
+                    <p className={"infos transright" + this.props.visible}>{this.props.eta} anni, {(this.props.altezza).toString().charAt(0)}.{(this.props.altezza).toString().substring(1, 3)} m{this.props.magia !== "nessuna" && ", Magia " + this.props.magia.charAt(0).toUpperCase() + this.props.magia.slice(1)}</p>
+                    <h1 className={"infoname transright" + this.props.visible}>{this.props.nome}</h1>
                 </div>
             </div>
         )

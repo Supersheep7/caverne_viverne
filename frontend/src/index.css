@@ -12,6 +12,15 @@
   opacity: 0;
 }
 
+.transrightfalse {
+  right: 4000px;
+}
+
+.transleftfalse {
+  left: 4000px;
+}
+
+
 body {
   background-color: #1F1D36;
 }
@@ -152,7 +161,7 @@ button:active {
   position: absolute;
 }
 
-.infoname {
+.infoname.transrighttrue {
   z-index: 1;
   bottom: 0;
   right: 0;
@@ -160,16 +169,18 @@ button:active {
   margin-bottom: 0px;
   font-size: 400%;
   text-shadow: 0 0 6px black, 0 0 6px black, 0 0 6px black;;
+  transition: right 1s;
 }
 
-.infos {
+.infos.transrighttrue {
   z-index: 1;
   bottom: 0;
   right: 0;
   margin-right: 5%;
   margin-bottom: -25px;
   color: whitesmoke;
-  text-shadow: 0 0 6px black, 0 0 6px black, 0 0 6px black;;
+  text-shadow: 0 0 6px black, 0 0 6px black, 0 0 6px black;
+  transition: right 1s;
 }
 
 .gauges-wrapper.opentrue, .dial-wrapper.opentrue {
@@ -301,13 +312,14 @@ button:active {
   filter: drop-shadow(0px 0px 2px black) drop-shadow(0px 0px 2px black) drop-shadow(0px 0px 2px black) drop-shadow(0px 0px 2px black) 
 }
 
-#face {
+#face.translefttrue {
   position: absolute;
   z-index: 4;
   height: 600px;
   top: -100px;
   left: -20px;
-  filter:drop-shadow(0px -1px 2px #fff)
+  filter:drop-shadow(0px -1px 2px #fff);
+  transition: left 1.5s ease-out;
 }
 
 #bg {
@@ -1009,7 +1021,7 @@ flex-wrap: nowrap;
 
 @media only screen and (max-width: 1200px) {
 
-  #face {
+  #face.translefttrue {
     left: -100px;
   }
 
@@ -1017,11 +1029,11 @@ flex-wrap: nowrap;
     width: 40vw
   }
 
-  .infos {
+  .infos.transrighttrue {
     font-size: 20px;
   }
 
-  .infoname {
+  .infoname.transrighttrue {
     font-size: 250%;
   }
 
@@ -1085,7 +1097,7 @@ flex-wrap: nowrap;
  
 @media only screen and (max-width: 810px) {
 
-  #face {
+  #face.translefttrue {
     top: 250px;
     height: 250px;
     left: 50%;
@@ -1114,16 +1126,21 @@ flex-wrap: nowrap;
     z-index: 8;
   }
 
-  .infoname {
+  .infoname.transrightfalse {
+    left: -4000px;
+  }
+
+  .infoname.transrighttrue {
     top: 0;
     height: 0;
     width: 40vw;
     font-size: 22px;
     left: 10px;
     text-align: center;
+    transition: left 1s;
   }
 
-  .infos {
+  .infos.transrighttrue {
     top: -4px;
     width: 40vw;
     overflow: hidden;
