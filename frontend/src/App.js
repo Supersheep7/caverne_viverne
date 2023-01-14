@@ -11,8 +11,6 @@ return (
 
 <Routes>
   <Route exact path="/" element={<List />}/>
-
-  
   {/*<Route path="/form"><Form /></Route>*/}
   <Route path="/personaggio/:nome" element={<Pg />} />
 </Routes>

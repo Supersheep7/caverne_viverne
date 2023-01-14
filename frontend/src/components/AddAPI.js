@@ -12,7 +12,7 @@ export default class AddAPI extends React.Component {
   }
 
   async adderAPI() {
-    await fetch(`http://192.168.1.36:9000/dataAPI/bonus666`)
+    await fetch(`http://192.168.1.138:9000/dataAPI/bonus666`)
         .then(res => res.text())
         .then(res => this.setState({ bonus: JSON.parse(res), isLoading: false }))
         .catch(err => err);

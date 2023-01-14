@@ -12,7 +12,7 @@ export default class Dropdown extends React.Component {
     }
 
     async dropAPI() {
-        await fetch(`http://192.168.1.36:9000/dataAPI/${this.props.base}666`)
+        await fetch(`http://192.168.1.138:9000/dataAPI/${this.props.base}666`)
         .then(res => res.text())
         .then(res => this.setState({ base: JSON.parse(res), isLoading: false }))
         .catch(err => err);

@@ -11,6 +11,7 @@ class Pg extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      visible: false,
       data: "", inventario: [], CA: [],
       pf: 0, mana: 0, luc: 0,
       modificatore: {
@@ -28,11 +29,11 @@ class Pg extends React.Component {
 
   // This machine fetches all the details from the controllers located in localhost:9000
   async pgAPI() {
-    await fetch(`http://192.168.1.36:9000${window.location.pathname}`)
+    await fetch(`http://192.168.1.138:9000${window.location.pathname}`)
         .then(res => res.text())
         .then(res => this.setState({ data: JSON.parse(res), pf: JSON.parse(res)["pf"], mana: JSON.parse(res)["mana"], luc: JSON.parse(res)["luc"] }))
         .catch(err => err);
-    await fetch(`http://192.168.1.36:9000/dataAPI/inventario666`)
+    await fetch(`http://192.168.1.138:9000/dataAPI/inventario666`)
         .then(res => res.text())
         .then(res => this.setState({ inventario: JSON.parse(res), isLoading: false }))
         .catch(err => err);
@@ -69,7 +70,6 @@ class Pg extends React.Component {
     this.setState({[stat]: count})
   }
 
-
   overlayHandleClick() {
     this.setState({overlayOn: !this.state.overlayOn})
     if (this.state.overlayOn !== true) {
@@ -104,7 +104,7 @@ mod(int, nome) {
     let totalCA = arrCA.reduce((a, b) => a + b, 0)  
 
     return (
-      <div className={data.religione + " App " + "overlay" + this.state.overlayOn}>
+      <div className={data.religione + " App " + "overlay" + this.state.overlayOn + " visible" + this.state.visible}>
           <div className={"dice-roller-overlay open" + this.state.overlayOn}>
             <Overlay open={this.state.overlayOn}
             modificatore={this.state.modificatore} modificatoremod={this.state.modificatore.mod}
@@ -144,9 +144,14 @@ mod(int, nome) {
   }
 
   componentDidMount() {
-  try {
-    this.pgAPI()
-  } catch (e) {console.log(e)}
+    Promise.all(Array.from(document.images).filter(img => !img.complete)
+                                           .map(img => new Promise(resolve => { img.onload = img.onerror = resolve; })))
+                                           .then(() => {
+      try {
+        this.pgAPI()
+        setTimeout(() => {this.setState({visible: true})}, 200)
+      } catch (e) {console.log(e)}
+  });
   }
 }
 
