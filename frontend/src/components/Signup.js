@@ -26,7 +26,8 @@ class Signup extends React.Component {
 		event.preventDefault()
 
 		//request to server to add a new username/password
-		axios.post('/user/', {
+		axios.post('http://localhost:9000/user', 
+		{
 			username: this.state.username,
 			password: this.state.password
 		})

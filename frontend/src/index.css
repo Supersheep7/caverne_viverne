@@ -24,7 +24,7 @@
 }
 
 #avatar > .transrightfalse {
-  transform: translateX(-1000%);
+  transform: translateX(-700%);
   opacity: 0;
   z-index: -1;
 }
@@ -37,7 +37,7 @@
 }
 
 #face.transleftfalse {
-  transform: translateX(1000%);
+  transform: translateX(700%);
   opacity: 0;
   z-index: -1;
 }
@@ -1149,7 +1149,7 @@ flex-wrap: nowrap;
   }
 
   #avatar > .transrightfalse {
-    transform: translateX(-1000%);
+    transform: translateX(-700%);
     opacity: 0;
     z-index: -1;
   }
@@ -1162,7 +1162,7 @@ flex-wrap: nowrap;
   }
   
   #face.transleftfalse {
-    transform: translateX(1000%);
+    transform: translateX(700%);
     opacity: 0;
     z-index: -1;
   }

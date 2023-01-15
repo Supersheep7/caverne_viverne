@@ -1,11 +1,14 @@
 require('dotenv').config();
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+const createError = require('http-errors');
+const express = require('express');
+const bodyParser = require('body-parser');
+const logger = require('morgan');
+const path = require('path');
+const cookieParser = require('cookie-parser');
 const mongoose = require("mongoose");
-var cors = require("cors");
+const cors = require("cors");
+const session = require('express-session');
+const passport = require('passport');
 
 let mongoDB = process.env.DBURL
 
@@ -18,35 +21,37 @@ const db = mongoose.connection;
 // Bind connection to error event (to get notification of connection errors)
 db.on("error", console.error.bind(console, "MongoDB connection error:"));
 
-const personaggio = require("./models/personaggio");
-const attacchi = require("./models/attacchi");
-const bonus = require("./models/bonus");
-const inventario = require("./models/inventario");
-const magie = require("./models/magie");
-const missioni = require("./models/missioni");
-const abilita_innate = require("./models/abilita_innate");
-const tattiche = require("./models/tattiche");
-
 var indexRouter = require('./routes/index');
 var dataAPIRouter = require("./routes/dataAPI");
+const userRouter = require('./routes/user');
 
-var app = express();
-
-/* app.set('views', path.join(__dirname, 'frontend/public'));
-app.set('view engine', 'pug'); */
-// Use APIs
-
+const app = express();
 app.use(cors());
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+/*app.use(passport.initialize())
+app.use(passport.session())*/
+app.use(session({ 
+    secret: process.env.SECRET, 
+    resave: false, //required
+    saveUninitialized: false //required 
+}) );
+
+app.use( (req, res, next) => {
+    console.log('req.session', req.session);
+    return next()
+  } );
+
 
 // Use routes 
 
 app.use('/', indexRouter);
 app.use("/dataAPI", dataAPIRouter);
+app.use("/user", userRouter)
+
 
 // error handler
 app.use(function(err, req, res, next) {
