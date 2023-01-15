@@ -1,7 +1,7 @@
 const express = require('express')
 var router = express.Router()
 const User = require('../models/user')
-const passport = require('passport') 
+const passport = require('../passport') 
 
 router.post('/', (req, res) => {
     console.log('user signup');
@@ -24,17 +24,16 @@ router.post('/', (req, res) => {
                 if (err) return res.json(err)
                 res.json(savedUser)
             })
-            console.log("User saved")
         }
     })  
 }) 
 
-router.post(
+router.post( 
     '/login',
     function (req, res, next) {
         console.log('routes/user.js, login, req.body: ');
         console.log(req.body)
-        next()
+        res.end()
     },
    passport.authenticate('local'),
     (req, res) => {
@@ -43,6 +42,13 @@ router.post(
             username: req.user.username
         };
         res.send(userInfo);
+    }
+)
+
+router.get (
+    '/login',
+    function (req, res, next) {
+        res.json({"key":"value"})
     }
 )
 

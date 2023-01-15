@@ -8,7 +8,7 @@ const cookieParser = require('cookie-parser');
 const mongoose = require("mongoose");
 const cors = require("cors");
 const session = require('express-session');
-const passport = require('passport');
+const passport = require('passport'); 
 
 let mongoDB = process.env.DBURL
 
@@ -32,18 +32,18 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-/*app.use(passport.initialize())
-app.use(passport.session())*/
 app.use(session({ 
-    secret: process.env.SECRET, 
-    resave: false, //required
-    saveUninitialized: false //required 
+  secret: process.env.SECRET, 
+  resave: false, //required
+  saveUninitialized: false //required 
 }) );
-
 app.use( (req, res, next) => {
-    console.log('req.session', req.session);
-    return next()
-  } );
+  console.log('req.session username:', req.session.username);
+  return next()
+} );
+app.use(passport.initialize())
+app.use(passport.session())
+
 
 
 // Use routes 
