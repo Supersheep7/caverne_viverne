@@ -4,21 +4,65 @@ import Pg from "./components/Pg";
 import Signup from "./components/Signup"
 import React from 'react';
 import Loginform from "./components/login-form"
+import Lvlup from "./components/Lvlup"
+import axios from "axios"
+import cookie from 'react-cookies'
 
-function App() {
-  
-return (
-<Router>
 
-<Routes>
-  <Route exact path="/" element={<List />}/>
-  <Route path="/personaggio/:nome" element={<Pg />} />
-  <Route path="/signup" element={<Signup />} />
-  <Route path="/login" element={<Loginform  />} />
-</Routes>
+class App extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      loggedIn: false,
+      username: null
+    }
+    this.getUser = this.getUser.bind(this)
+    this.componentDidMount = this.componentDidMount.bind(this)
+    this.updateUser = this.updateUser.bind(this)
+    axios.defaults.withCredentials = true
+  }
 
-</Router>
-)
+  updateUser(userObject) {
+    this.setState(userObject)
+  }
+
+  getUser() {
+    axios.get('http://localhost:9000/user')
+    .then(response => {
+      console.log('Get user response: ')
+      console.log(response.data)
+      if (response.data.user) {
+        console.log('Get User: There is a user saved in the server session: ')
+        this.setState({
+          loggedIn: true,
+          username: response.data.user.username,
+        })
+      } else {
+        console.log('Get user: no user');
+        this.setState({
+          loggedIn: false,
+          username: null
+        })
+      }
+    })
+  }
+
+render() {
+
+  return (
+      <Routes>
+        <Route exact path="/" element={<List loggedIn={this.state.loggedIn} username={this.state.username} updateUser={this.updateUser}/>}/>
+        <Route path="/personaggio/:nome" element={<Pg loggedIn={this.state.loggedIn} username={this.state.username} updateUser={this.updateUser}/>} />
+        <Route path="/signup" element={<Signup loggedIn={this.state.loggedIn} username={this.state.username} />} />
+        <Route path="/login" element={<Loginform  loggedIn={this.state.loggedIn} username={this.state.username} updateUser={this.updateUser}/>} />
+        <Route path="/lvlup" element={<Lvlup  loggedIn={this.state.loggedIn} username={this.state.username} updateUser={this.updateUser}/>} />
+      </Routes>
+  )
+}
+
+componentDidMount() {
+  this.getUser()
+}
 
 }
 

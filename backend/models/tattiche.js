@@ -24,4 +24,5 @@ TatticaSchema.virtual("url").get(function () {
     return `/Tattica/${this._id}`;
   });
     
-  module.exports = mongoose.model("Tattica", TatticaSchema);
+  const Tattica = mongoose.model("Tattica", TatticaSchema);
+  module.exports = Tattica

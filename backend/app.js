@@ -1,14 +1,14 @@
 require('dotenv').config();
-const createError = require('http-errors');
 const express = require('express');
 const bodyParser = require('body-parser');
 const logger = require('morgan');
 const path = require('path');
-const cookieParser = require('cookie-parser');
 const mongoose = require("mongoose");
 const cors = require("cors");
 const session = require('express-session');
 const passport = require('passport'); 
+const MongoStore = require('connect-mongo');
+
 
 let mongoDB = process.env.DBURL
 
@@ -24,26 +24,38 @@ db.on("error", console.error.bind(console, "MongoDB connection error:"));
 var indexRouter = require('./routes/index');
 var dataAPIRouter = require("./routes/dataAPI");
 const userRouter = require('./routes/user');
+const lvlupRouter = require('./routes/lvlup')
 
 const app = express();
-app.use(cors());
+app.use(cors({origin: true, credentials: true}));
 app.use(logger('dev'));
+app.use(
+	bodyParser.urlencoded({
+		extended: false
+	})
+)
+app.use(bodyParser.json())
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+/*app.use(cookieParser());*/
 app.use(session({ 
   secret: process.env.SECRET, 
   resave: false, //required
-  saveUninitialized: false //required 
+  store: MongoStore.create({ mongoUrl: mongoDB }),
+  saveUninitialized: false, //required
+  cookie: {
+    expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
+    maxAge: 1000 * 60 * 60 * 24 * 7,
+    httpOnly: false,
+    secure: false
+}
 }) );
-app.use( (req, res, next) => {
-  console.log('req.session username:', req.session.username);
-  return next()
-} );
+app.use ((req, res, next) => {
+  console.log(req.session);
+  next()
+})
 app.use(passport.initialize())
 app.use(passport.session())
-
+app.use(express.static(path.join(__dirname, 'public')));
 
 
 // Use routes 
@@ -51,6 +63,7 @@ app.use(passport.session())
 app.use('/', indexRouter);
 app.use("/dataAPI", dataAPIRouter);
 app.use("/user", userRouter)
+app.use("/lvlup", lvlupRouter)
 
 
 // error handler

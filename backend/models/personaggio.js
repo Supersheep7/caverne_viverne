@@ -81,4 +81,5 @@ PersonaggioSchema.virtual("CA").get(function () {
   return CA
 });
 
-module.exports = mongoose.model("Personaggio", PersonaggioSchema);
+const Personaggio = mongoose.model("Personaggio", PersonaggioSchema);
+module.exports = Personaggio

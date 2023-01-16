@@ -21,4 +21,5 @@ AttaccoSchema.virtual("url").get(function () {
     return `/attacco/${this._id}`;
   });
     
-  module.exports = mongoose.model("Attacco", AttaccoSchema);
+  const Attacco = mongoose.model("Attacco", AttaccoSchema);
+  module.exports = Attacco

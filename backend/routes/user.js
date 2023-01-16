@@ -6,6 +6,7 @@ const passport = require('../passport')
 router.post('/', (req, res) => {
     console.log('user signup');
     const { username, password } = req.body
+    req.session.username = req.body.username
     // ADD VALIDATION
     User.findOne({ username: username }, (err, user) => {
         if (err) {
@@ -28,12 +29,10 @@ router.post('/', (req, res) => {
     })  
 }) 
 
-router.post( 
-    '/login',
+router.post( '/login',
     function (req, res, next) {
-        console.log('routes/user.js, login, req.body: ');
-        console.log(req.body)
-        res.end()
+        console.log('routes/user.js, login, req.body: ')
+        next()
     },
    passport.authenticate('local'),
     (req, res) => {
@@ -42,13 +41,6 @@ router.post(
             username: req.user.username
         };
         res.send(userInfo);
-    }
-)
-
-router.get (
-    '/login',
-    function (req, res, next) {
-        res.json({"key":"value"})
     }
 )
 
@@ -62,13 +54,13 @@ router.get('/', (req, res, next) => {
     }
 })
 
-router.post('/logout', (req, res) => {
-    if (req.user) {
-        req.logout()
-        res.send({ msg: 'logging out' })
-    } else {
-        res.send({ msg: 'no user to log out' })
-    }
+router.post('/logout', function(req, res, next){
+
+    req.logout(function(err) {
+      if (err) { return next(err); }
+      res.send('logged out');
+    });
+
 })
 
 module.exports = router

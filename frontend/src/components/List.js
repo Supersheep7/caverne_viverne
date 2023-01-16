@@ -1,7 +1,9 @@
 
 import Buttons from "./Buttons"
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import { Navigate }  from 'react-router-dom'
 import React from 'react';
+import axios from 'axios'
 
 
 class List extends React.Component {
@@ -10,13 +12,41 @@ class List extends React.Component {
     this.state = {
       visible: false
     }
+    this.logout = this.logout.bind(this)
   }
+
+
+  logout() {
+    console.log("logging out")
+    axios
+        .post('http://localhost:9000/user/logout')
+        .then(response => {
+            console.log(response.data)
+            if (response.status === 200) {
+                // update App.js state
+                this.props.updateUser({
+                    loggedIn: false,
+                    username: null
+                })
+            }
+        })
+        .catch(error => {
+            console.log('logout error: ')
+            console.log(error);
+            
+        })
+}
 
 
   render() {
 
-    return (
+ return (
       <div className={"App visible" + this.state.visible}>
+        {this.props.loggedIn && 
+        <div className="admin-header">
+          <p>{this.props.username}</p>
+          <p className="logout" onClick={() => this.logout()}>Logout</p> 
+        </div>}
         <div className="Home-wrapper"> 
           <Buttons className="Home"/>
         </div>

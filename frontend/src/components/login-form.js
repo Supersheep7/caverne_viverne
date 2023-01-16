@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Navigate }  from 'react-router-dom'
 import axios from 'axios'
+import "./login-form.css"
 
 class LoginForm extends Component {
     constructor() {
@@ -8,12 +9,15 @@ class LoginForm extends Component {
         this.state = {
             username: '',
             password: '',
-            redirectTo: null
+            redirectTo: null,
+            err: false,
+            error: ""
         }
         this.handleSubmit = this.handleSubmit.bind(this)
         this.handleChange = this.handleChange.bind(this)
-  
+        axios.defaults.withCredentials = true
     }
+    
 
     handleChange(event) {
         this.setState({
@@ -26,19 +30,21 @@ class LoginForm extends Component {
         console.log('handleSubmit')
 
         axios
-            .post('http://localhost:9000/user/login', {
+            .post('http://localhost:9000/user/login', 
+            {
                 username: this.state.username,
                 password: this.state.password
-            })
+            }
+            )
             .then(response => {
                 console.log('login response: ')
-                console.log(response)
                 if (response.status === 200) {
                     // update App.js state
-                    /*this.props.updateUser({
+                    this.props.updateUser({
                         loggedIn: true,
                         username: response.data.username
-                    })*/
+                    })
+                    
                     // update the state to redirect to home
                     this.setState({
                         redirectTo: '/'
@@ -48,56 +54,82 @@ class LoginForm extends Component {
             .catch(error => {
                 console.log('login error: ')
                 console.log(error);
-                
+                this.setState({err: true, error: error})
             })
     }
+
+    form() {
+        return (
+            <div id="login-wrapper">
+                <h1>Login DM</h1>
+                <form>
+                    <div>
+                        <div>
+                            <label htmlFor="username">Username</label>
+                        </div>
+                        <div>
+                            <input 
+                                type="text"
+                                id="username"
+                                name="username"
+                                placeholder="Username"
+                                value={this.state.username}
+                                onChange={this.handleChange}
+                            />
+                        </div>
+                    </div>
+                    <div>
+                        <div>
+                            <label htmlFor="password">Password: </label>
+                        </div>
+                        <div>
+                            <input
+                                placeholder="Password"
+                                type="password"
+                                name="password"
+                                value={this.state.password}
+                                onChange={this.handleChange}
+                            />
+                        </div>
+                    </div>
+                    <div>
+                        <button className=''
+                            onClick={this.handleSubmit}
+                            type="submit">Login</button>
+                    </div>
+                </form>
+            </div>
+        )
+    }
+
 
     render() {
         if (this.state.redirectTo) {
             return <Navigate to={this.state.redirectTo} />
-        } else {
+        } 
+        else if (this.state.err === true && (this.state.username === "" || this.state.password === ""))
+        {
+            return ( 
+                <div>
+                    {this.form()}
+                    <h1>Please provide a Username and a Password</h1>
+                </div>
+            )            
+        }
+        else if (this.state.err === true && (this.state.username !== "" || this.state.password !== ""))
+        {
+            return ( 
+                <div>
+                    {this.form()}
+                    <h1>Access denied</h1>
+                </div>
+            )            
+        }
+        else 
+        {
             return (
                 <div>
-                    <h4>Login</h4>
-                    <form className="form-horizontal">
-                        <div className="form-group">
-                            <div className="col-1 col-ml-auto">
-                                <label className="form-label" htmlFor="username">Username</label>
-                            </div>
-                            <div className="col-3 col-mr-auto">
-                                <input className="form-input"
-                                    type="text"
-                                    id="username"
-                                    name="username"
-                                    placeholder="Username"
-                                    value={this.state.username}
-                                    onChange={this.handleChange}
-                                />
-                            </div>
-                        </div>
-                        <div className="form-group">
-                            <div className="col-1 col-ml-auto">
-                                <label className="form-label" htmlFor="password">Password: </label>
-                            </div>
-                            <div className="col-3 col-mr-auto">
-                                <input className="form-input"
-                                    placeholder="password"
-                                    type="password"
-                                    name="password"
-                                    value={this.state.password}
-                                    onChange={this.handleChange}
-                                />
-                            </div>
-                        </div>
-                        <div className="form-group ">
-                            <div className="col-7"></div>
-                            <button
-                                className="btn btn-primary col-1 col-mr-auto"
-                               
-                                onClick={this.handleSubmit}
-                                type="submit">Login</button>
-                        </div>
-                    </form>
+                    {this.form()}
                 </div>
             )
         }

@@ -19,5 +19,6 @@ InventarioSchema.virtual("url").get(function () {
     return `/Inventario/${this._id}`;
   });
     
-  module.exports = mongoose.model("Inventario", InventarioSchema);
+  const Inventario = mongoose.model("Inventario", InventarioSchema);
+  module.exports = Inventario
   

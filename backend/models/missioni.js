@@ -1,11 +1,12 @@
 const mongoose = require("mongoose"); 
+mongoose.promise = Promise
 
 const Schema = mongoose.Schema;
 
 const MissioneSchema = new Schema ({
     nome: { type: String, required: true },
     summary: { type: String, required: true },
-    terminata: {type: Boolean, required: true }
+    terminata: {type: Boolean, required: false }
 })
 
 // Virtual for book's URL
@@ -14,4 +15,5 @@ MissioneSchema.virtual("url").get(function () {
     return `/missione/${this._id}`;
   });
     
-  module.exports = mongoose.model("Missione", MissioneSchema);
+  const Missione = mongoose.model("Missione", MissioneSchema);
+  module.exports = Missione

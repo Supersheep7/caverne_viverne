@@ -26,4 +26,5 @@ MagiaSchema.virtual("url").get(function () {
     return `/Magia/${this._id}`;
   });
     
-  module.exports = mongoose.model("Magia", MagiaSchema);
+  const Magia = mongoose.model("Magia", MagiaSchema);
+  module.exports = Magia

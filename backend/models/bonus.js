@@ -18,5 +18,6 @@ BonusSchema.virtual("url").get(function () {
     return `/bonus/${this._id}`;
   });
     
-  module.exports = mongoose.model("Bonus", BonusSchema);
+  const Bonus =  mongoose.model("Bonus", BonusSchema);
+  module.exports = Bonus
   

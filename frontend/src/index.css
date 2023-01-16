@@ -9,6 +9,48 @@
   opacity: 0;
 }
 
+label {
+  color: whitesmoke;
+}
+
+.admin-header {
+  background-color: #1F1D36;
+  position: fixed;
+  width: 100%;
+  color: whitesmoke;
+  display: flex;
+  justify-content: space-around;
+  z-index: 19;
+}
+
+.post-link {
+  position: fixed;
+  left: 40px; 
+  bottom: 60px;
+  z-index: 9;
+  width: 70px;
+  height: 70px;
+  border-radius: 100%;
+  background-color: #1F1D36;
+  filter: drop-shadow(0px 0px 4px whitesmoke) drop-shadow(0px 0px 4px whitesmoke); 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.post-link:hover {
+  filter: drop-shadow(0px 0px 4px orange) drop-shadow(0px 0px 4px orange)
+}
+
+.post-link p {
+  font-size: 50px;
+}
+
+.logout {
+  cursor: pointer;
+}
+
 .infowrapper {
   position: absolute;
   width: fit-content;
@@ -1222,6 +1264,11 @@ flex-wrap: nowrap;
     margin-top: 0;
   }
 
+  .post-link {
+    
+    bottom: 5%;
+    margin-top: 0;
+  }
   
   #dice-roller > div:nth-child(3) {
     width: 100%;

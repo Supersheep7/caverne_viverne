@@ -4,7 +4,8 @@ import Avatar from "./Avatar";
 import Footer from "./Footer"
 import Stats from "./Stats";
 import Background from './Background';
-import Dropdown from "./Dropdown"
+import Dropdown from "./Dropdown";
+import axios from "axios";
 
 class Pg extends React.Component {
   
@@ -25,6 +26,7 @@ class Pg extends React.Component {
       this.DiceRoller = React.createRef();
       this.gaugeHandleClick = this.gaugeHandleClick.bind(this)
       this.match = this.match.bind(this)
+      this.logout = this.logout.bind(this)
   }
 
   // This machine fetches all the details from the controllers located in localhost:9000
@@ -53,6 +55,27 @@ class Pg extends React.Component {
   }
 
   /* State management for modifiers */
+
+  logout() {
+    console.log("logging out")
+    axios
+        .post('http://localhost:9000/user/logout')
+        .then(response => {
+            console.log(response.data)
+            if (response.status === 200) {
+                // update App.js state
+                this.props.updateUser({
+                    loggedIn: false,
+                    username: null
+                })
+            }
+        })
+        .catch(error => {
+            console.log('logout error: ')
+            console.log(error);
+            
+        })
+}
 
   gauge() {
     this.setState ({
@@ -105,6 +128,15 @@ mod(int, nome) {
 
     return (
       <div className={data.religione + " App " + "overlay" + this.state.overlayOn + " visible" + this.state.visible}>
+         {this.props.loggedIn && 
+        <div>
+          <div className="admin-header">
+            <p>{this.props.username}</p>
+            <p className="logout" onClick={() => this.logout()}>Logout</p> 
+          </div>
+          <div style={{height: "50px"}}>
+          </div>
+        </div>}
         <div>
         <Avatar 
           gaugeOn={this.state.gaugeOn} gauge={this.gauge.bind(this)} gaugeHandleClick={this.gaugeHandleClick.bind(this)} gaugeCallback={this.gaugeCallback.bind(this)}
@@ -132,6 +164,8 @@ mod(int, nome) {
           overlayHandleClick={this.overlayHandleClick.bind(this)}
           mod={this.mod.bind(this)} 
           />
+        {this.props.loggedIn && 
+        <a href="http://localhost:3000/lvlup"><div className="post-link" ><p>+</p></div></a>}
         <Footer />  
         <div className={"dice-roller-overlay open" + this.state.overlayOn}>
             <Overlay open={this.state.overlayOn}
