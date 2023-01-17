@@ -17,7 +17,7 @@ class Avatar extends React.Component {
             <div id="header">
                 <div id="navigator-wrapper">
                     <div>
-                        <a href="http://localhost:3000/"><img id="home" src="/images/Home.png" /></a>
+                        <a href={process.env.REACT_APP_URL}><img id="home" src="/images/Home.png" /></a>
                         <nav>
                             <Buttons className="navigator"/>
                         </nav>

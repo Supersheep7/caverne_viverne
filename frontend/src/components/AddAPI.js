@@ -12,7 +12,7 @@ export default class AddAPI extends React.Component {
   }
 
   async adderAPI() {
-    await fetch(`http://localhost:9000/dataAPI/bonus666`)
+    await fetch(`${process.env.REACT_APP_BACKURL}/dataAPI/bonus666`)
         .then(res => res.text())
         .then(res => this.setState({ bonus: JSON.parse(res), isLoading: false }))
         .catch(err => err);
@@ -59,7 +59,6 @@ export default class AddAPI extends React.Component {
   }
   
   render() {
-
     let bonus = this.state.bonus
 
     if (this.state.isLoading) {

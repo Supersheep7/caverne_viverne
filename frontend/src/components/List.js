@@ -19,7 +19,7 @@ class List extends React.Component {
   logout() {
     console.log("logging out")
     axios
-        .post('http://localhost:9000/user/logout')
+        .post(`${process.env.REACT_APP_BACKURL}/user/logout`)
         .then(response => {
             console.log(response.data)
             if (response.status === 200) {

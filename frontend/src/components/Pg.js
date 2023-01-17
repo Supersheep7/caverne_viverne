@@ -31,11 +31,11 @@ class Pg extends React.Component {
 
   // This machine fetches all the details from the controllers located in localhost:9000
   async pgAPI() {
-    await fetch(`http://localhost:9000${window.location.pathname}`)
+    await fetch(`${process.env.REACT_APP_BACKURL}${window.location.pathname}`)
         .then(res => res.text())
         .then(res => this.setState({ data: JSON.parse(res), pf: JSON.parse(res)["pf"], mana: JSON.parse(res)["mana"], luc: JSON.parse(res)["luc"] }))
         .catch(err => err);
-    await fetch(`http://localhost:9000/dataAPI/inventario666`)
+    await fetch(`${process.env.REACT_APP_BACKURL}/dataAPI/inventario666`)
         .then(res => res.text())
         .then(res => this.setState({ inventario: JSON.parse(res), isLoading: false }))
         .catch(err => err);
@@ -59,7 +59,7 @@ class Pg extends React.Component {
   logout() {
     console.log("logging out")
     axios
-        .post('http://localhost:9000/user/logout')
+        .post(`${process.env.REACT_APP_BACKURL}/user/logout`)
         .then(response => {
             console.log(response.data)
             if (response.status === 200) {
@@ -165,7 +165,7 @@ mod(int, nome) {
           mod={this.mod.bind(this)} 
           />
         {this.props.loggedIn && 
-        <a href="http://localhost:3000/lvlup"><div className="post-link" ><p>+</p></div></a>}
+        <a href={process.env.REACT_APP_URL + "/lvlup"}><div className="post-link" ><p>+</p></div></a>}
         <Footer />  
         <div className={"dice-roller-overlay open" + this.state.overlayOn}>
             <Overlay open={this.state.overlayOn}

@@ -42,7 +42,7 @@ class Lvlup extends Component {
     handleSubmit(event) {
         event.preventDefault()
         axios
-            .post(`http://localhost:9000/lvlup/${this.state.lvlup}`, 
+            .post(`${process.env.REACT_APP_BACKURL}/lvlup/${this.state.lvlup}`, 
             {
                 nome: this.state.nome,
                 summary: this.state.summary,

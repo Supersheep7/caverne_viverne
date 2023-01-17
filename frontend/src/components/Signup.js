@@ -48,7 +48,7 @@ class Signup extends React.Component {
 
 
 		//request to server to add a new username/password
-		axios.post('http://localhost:9000/user',
+		axios.post(`${process.env.REACT_APP_BACKURL}/user`,
 		{
 			username: this.state.username,
 			password: hashedPassword

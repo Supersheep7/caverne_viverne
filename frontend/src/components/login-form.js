@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Navigate }  from 'react-router-dom'
 import axios from 'axios'
 import "./login-form.css"
-
+import bcrypt from 'bcryptjs'
 class LoginForm extends Component {
     constructor() {
         super()
@@ -30,7 +30,7 @@ class LoginForm extends Component {
         console.log('handleSubmit')
 
         axios
-            .post('http://localhost:9000/user/login', 
+            .post(`${process.env.REACT_APP_BACKURL}/user/login`, 
             {
                 username: this.state.username,
                 password: this.state.password
