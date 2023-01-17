@@ -54,7 +54,8 @@ router.post("/attacchi", function (req, res) {
         if (err) {
             console.log('User.js post error: ', err)
         } else if (data) {
-            console.log(nome + " è già presente nel database")
+            res.status(210);
+            res.end()
         }
         else {
             const newAttacco = new Attacco({
@@ -88,7 +89,8 @@ router.post("/bonus", function (req, res) {
         if (err) {
             console.log('User.js post error: ', err)
         } else if (data) {
-            console.log(nome + " è già presente nel database")
+            res.status(210);
+            res.end()
         }
         else {
             const newBonus = new Bonus({
@@ -122,7 +124,8 @@ router.post("/inventario", function (req, res) {
         if (err) {
             console.log('User.js post error: ', err)
         } else if (data) {
-            console.log(nome + " è già presente nel database")
+            res.status(210);
+            res.end()
         }
         else {
             const newInventario = new Inventario({
@@ -157,7 +160,8 @@ router.post("/magie", function (req, res) {
         if (err) {
             console.log('User.js post error: ', err)
         } else if (data) {
-            console.log(nome + " è già presente nel database")
+            res.status(210);
+            res.end()
         }
         else {
             const newMagia = new Magia({
@@ -192,7 +196,8 @@ router.post("/missioni", function (req, res) {
         if (err) {
             console.log('User.js post error: ', err)
         } else if (data) {
-            console.log(nome + " è già presente nel database")
+            res.status(210);
+            res.end()
         }
         else {
             const newMissione = new Missione({
@@ -222,7 +227,8 @@ router.post("/tattiche", function (req, res) {
         if (err) {
             console.log('User.js post error: ', err)
         } else if (data) {
-            console.log(nome + " è già presente nel database")
+            res.status(210);
+            res.end()
         }
         else {
             const newTattica = new Tattica({
