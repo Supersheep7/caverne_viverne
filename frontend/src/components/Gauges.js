@@ -76,9 +76,15 @@ function Gauge(props) {
     return (
         <div className="outer-gauge">
             <div className="inner-gauge gauge">
-                <button className='left btn' onMouseDown={() => downMouse("down")} onMouseUp={() => upMouse()} onMouseLeave={() => upMouse()}>&lt;</button>
+                <button className='left btn' onMouseDown={() => downMouse("down")} 
+                onMouseUp={() => upMouse()} onMouseLeave={() => upMouse()}
+                onTouchStart={() => downMouse("down")} onTouchEnd={() => upMouse()}
+                >&lt;</button>
                 <p className="gauge-text">{props.nome.toUpperCase()}:  {counter} / {props.max}</p>
-                <button className='right btn' onMouseDown={() => downMouse("up")} onMouseUp={() => upMouse()} onMouseLeave={() => upMouse()}>&gt;</button>
+                <button className='right btn' 
+                onMouseDown={() => downMouse("up")} onMouseUp={() => upMouse()} onMouseLeave={() => upMouse()}
+                onTouchStart={() => downMouse("up")} onTouchEnd={() => upMouse()}
+                >&gt;</button>
                 <div className={props.nome + " bar"} style={{'width': percent+'%'}} />
             </div>
         </div>

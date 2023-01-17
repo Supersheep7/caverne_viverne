@@ -27,7 +27,7 @@ class App extends React.Component {
   }
 
   getUser() {
-    axios.get('http://localhost:9000/user')
+    axios.get(`${process.env.REACT_APP_BACKURL}/user`)
     .then(response => {
       console.log('Get user response: ')
       console.log(response.data)

@@ -2,7 +2,7 @@
 
 .visibletrue {
   opacity: 1;
-  transition: opacity 0.2s ease-out;
+  transition: opacity 0.4s ease-in-out;
 }
 
 .visiblefalse {
@@ -334,6 +334,7 @@ button:active {
   position: absolute;
   height: 50px;
   padding: 10px;
+  padding-top: 10px;
   border-style: 3px solid black;
   color: whitesmoke;
   font-size: 20px;
@@ -729,10 +730,10 @@ button:active {
 }
 
 .background {
-  font-size: 24px;
-  font-weight: 600;
+  font-size: 22px;
+  font-weight: 550;
   color: black;
-  filter: drop-shadow(0 0 2px whitesmoke) drop-shadow(0 0 2px whitesmoke) ;
+  filter: drop-shadow(0 0 1px whitesmoke) drop-shadow(0 0 1px whitesmoke) drop-shadow(0 0 1px whitesmoke)  drop-shadow(0 0 8px whitesmoke)  ;
   text-align: justify;
   line-height: 140%;
   margin-top: 15px;
@@ -912,7 +913,7 @@ filter: drop-shadow(0px 0px 4px orange) drop-shadow(0px 0px 4px orange) drop-sha
   right: 0;
   bottom: 0;
   opacity: 1;
-  transition: opacity 0.3s ease-out;
+  transition: opacity 0.5s ease-out;
   background-color: rgba(0,0,0,0.6);
   z-index: 9;
 }
@@ -1093,6 +1094,7 @@ flex-wrap: nowrap;
     width: 40vw
   }
 
+
   .infos {
     font-size: 20px;
   }
@@ -1157,7 +1159,6 @@ flex-wrap: nowrap;
 }
 
  }
-
  
 @media only screen and (max-width: 810px) {
 
@@ -1171,6 +1172,10 @@ flex-wrap: nowrap;
   .gauge {
     width: 80vw;
     height: 30px;
+  }
+
+  .btn {
+    padding-top: 0px;
   }
 
   .gauges {
