@@ -8,7 +8,7 @@ const MagiaSchema = new Schema ({
     costo: {
         skill: { type: String },
         cd: { type: Number },
-        mana: {type: Number, required: true},
+        mana: {type: Number, required: false},
         altro: {type: String}
     },
     effetto: {

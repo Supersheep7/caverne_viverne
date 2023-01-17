@@ -17,7 +17,8 @@ router.post("/abilita_innate", function (req, res) {
         if (err) {
             console.log('User.js post error: ', err)
         } else if (data) {
-            console.log(nome + " è già presente nel database")
+            res.status(210);
+            res.end()
         }
         else {
             const newAbilita = new Abilita({
@@ -32,7 +33,17 @@ router.post("/abilita_innate", function (req, res) {
                 if (err) return res.json(err)
                 res.json(saved)
             })
-            Personaggio.findOneAndUpdate({nome: personaggio}, {"$push": {"abilita_innate": nome}})
+
+            personaggio.forEach( function(pg) {
+                Personaggio.findOneAndUpdate({nome: pg}, {"$push": {"abilita_innate": nome}}, function (error, success) {
+                    if (error) {
+                        console.log(error);
+                    } else {
+                        console.log(success);
+                    }
+                })
+            })
+
         }
     });
 });
@@ -58,7 +69,15 @@ router.post("/attacchi", function (req, res) {
                 if (err) return res.json(err)
                 res.json(saved)
             })
-            Personaggio.findOneAndUpdate({nome: personaggio}, {"$push": {"attacchi": nome}})
+            personaggio.forEach( function(pg) {
+                Personaggio.findOneAndUpdate({nome: pg}, {"$push": {"attacchi": nome}}, function (error, success) {
+                    if (error) {
+                        console.log(error);
+                    } else {
+                        console.log(success);
+                    }
+                })
+            })
         }
     });
 });
@@ -84,7 +103,15 @@ router.post("/bonus", function (req, res) {
                 if (err) return res.json(err)
                 res.json(saved)
             })
-            Personaggio.findOneAndUpdate({nome: personaggio}, {"$push": {"bonus": nome}})
+            personaggio.forEach( function(pg) {
+                Personaggio.findOneAndUpdate({nome: pg}, {"$push": {"bonus": nome}}, function (error, success) {
+                    if (error) {
+                        console.log(error);
+                    } else {
+                        console.log(success);
+                    }
+                })
+            })
         }
     });
 });
@@ -111,7 +138,15 @@ router.post("/inventario", function (req, res) {
                 if (err) return res.json(err)
                 res.json(saved)
             })
-            Personaggio.findOneAndUpdate({nome: personaggio}, {"$push": {"inventario": nome}})
+            personaggio.forEach( function(pg) {
+                Personaggio.findOneAndUpdate({nome: pg}, {"$push": {"inventario": nome}}, function (error, success) {
+                    if (error) {
+                        console.log(error);
+                    } else {
+                        console.log(success);
+                    }
+                })
+            })
         }
     });
 });
@@ -138,7 +173,15 @@ router.post("/magie", function (req, res) {
                 if (err) return res.json(err)
                 res.json(saved)
             })
-            Personaggio.findOneAndUpdate({nome: personaggio}, {"$push": {"magie": nome}})
+            personaggio.forEach( function(pg) {
+                Personaggio.findOneAndUpdate({nome: pg}, {"$push": {"magie": nome}}, function (error, success) {
+                    if (error) {
+                        console.log(error);
+                    } else {
+                        console.log(success);
+                    }
+                })
+            })
         }
     });
 });
@@ -160,12 +203,14 @@ router.post("/missioni", function (req, res) {
                 if (err) return res.json(err)
                 res.json(saved)
             })
-            Personaggio.findOneAndUpdate({nome: personaggio}, {"$push": {missioni: nome}}, function (error, success) {
-                if (error) {
-                    console.log(error);
-                } else {
-                    console.log(success);
-                }
+            personaggio.forEach( function(pg) {
+                Personaggio.findOneAndUpdate({nome: pg}, {"$push": {"missioni": nome}}, function (error, success) {
+                    if (error) {
+                        console.log(error);
+                    } else {
+                        console.log(success);
+                    }
+                })
             })
         }
     });
@@ -192,7 +237,15 @@ router.post("/tattiche", function (req, res) {
                 if (err) return res.json(err)
                 res.json(saved)
             })
-            Personaggio.findOneAndUpdate({nome: personaggio}, {"$push": {"tattiche": nome}})
+            personaggio.forEach( function(pg) {
+                Personaggio.findOneAndUpdate({nome: pg}, {"$push": {"tattiche": nome}}, function (error, success) {
+                    if (error) {
+                        console.log(error);
+                    } else {
+                        console.log(success);
+                    }
+                })
+            })
         }
     });
 });

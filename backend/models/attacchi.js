@@ -6,7 +6,7 @@ const AttaccoSchema = new Schema ({
     nome: { type: String, required: true },
     check: { type: String, required: true },
     effetto: {
-        danni: {type: String, required: true},
+        danni: {type: String, required: false},
         modificatore: {
             skill: {type: String},
             bonus_malus: {type: Number}

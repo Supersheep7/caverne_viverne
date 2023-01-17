@@ -6,8 +6,8 @@ const BonusSchema = new Schema ({
     nome: { type: String, required: true },
     summary: { type: String, required: true },
     modificatore: {
-        skill: { type: String, required: true },
-        bonus: { type: Number, required: true }
+        skill: { type: String, required: false },
+        bonus: { type: Number, required: false }
     },
     attiva: { type: Boolean }
 })

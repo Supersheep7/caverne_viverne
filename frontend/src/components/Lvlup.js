@@ -1,23 +1,42 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 import "./Lvlup.css"
+import { Navigate } from "react-router-dom"
 
 class Lvlup extends Component {
-    constructor() {
-        super()
+    constructor(props) {
+        super(props)
         this.state = {
-            lvlup: null
+            lvlup: null,
+            personaggio: []
         }
         this.handleSubmit = this.handleSubmit.bind(this)
         this.handleChange = this.handleChange.bind(this)
+        this.checkBoxChange = this.checkBoxChange.bind(this)
         axios.defaults.withCredentials = true
     }
-    
 
     handleChange(event) {
         this.setState({
             [event.target.name]: event.target.value
         })
+    }
+
+    checkBoxChange(event) {
+        
+        let dropBoy = this.state[event.target.name].indexOf(event.target.value)
+        if (dropBoy > -1) { 
+           let arr = this.state[event.target.name]
+           arr.splice(dropBoy, 1)
+           this.setState ({
+            [event.target.name]: arr
+           })  
+        }
+        else {
+            this.setState({
+                [event.target.name]: [...this.state[event.target.name], event.target.value]
+        })
+        }
     }
 
     handleSubmit(event) {
@@ -41,9 +60,12 @@ class Lvlup extends Component {
                 console.log('Data sent to routes/lvlup ')
                 if (response.status === 200) {
                     // update the state to redirect to home
-                    this.setState({
-                        redirectTo: '/'
-                    })
+                    alert(`${this.state.nome} aggiunto al database`)
+                    window.location.reload(true)
+                }
+                else if (response.status === 210) {
+                    alert(`ATTENZIONE: ${this.state.nome} è già presente nel database`)
+                    window.location.reload(true)
                 }
             })
             .catch(error => {
@@ -160,15 +182,15 @@ class Lvlup extends Component {
                     }
                     <div>
                         <label htmlFor="personaggio">Personaggio/personaggi con questo upgrade</label><br />
-                        <input onChange={this.handleChange} type="checkbox" id="pg1" name="personaggio" value="Kalim Malik" />
+                        <input onChange={this.checkBoxChange} type="checkbox" id="pg1" name="personaggio" value="Kalim Malik" />
                         <label for="pg1"> Kalim Mailk</label><br />
-                        <input onChange={this.handleChange} type="checkbox" id="pg2" name="personaggio" value="Guiburgis" />
+                        <input onChange={this.checkBoxChange} type="checkbox" id="pg2" name="personaggio" value="Guiburgis" />
                         <label for="pg2"> Guiburgis</label><br />
-                        <input onChange={this.handleChange} type="checkbox" id="pg3" name="personaggio" value="Aruhara Mitski" />
+                        <input onChange={this.checkBoxChange} type="checkbox" id="pg3" name="personaggio" value="Aruhara Mitski" />
                         <label for="pg3"> Aruhara Mitski</label><br />
-                        <input onChange={this.handleChange} type="checkbox" id="pg4" name="personaggio" value="Kleonikos da Bolina" />
+                        <input onChange={this.checkBoxChange} type="checkbox" id="pg4" name="personaggio" value="Kleonikos da Bolina" />
                         <label for="pg4"> Kleonikos da Bolina</label><br />
-                        <input onChange={this.handleChange} type="checkbox" id="pg5" name="personaggio" value="Syd Rodrigo da Gorbuc" />
+                        <input onChange={this.checkBoxChange} type="checkbox" id="pg5" name="personaggio" value="Syd Rodrigo da Gorbuc" />
                         <label for="pg5"> Syd Rodrigo da Gorbuc</label><br />
                         {this.state.lvlup === "inventario" &&
                         <div>
@@ -190,7 +212,7 @@ class Lvlup extends Component {
                 return ( 
                     <div>
                         {this.form()}
-                        <h1>Something went wrong</h1>
+                        <h1>Something went wrong. Error code: {this.state.error}</h1>
                     </div>
                 )            
             }
@@ -228,8 +250,6 @@ class Lvlup extends Component {
                 )
             }
             }
-
-
         else {
             return <h1>Access denied</h1>
         }
