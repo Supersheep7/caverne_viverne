@@ -608,7 +608,7 @@ button:active {
 
 .iconTitle {
   font-size: 16px;
-  min-width: 150px;
+  min-width: 120px;
 }
 
 .dropdown-outer {
@@ -952,7 +952,7 @@ filter: drop-shadow(0px 0px 4px orange) drop-shadow(0px 0px 4px orange) drop-sha
 
 .addcard {
   position: relative;
-  padding: 10px;
+  padding: 15px 20px;
 }
 
 .cardactivetrue {
@@ -1086,6 +1086,12 @@ flex-wrap: nowrap;
 
 @media only screen and (max-width: 1200px) {
 
+
+  .cardactivetrue {
+    width: 230px;
+    right: -65px;
+  }
+
   #face.translefttrue {
     left: -100px;
   }
@@ -1161,6 +1167,11 @@ flex-wrap: nowrap;
  }
  
 @media only screen and (max-width: 810px) {
+
+  .cardactivetrue {
+    width: 150px;
+    right: -25px;
+  }
 
   #face.translefttrue {
     top: 250px;
@@ -1641,8 +1652,17 @@ flex-wrap: nowrap;
 
 @media only screen and (max-width: 450px) {
 
+  .cardactivetrue {
+    width: 140px;
+    right: -15px;
+  }
+
   .Home * {
     width: 100px;
+  }
+
+  .dropdown-outer {
+    width: 99%;
   }
 
   .wheel {
@@ -1709,6 +1729,10 @@ flex-wrap: nowrap;
     margin-top: -20px;
   }
 
+  .overlay-content {
+    width: 110vw;
+  }
+
   .dicerandom-wrapper {
     margin-top: 0;
     height: 60px;
@@ -1751,6 +1775,10 @@ flex-wrap: nowrap;
     background-color: #1F1D36;
     width: 100%;
     padding: 5px 0;
+  }
+
+  .overlay-content > div:first-child {
+    padding: 0;
   }
 
 }

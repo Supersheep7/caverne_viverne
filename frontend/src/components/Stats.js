@@ -70,7 +70,7 @@ class Stat extends React.Component {
         return (
             <div id={this.props.nome} className="stat-container">
                 <div>
-                    <h3>{this.props.nome.charAt(0).toUpperCase() + this.props.nome.slice(1)}</h3>
+                    <h4>{this.props.nome.charAt(0).toUpperCase() + this.props.nome.slice(1)}</h4>
                     <p>{this.props.data.stats[this.props.nome]}</p>
                 </div>
             </div>
