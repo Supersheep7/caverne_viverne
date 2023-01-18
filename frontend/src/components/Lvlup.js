@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 import "./Lvlup.css"
-import { Navigate } from "react-router-dom"
 
 class Lvlup extends Component {
     constructor(props) {
@@ -53,6 +52,7 @@ class Lvlup extends Component {
                 magia: this.state.magia,
                 cd: this.state.cd,
                 mana: this.state.mana,
+                quantity: this.state.quantity,
                 personaggio: this.state.personaggio
             }
             )
@@ -177,7 +177,7 @@ class Lvlup extends Component {
                         {this.skills()}
                         <br />
                         <label htmlFor="costo.cd">CD</label>
-                        <input onChange={this.handleChange} type="number" name="costo.cd" />
+                        <input onChange={this.handleChange} type="number" name="cd" />
                     </div>
                     }
                     <div>

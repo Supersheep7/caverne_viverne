@@ -2,6 +2,7 @@ const express = require('express')
 var router = express.Router()
 const User = require('../models/user')
 const passport = require('../passport') 
+const { body, validationResult } = require("express-validator");
 
 router.post('/', (req, res) => {
     console.log('user signup');
@@ -30,18 +31,22 @@ router.post('/', (req, res) => {
 }) 
 
 router.post( '/login',
-    function (req, res, next) {
-        console.log('routes/user.js, login, req.body: ')
-        console.log(req.body.password)
-        next()
-    },
+    body("username").trim().isLength( {min: 1} ).escape(),
+    body("password").trim().isLength( {min: 1} ).escape(),
    passport.authenticate('local'),
     (req, res) => {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            console.log(errors)
+            return res.status(400).end()
+        }
+        else {
         console.log('logged in', req.user);
         var userInfo = {
             username: req.user.username
         };
         res.send(userInfo);
+        }
     }
 )
 
