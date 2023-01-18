@@ -205,8 +205,7 @@ class Lvlup extends Component {
     }
 
     render() {
-        
-        if (this.props.loggedIn === true) {
+        if (this.props.jwt === process.env.REACT_APP_CACCIAKEY) {
             if (this.state.err)
             {
                 return ( 

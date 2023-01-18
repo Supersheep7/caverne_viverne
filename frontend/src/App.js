@@ -14,7 +14,8 @@ class App extends React.Component {
     super(props)
     this.state = {
       loggedIn: false,
-      username: null
+      username: null,
+      key: null
     }
     this.getUser = this.getUser.bind(this)
     this.componentDidMount = this.componentDidMount.bind(this)
@@ -36,6 +37,7 @@ class App extends React.Component {
         this.setState({
           loggedIn: true,
           username: response.data.user.username,
+          key: response.data.key
         })
       } else {
         console.log('Get user: no user');
@@ -55,7 +57,7 @@ render() {
         <Route path="/personaggio/:nome" element={<Pg loggedIn={this.state.loggedIn} username={this.state.username} updateUser={this.updateUser}/>} />
         <Route path="/signup" element={<Signup loggedIn={this.state.loggedIn} username={this.state.username} />} />
         <Route path="/login" element={<Loginform  loggedIn={this.state.loggedIn} username={this.state.username} updateUser={this.updateUser}/>} />
-        <Route path="/lvlup" element={<Lvlup  loggedIn={this.state.loggedIn} username={this.state.username} updateUser={this.updateUser}/>} />
+        <Route path="/lvlup" element={<Lvlup jwt={this.state.key} loggedIn={this.state.loggedIn} username={this.state.username} updateUser={this.updateUser}/>} />
       </Routes>
   )
 }

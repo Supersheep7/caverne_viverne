@@ -43,7 +43,8 @@ router.post( '/login',
         else {
         console.log('logged in', req.user);
         var userInfo = {
-            username: req.user.username
+            username: req.user.username,
+            password: req.user.password
         };
         res.send(userInfo);
         }
@@ -52,9 +53,9 @@ router.post( '/login',
 
 router.get('/', (req, res, next) => {
     console.log('===== user!!======')
-    console.log(req.user)
-    if (req.user) {
-        res.json({ user: req.user })
+    console.log(req.body)
+    if (req.user.username === "Cacciatorpediniere") {
+        res.json({ user: req.user, key: process.env.CACCIAKEY })
     } else {
         res.json({ user: null })
     }
